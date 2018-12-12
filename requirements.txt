@@ -1,0 +1,13 @@
+click==6.7
+Flask==1.0.2
+Flask-Login==0.4.1
+flask-paginate==0.5.1
+itsdangerous==0.24
+Jinja2==2.10
+MarkupSafe==1.0
+mypy==0.641
+mypy-extensions==0.4.1
+pymongo==3.7.2
+pyscrypt==1.6.2
+typed-ast==1.1.0
+Werkzeug==0.14.1
