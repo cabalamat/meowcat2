@@ -1,0 +1,19 @@
+{# autopage_list.html
+   ==================
+
+A list of some collection type, used with Bozen's autopages system.
+#}
+{% extends "main.html" %}
+
+{% block body %}
+<div class='right-pagination'>{{pag.links}}</div>
+<h1>{{colClass.classLogo()}} {{colClass.classTitlePlural()}} ({{count}})</h1>
+
+<p>{{pag.info}}</p>
+{{table}}
+<div class='right-pagination'>{{pag.links}}</div>
+<br>
+{{addButton}}
+{% endblock body %}
+
+{# end #}

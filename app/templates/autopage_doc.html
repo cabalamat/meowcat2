@@ -1,0 +1,49 @@
+{# autopage_doc.html
+   =================
+
+Automatically-generated page for reading (and possibly editting, 
+adding, deleting)
+a document.
+#}
+{% extends "main.html" %}
+
+{% block body %}
+<h1>{{doc.logo()}} {{doc.classTitle()}}: {{doc.getName()}}</h1>
+
+<p>Details of {{doc.classTitle()}} {{doc.logo()+doc.getName()}}.
+{% if autopage.canBrowse %}
+    Back to <a href='/{{autopage.colStub+"s"}}'>list of {{doc.classTitlePlural()}}</a>.
+{% endif %}
+</p>
+
+<form id="theForm" action="/{{autopage.colStub}}/{{id}}" method="POST"
+      enctype='multipart/form-data'>
+<input name="id" type="hidden" value="{{id}}">
+{% if autopage.canDelete %}
+<input id="delete_record" name="delete" type="hidden" value="0">
+{% endif %}
+
+{{buildForm}}
+{{fwem}}
+{{msg}}
+
+<p><br>
+{% if autopage.canEdit %}
+<button class="btn btn-primary">
+  <i class='fa fa-save'></i>
+   Save {{doc.classTitle()}}</button>
+{% endif %}
+  &nbsp;
+{% if autopage.canDelete %}
+  <span class="btn btn-danger"
+    onclick="deleteEntity('{{doc.getName()}}','{{id}}')">
+  <i class='fa fa-times'></i>
+    Delete {{doc.classTitle()}}</span>
+{% endif %}
+</p>
+
+</form>
+{% endblock body %}
+
+
+{# end #}

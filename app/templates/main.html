@@ -1,0 +1,132 @@
+{#
+main.html = the base template
+
+Uses SB-Admin
+
+#}
+<!DOCTYPE html>
+<html class="loading"><head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{% block title %}{{APP_TITLE}}{% endblock %}</title>
+
+<!-- Bootstrap core CSS -->
+<link href="/static/sb-admin/css/bootstrap.css" rel="stylesheet">
+
+<!-- Add custom CSS here -->
+<link href="/static/sb-admin/css/sb-admin.css" rel="stylesheet">
+<link rel="stylesheet"
+      href="/static/font-awesome-4.5.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="/static/jquery-ui-1.11.4/jquery-ui.css">
+<link rel="stylesheet" href="/static/jquery-ui-1.11.4/jquery-ui.structure.css">
+<link rel="stylesheet" href="/static/jquery-ui-1.11.4/jquery-ui.theme.css">
+<link rel="stylesheet" href="/static/jquery-ui-timepicker-addon.css">
+<link rel="stylesheet" href="/static/bozen.css">
+<link rel="stylesheet" href="/static/app.css">
+
+    <!-- Page Specific CSS -->
+
+<link rel="shortcut icon" type="image/png" 
+      href="/static/cat_icon_32x32.png">
+{% block extrahead %}{% endblock extrahead %}
+</head>
+
+<body>
+{%block body_start %}
+    <div id="wrapper">
+
+      <!-- Sidebar -->
+      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        {%block topbar %}
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse"
+            data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          {% block navbarBrand %}
+          <a class="navbar-brand" href="/">
+            {{APP_LOGO}}
+            {{APP_TITLE}}</a>
+          {% endblock navbarBrand %}
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav navbar-right navbar-user">
+          
+            {% if currentUserName() %}
+            <li class="dropdown user-dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-user" id="myelement"></i>
+                  {{currentUserName()}}
+                <ul class="dropdown-menu">
+                  <li><a href="/logout"><i class="fa fa-power-off"></i>
+                    Log Out</a></li>
+                </ul>
+              </a>
+            </li>
+            {% else %}
+            <li class="dropdown alerts-dropdown">
+              <a href="/login">
+                <i class="fa fa-sign-in"></i> Log in
+              </a>
+            </li>
+            {% endif %}
+
+          </ul>
+        </div>
+        {%endblock topbar %}
+
+{% block leftbar %}
+<div class="collapse navbar-collapse navbar-ex1-collapse">
+  <ul class="nav navbar-nav side-nav">
+    {% if currentUserName() %}
+    {% endif %} 
+    
+      <li{{hpic('user')}}><a href="/users">
+        <i class="fa fa-user"></i>
+        Users</a></li>
+        
+      <li{{hpic('message')}}><a href="/messages">
+        <i class="fa fa-comment"></i>
+        Messages</a></li>
+        
+  </ul>
+</div>
+{% endblock leftbar %}
+
+</div>
+{% endblock body_start %}
+
+{% block contents %}
+      <div id="page-wrapper">{% block page_wrapper %}
+
+        <div class="row">
+          <div class="col-lg-12">
+          {% block bodytop %}
+          {% endblock bodytop %}
+          {% block body %}
+          {% endblock body %}</div>
+        </div><!-- row -->
+      {% endblock page_wrapper %}</div><!-- page-wrapper -->
+{% endblock contents %}
+    </div> <!-- wrapper -->
+
+<script src="/static/sb-admin/js/jquery-1.10.2.js"></script>
+<script src="/static/sb-admin/js/bootstrap.js"></script>
+<script src="/static/bootbox.min.js"></script>
+<script src="/static/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+<script src="/static/jquery-ui-timepicker-addon.js"></script>
+<script src="/static/js.cookie.js"></script>
+<script src="/static/bozen.js"></script>
+<script src="/static/jsfunctions.js"></script>
+{%block atend%}
+{%endblock atend%}
+</body></html>

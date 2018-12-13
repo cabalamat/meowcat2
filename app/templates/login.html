@@ -1,0 +1,25 @@
+{# login.html
+   ==========
+
+Allow thew user to log in
+#}
+{% extends "main.html" %}
+
+{% block body %}
+<h1><i class='fa fa-sign-in'></i> Log In</h1>
+<p>Log in below with your username and password.</p>
+
+<form method="POST">
+{{doc.buildForm()}}
+{{msg}}
+
+<p><br>
+<button class='btn btn-primary'>
+<i class='fa fa-sign-in'></i> Log In</button></p>
+</form>
+
+
+{% endblock body %}
+
+
+{# end #}

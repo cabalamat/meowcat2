@@ -1,0 +1,24 @@
+{# settings.html
+   =============
+
+View and change system settings settings
+#}
+{% extends "main.html" %}
+
+{% block page_wrapper %}
+<h1><i class="fa fa-sliders"></i>
+Change Default Settings</h1>
+
+<form  method="POST" enctype='multipart/form-data'>
+{{es.buildForm()}}
+
+<p><br><button class='btn btn-primary'>
+<i class='fa fa-save'></i>
+Save Settings to Database</button></p>
+</form>
+</p>
+
+{% endblock page_wrapper %}
+
+
+{# end #}
