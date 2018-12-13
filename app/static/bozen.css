@@ -1,0 +1,215 @@
+/* bozen.css
+   =========
+
+Styles used by HTML created by Bozen.
+*/
+
+/*------------------------------------------------------------------*/
+/* forms */
+
+
+.bz-form-table tr {
+    //background: #0f0;
+    //padding: 40px !important;
+    //border: 2px solid #900;
+}
+
+.bz-form-table th {
+    vertical-align: top;
+    padding: 6px 10px 6px 0px;
+}
+
+.bz-form-table th, .bz-form-table label {
+  //vertical-align: top;
+  text-align: right;
+  //float: right;
+}
+
+.bz-form-table th.bz-field-title {
+  /* title for a form field */
+  //min-width: 150px;
+  //color: #009;
+}
+
+.bz-form-table td {
+    padding: 2px 10px 2px 0px;
+}
+
+.bz-form-table input {
+   padding: 1px 5px;
+}
+
+.bz-form-table .btn {
+   padding: 4px 8px;
+}
+
+/* make sure there is enough space before buttons */
+
+.bz-form-table td > .btn {
+  margin-top: 12px;
+}
+
+.bz-form-error-line, .bz-form-error {
+  /* an error message in a form */
+  color: #800;
+  background: #fee;
+  //color: #ff6;
+  //background: #800;
+}
+
+.bz-form-warning-line, .bz-form-warning {
+  /* a warning message in a form */
+  color: #c60;
+  background: #fed;
+
+}
+
+.bz-form-error-line, .bz-form-warning-line {
+  padding: 3px 6px 3px 6px;
+}
+.bz-form-error-line {
+  border: 2px solid #eaa;
+}
+.bz-form-warning-line {
+  border: 2px solid #d96;
+}
+
+.bz-form-error-line th, .bz-form-warning-line th {
+  padding: 3px 6px 3px 6px;
+}
+.bz-form-error-line td, .bz-form-warning-line td {
+  padding: 3px 6px 3px 6px;
+}
+
+.message-box {
+  padding: 3px 6px 3px 6px;
+  border: 2px solid #aea;
+  color: #060;
+  background: #efe;
+}
+
+.bz-input {
+  /* green input box -- similar to alphabet */
+  padding: 1px 2px 1px 2px;
+  border: 2px solid #060;
+  border-radius: 4px;
+}
+.bz-form-error-line input.bz-input, 
+.bz-form-error-line textarea.bz-input,
+.bz-form-error-line .bz-input {
+  border: 2px solid #eaa;
+}    
+
+.monospace {
+  font-family: monospace !important;
+}
+
+input[type=number] {
+  /* remove up/down buttons from firefox */
+  -moz-appearance: textfield;
+}
+
+.bz-read-only {
+  padding: 0px 4px 0px 4px;
+  min-width: 150px;
+  display: inline-block;
+  border-radius: 4px;
+  background: #f4f8ff;
+  border: 2px solid #bbd;
+  color: #008;
+}
+
+
+td.form-section {
+  width: 100%; text-align: center;
+  font-weight: bold;
+  padding-top: 30px;
+  //padding-bottom: 10px;
+}
+td.nopad-form-section {
+  width: 100%; text-align: center;
+  font-weight: bold;
+}
+
+td.form-section div, td.nopad-form-section div {
+  //background: #494;
+  //color: #fff;
+  padding: 2px 0px 0px 0px;
+
+  border-left: 2px solid #6b6;
+  border-top: 2px solid #6b6;
+  border-right: 2px solid #6b6;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+/* ImageField in form */
+img.ImageField {
+    padding: 0px;
+    border: 2px solid #888;
+    max-width: 200px;
+    max-height: 200px;
+}
+.ImageField .ImageField-pan {
+    vertical-align: top;
+}
+
+select {
+    background: none;
+    //border: none;
+    padding: 1px 2px 1px 2px;
+    border: 1px solid #060;
+    //border-radius: 4px;
+}
+
+/* MultiChoiceField */
+
+.mcf-keep-together {
+    white-space: nowrap;
+    margin-right: 12px;
+}
+
+/* ColorField */
+
+.ColorField_ro {
+    border: 1px solid #000000;
+}
+
+/*------------------------------------------------------------------*/
+/* report tables */
+
+
+
+table.bz-report-table {
+  border: 1px #aaa solid;
+  border-collapse: collapse;
+  margin: 7px 0 7px 0;
+  background: #fff;
+}
+
+table.bz-report-table th {
+  border: 1px solid #aaa;
+  padding: 4px 6px 2px 6px;
+  background: #def;
+  vertical-align: top;
+  text-align: left;
+}
+
+table.bz-report-table td {
+  border: 1px solid #aaa;
+  padding: 3px 6px 1px 6px;
+  vertical-align: top;
+}
+
+.bz-report-tablee pre {
+  color: #000;
+  background: #fff;
+  border: 0;
+  padding: 0;
+  line-height: 120%;
+}
+
+
+/*------------------------------------------------------------------*/
+
+/*end*/

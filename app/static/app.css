@@ -1,0 +1,763 @@
+/* app.css
+   =======
+
+User style sheet
+*/
+
+/*------------------------------------------------------------------*/
+/* local fonts */
+
+@font-face {
+  font-family: 'Ubuntu Mono';
+  font-style: normal;
+  font-weight: 400;
+  src: url(fonts/UbuntuMono-Regular.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Ubuntu Mono';
+  font-style: normal;
+  font-weight: 700;
+  src: url(fonts/UbuntuMono-Bold.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Ubuntu Mono';
+  font-style: italic;
+  font-weight: 400;
+  src: url(fonts/UbuntuMono-Italic.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Ubuntu Mono';
+  font-style: italic;
+  font-weight: 700;
+  src: url(fonts/UbuntuMono-BoldItalic.ttf) format('truetype');
+}
+
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url(fonts/Roboto-Regular.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: url(fonts/Roboto-Bold.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: italic;
+  font-weight: 400;
+  src: url(fonts/Roboto-Italic.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: italic;
+  font-weight: 700;
+  src: url(fonts/Roboto-BoldItalic.ttf) format('truetype');
+}
+
+/*------------------------------------------------------------------*/
+
+tt, pre, code {
+  font-family: 'Ubuntu Mono', monospace;
+  font-size: 105%;
+}
+
+
+body,p,h1,h2,h3,h4,h5,h6,a,li {
+  font-family: 'Roboto', sans-serif;
+}
+
+body, p {
+  font-size: 16px;
+}
+
+/*------------------------------------------------------------------*/
+/* top navbar */
+
+#header, .smart-style-3 #header {
+  background: #259;
+  background-image: none;
+}
+
+.navbar {
+  border-radius: 0px !important;
+  margin-bottom: 0px;
+}
+
+.text-in-topbar {
+  /* put this inside a span where normally an A would be used, to make
+     text in a topbar look the same as an A (but not hoverable etc) */
+  display: block;
+  padding: 15px 10px;
+}
+
+/*------------------------------------------------------------------*/
+/* left navbar */
+
+#left-panel, #left-panel span, #left-panel a {
+}
+
+#left-panel li {
+  //border-bottom: 1px solid #a95;
+}
+
+.side-nav li {
+    padding: 0px;
+}
+
+/*------------------------------------------------------------------*/
+/* override jQuery UI */
+
+.ui-widget {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+/*------------------------------------------------------------------*/
+/* tabs */
+
+
+.tabs3 {
+    list-style: none;
+    margin: 0px 0 0px 0;
+    padding: 0 0 0px 0;
+    font-size: 110%;
+    line-height: 250%;
+
+    width: 100%;
+
+    padding-top: 1px;
+}
+
+span.tab3-not-selected, span.tab3-selected,
+span.tab3-filler, span.tab3-filler-end-line {
+    border: solid #777 2px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    padding: 2px 6px;
+    white-space: nowrap;
+    font-weight: bold;
+    margin: 0 0 0 0;
+    //float: left;
+}
+
+span.tab3-not-selected  {
+    background: #e8e8e8;
+}
+.tabs3.tab3-not-selected a:hover {
+    //text-decoration: none;
+}
+
+span.tab3-selected {
+    border: solid #000;
+    border-width: 2px;
+    padding-top: 9px;
+    //background: #fff;
+    background: #e2ffe2;
+    border-bottom-color: #fff;
+}
+
+span.tab3-filler, span.tab3-filler-end-line {
+    border-top-width: 0;
+    border-right-width: 0;
+    border-left-width: 0;
+    padding: 2px 3px;
+    white-space: normal;
+}
+
+span.tab3-filler-end-line {
+    /* filler to end of current line */
+    width: 100px;
+}
+
+/*------------------------------------------------------------------*/
+/* override bootstrap */
+
+hr {
+  border: solid 1px #999;
+}
+
+h1 { font-size: 30px; }
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 15px 0 5px 0;
+}
+h3 {
+  font-size: 21px;
+  margin: 13px 0 2px 0;
+}
+h4 {
+  font-size: 18px;
+  color: #000;
+}
+h1,h2,h3,h4 { 
+  color: #124; 
+}
+
+h1 small,h2 small {
+  font-size: 80%;
+  font-weight: bold;
+  color: #357;
+}
+
+label {
+  margin-bottom: 0px;
+}
+
+.navbar, .navbar-brand,
+.navbar-header, .navbar-header a, a.dropdown-toggle, .dropdown a,
+.side-nav, .side-nav a {
+  color: #fff !important;
+  background: #259 !important;
+}
+
+
+.navbar-collapse, .navbar-inverse, .navbar-fixed-top {
+  border-color: #ddd !important;
+}
+
+span.badge {
+  //color: #fff;
+  background: #026;
+}
+
+ul.side-nav a:hover,
+a.dropdown-toggle:hover,
+a.dropdown-toggle:focus,
+li.dropdown a:hover
+{
+  background: #585 !important;
+}
+
+.nav li.active a,
+.nav li.active a:hover,
+.nav a.dropdown-toggle:focus
+{
+  background: #000 !important;
+}
+
+a.dropdown-toggle:hover span.badge,
+a.dropdown-toggle:focus span.badge
+{
+  color: #222 !important;
+  background: #fff !important;
+}
+
+ul.dropdown-menu a {
+  color: #222 !important;
+  background: #fff !important;
+}
+
+ul.dropdown-menu a:hover {
+  color: #039 !important;
+  background: #ddd !important;
+}
+
+/*------------------------------------*/
+/* fix help on navbar top right */
+
+.dropdown a {
+  //padding-left: 10px !important;
+  //padding-right: 10px !important;
+}
+
+.help-popup a {
+  padding-right: 1px !important;
+}
+.help-main a {
+  padding-left: 4px !important;
+}
+
+/* pagination */
+
+.right-pagination {
+  float: right;
+}
+.right-pagination .pagination {
+  margin: 4px 0px !important;
+}
+
+.pagination li a, .pagination li.disabled a {
+  border-color: #666;
+}
+
+/*-------------------- buttons */
+.btn {
+  font-size: 16px !important;
+  font-weight: bold;
+  padding: 3px 6px !important;
+}
+.btn-sm {
+  font-size: 16px !important;
+  font-weight: normal !important;
+  padding: 0px 5px !important;
+  border: 0 !important;
+}
+
+a { color: #36a; }
+a:hover { color: #248; }
+
+/*------------------------------------------------------------------*/
+/* tables */
+
+
+/*------------------------------------------------------------------*/
+/* forms */
+
+
+/*------------------------------------------------------------------*/
+/* date/time picker */
+
+.ui-datepicker {
+  font-size: 80%;
+  background: #fff;
+  border: 2px solid #060;
+  color: #000;
+  padding: 2px;
+  margin: 0px;
+}
+
+.ui-datepicker-header, .ui-datepicker-title, .ui-datepicker-month {
+    padding: 0px;
+    margin: 0px;
+}
+
+.ui-timepicker-div .ui-widget-header {
+  margin-bottom: 0px;
+}
+
+.ui-timepicker-div dl {
+  text-align: left;
+}
+
+.ui-timepicker-div dl dt {
+  float: left;
+  clear:left;
+  padding: 0 0 0 0px;
+}
+
+.ui-timepicker-div dl dd {
+  margin: 0 10px 10px 45%;
+}
+
+.ui-timepicker-div td {
+  font-size: 80%;
+  //color: #000;
+  //background: #f00;
+  padding: 10px;
+}
+
+.ui-tpicker-grid-label {
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ui-timepicker-rtl{
+  direction: rtl;
+}
+
+.ui-timepicker-rtl dl {
+  text-align: right;
+  padding: 0 5px 0 0;
+}
+
+.ui-timepicker-rtl dl dt{
+  float: right;
+  clear: right;
+}
+
+.ui-timepicker-rtl dl dd {
+  margin: 0 45% 10px 10px;
+}
+
+
+/*------------------------------------------------------------------*/
+/* help system */
+
+.help-navbar, .help-navbar a {
+  color: #fff;
+  background: #225998;
+  padding: 6px 6px 6px 6px;
+  text-decoration: none;
+}
+
+span.fuzzy-navbar {
+  color: #fff;
+  background: #225998;
+  padding: 0px 3px 0px 3px;
+  box-shadow: 0 0 2px 4px #225998;
+  margin: 0 5px 0 5px;
+}
+
+.help-navbar a:hover {
+  background: #026;
+  text-decoration: none;
+  color: #fff;
+}
+
+.help-body h1, .help-body h2, .help-body h3 {
+  font-weight: normal;
+  color: #026;
+}
+
+.help-body h1 {
+  font-size: 28px;
+  padding-bottom: 2px;
+  border-bottom: 2px solid;
+}
+.help-body h2 {font-size: 23px; font-style: italic;}
+.help-body h3 {font-size: 18px;}
+
+.help-body table {
+  color: #000;
+  border: 1px #999 solid;
+  border-collapse: collapse;
+  margin: 1em 1em 1em 0;
+}
+
+.help-body th, .help-body td {
+  border: 1px #999 solid;
+  padding: 2px 6px 2px 6px;
+  font-size: 14px;
+  color: #333;
+}
+
+.help-body code {
+  color: #000;
+  background: #f5f5f5;
+  padding: 1px;
+  border-radius: 0px;
+}
+
+.help-body pre {
+  color: #000;
+  background: #f5f5f5;
+  line-height: 16px;
+  padding: 3 6 3 6;
+  margin-left: 8px;
+  border: 1px solid #888;
+}
+
+.help-body pre code {
+  color: #600;
+  background: #fee;
+}
+
+.help-body .btn {
+  padding: 0px 6px 0px 6px;
+}
+
+.help-body .btn-default {
+  border-color: #333;
+}
+
+
+/*------------------------------------------------------------------*/
+/* calendars */
+
+
+table.month_table {
+  border-collapse: collapse;
+  margin: 7px 0 7px 0;
+  background: #fff;
+}
+
+table.month_table td {
+  height: 70px;
+  min-width: 80px;
+}
+
+table.month_table th {
+  text-align: center;
+  padding: 4px 6px 2px 6px;
+}
+
+table.month_table td {
+  border: 2px solid #666;
+  padding: 3px 6px 1px 6px;
+  vertical-align: top;
+}
+
+table.month_table td.empty {
+  border: none;
+}
+
+
+/*------------------------------------------------------------------*/
+/* misc  */
+
+.invisible {
+  visibility: collapse;
+  display: none;
+}
+
+
+.first_column {
+  margin-right: 30px;
+  //border-right: 20px solid #33f;
+}
+
+.second_column {
+  //margin-left: 30px;
+  //padding-left: 30px;
+  //background: #f00;
+}
+
+/*========== /report_main */
+
+tt.filename {
+  //color: #552a00;
+  //background: #ffffcf;
+}
+
+/*------------------------------------------------------------------*/
+/* debugging */
+
+.debug {
+  background: #feb;
+  color: #630;
+  padding: 2px 4px;
+  border: 1px solid #a96;
+  border-radius: 5px;
+}
+
+.debug {
+  /* make debugging stuff not appear on page */
+  visibility: collapse;
+  display: none;
+}
+
+/*------------------------------------------------------------------*/
+/* different from alphabet */
+
+
+body {
+  color: #000;
+}
+
+h1 {
+  font-weight: bold;
+  font-size: 30px;
+  margin-top: 6px;
+}
+h1 small {
+  font-size: 80%;
+}
+
+.side-nav {
+  width: 170px;
+}
+.side-nav li, .side-nav li a { width: 170px; }
+.side-nav li a {
+  padding: 6px 4px 6px 10px;
+  line-height: 18px;
+}
+#wrapper {
+  padding-left: 170px;
+}
+
+.no-wrap { white-space: nowrap}
+
+.side-nav, .side-nav a { font-size: 15px; }
+
+.navbar, .navbar-brand,
+.navbar-header, .navbar-header a, a.dropdown-toggle, .dropdown a,
+.side-nav, .side-nav a {
+  //color: #fff !important;
+  //background: #447733 !important;
+}
+
+
+a.navbar-brand {
+  /* the logo */
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.btn-warning { background: #f80; border-color: #f80; }
+
+/*------------------------------------------------------------------*/
+/* /bankhols */
+
+td.year_calendar {
+  text-align: left;
+  vertical-align: top;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  //background: #bcf;
+}
+
+.small_month_table,
+.small_month_table tr,
+.small_month_table th,
+.small_month_table td,
+{
+  padding: 0px;
+  margin: 0px;
+}
+
+.small_month_table th {
+  text-align: center;
+  line-height: 130%;
+}
+
+.small_month_table td {
+  text-align: right;
+  line-height: 130%;
+  padding: 1px 2px;
+  font-family: monospace;
+}
+.small_month_table td:hover {
+  color: #fff;
+  background: #090;
+}
+.small_month_table td.empty:hover {
+  color: #000;
+  background: #fff;
+}
+
+td.weekend {
+  color: #000;
+  background: #ddd;
+}
+
+
+.green {
+  color: #060;
+  font-weight: bold;
+}
+
+/*------------------------------------------------------------------*/
+
+.switched-on {
+  /* highlight a font awesome icon */
+  color: #fff;
+  background: #262;
+  border: 1px solid #262;
+  font-size: 85%;
+}
+.switched-off {
+  //color: #369;
+  background: #fff;
+  border: 1px solid #369;
+  font-size: 85%;
+}
+.switched-on, .switched-off {
+  padding: 2px;
+  border-radius: 4px;
+}
+
+/* highlight existing file on survey page: */
+.existing-file {
+  font-weight: bold;
+  border: 2px solid #158;
+  border-radius: 4px;
+  //color: #fff;
+  //background: #262;
+  background: #def;
+  padding: 3px 6px;
+  margin-bottom: 6px;
+}
+
+/* file size on documentation, project documentation pages */
+.fileSize {
+  font-size: 90%;
+  font-style: italic;
+  color: #333;
+}
+
+tt.fieldName {
+  color: #420;
+  background: #fff8cc;
+}
+
+/* cross browser checkbox and radio size and align */
+input[type=checkbox], input[type=radio] {
+  vertical-align: -2px;
+  margin: 0;
+  padding: 0;
+}
+
+/*------------------------------------------------------------------*/
+/* popovers & filters */
+
+.filter-box-outer {
+    position: relative;
+    z-index: 20;
+    text-decoration: none
+}
+
+.filter-box-inner {
+    display: none; /* to show, change this to block */
+    position: absolute;
+
+    width: 200px;
+    padding: 3px 6px;
+    border: 2px solid #334499;
+    border-radius: 6px;
+    box-shadow: 0px 6px 6px #aaa;
+
+    color: #000;
+    background-color: #eef4ff; /* make it not transparent */
+    font-weight: normal;
+}
+
+
+/*------------------------------------------------------------------*/
+/* raspberry icon */
+
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?9axk29');
+  src:  url('fonts/icomoon.eot?9axk29#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?9axk29') format('truetype'),
+    url('fonts/icomoon.woff?9axk29') format('woff'),
+    url('fonts/icomoon.svg?9axk29#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1; 
+  font-size:110%; position:relative; top:0.18em;
+  
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-noun_752516_cc:before {
+  content: "\e901";
+}
+.icon-noun_71141_cc:before {
+  content: "\e902";
+}
+.icon-noun_71140_cc:before {
+  content: "\e903";
+}
+.icon-noun_71181_cc:before {
+  content: "\e904";
+}
+.icon-noun_162884_cc:before {
+  content: "\e905";
+}
+.icon-noun_1596749_cc:before {
+  content: "\e900";
+}
+
+/*------------------------------------------------------------------*/
+
+/*end */
