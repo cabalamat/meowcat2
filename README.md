@@ -1,4 +1,5 @@
-# Meowcat2
+# MeowCat2
 
-**Meowcat2** is a Python web application that implements a distributed
-social networking website.
+**MeowCat2** is a Python web application that will implement a federated 
+blogging, microblogging, and social networking platform using the 
+ActivityPub protocol.

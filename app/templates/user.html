@@ -16,12 +16,14 @@ Back to <a href='/users'>list of users</a>.
 <input name="id" type="hidden" value="{{id}}">
 <input id="delete_record" name="delete" type="hidden" value="0">
 
-<table class="form-table">
+<table class="bz-form-table">
   {{doc.formLine('userName')}}
   {{doc.formLine('password')}}
   {{doc.formLine('email')}}
   {{doc.formLine('isAdmin')}}
   {{doc.formLine('isActive')}}
+  {{doc.formLine('following_ids')}}
+  {{doc.formLine('realName')}}
 </table>
 {{msg}}
 
@@ -35,9 +37,14 @@ Back to <a href='/users'>list of users</a>.
     <i class='fa fa-times'></i>
     Delete user</span>
 </p>
-
 </form>
+<hr>
 
+<p><br>
+<a class="btn btn-default" href="/blog/{{doc.id()}}">
+<i class='fa fa-eye'></i>
+Blog for {{doc.getNameH()}}</a>
+</p>
 
 {% endblock body %}
 

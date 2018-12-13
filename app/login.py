@@ -109,6 +109,8 @@ def usersTable():
    <th>Email</th>
    <th>Is Admin?</th>
    <th>Is Active?</th>
+   <th>Following</th>
+   <th>Real name</th>
 </tr>
 """
     for doc in userdb.User.find(sort=[('userName',pymongo.ASCENDING)]):
@@ -118,12 +120,16 @@ def usersTable():
     <td>{email}</td>
     <td>{isAdmin}</td>
     <td>{isActive}</td>
+    <td>{following_ids}</td>
+    <td>{realName}</td>
 </tr>""",
             a = doc.a(),
             userName = doc.asReadableH('userName'),
             email = doc.asReadableH('email'),
             isAdmin = doc.asReadableH('isAdmin'),
             isActive = doc.asReadableH('isActive'),
+            following_ids = doc.asReadableH('following_ids'),
+            realName = doc.asReadableH('realName'),
         )
         h += item
     #//for

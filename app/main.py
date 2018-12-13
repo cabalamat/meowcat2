@@ -20,6 +20,7 @@ import models
 # pages of app:
 import login
 import front
+import blog
 
 #---------------------------------------------------------------------
 

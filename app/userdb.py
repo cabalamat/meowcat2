@@ -48,6 +48,7 @@ class User(MonDoc):
         title="Is Active?",
         default=True)
     following_ids = FKeys('User',
+        title="Following",
         readOnly=True,
         desc="users this user is following")
     realName = StrField(
