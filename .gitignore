@@ -1,0 +1,14 @@
+# .gitignore for Python3 projects
+
+#### ignore compiled Python modules
+*.pyc
+*.pyo
+
+#### ignore backup files made by text editor
+*~
+
+#### ignore directories
+v3/
+.mypy_cache/
+
+#end
