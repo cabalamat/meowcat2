@@ -28,11 +28,16 @@ class Message(MonDoc):
     published = DateTimeField(readOnly=True)
      
     @classmethod
-    def classLogo(cls):
+    def classLogo(cls) -> str:
         return "<i class='fa fa-comment-o'></i> "
     
     def preCreate(self):
         self.published = BzDateTime.now()
+        
+    #==========
+    
+    def viewH(self) -> str:
+        """ return HTML displaying this message """
 
 Message.autopages(
     showFields=['title','body','author_id', 'published'], 

@@ -1,0 +1,15 @@
+{# mess.html
+   =========
+
+View a single message
+#}
+{% extends "main.html" %}
+
+{% block body %}
+<h1><i class='fa fa-comment-o'></i> View Message: {{m.id()}}</h1>
+
+{{ms}}
+{% endblock body %}
+
+
+{# end #}
