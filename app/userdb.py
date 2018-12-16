@@ -15,7 +15,7 @@ from typing import *
 import pyscrypt
 
 from bozen import butil
-from bozen.butil import printargs, dpr, toBytes
+from bozen.butil import *
 
 import bozen
 from bozen import (MonDoc,
@@ -94,9 +94,6 @@ class User(MonDoc):
 
     #==========
 
-    def getIcon(self):
-        return "<i class='fa fa-user'></i> "
-
     def preSave(self):
         """ We don't want to save the plaintext password to
         the database.
@@ -108,6 +105,17 @@ class User(MonDoc):
 
         # userName is a unique identifier, so use this as the _id
         self._id = self.userName
+        
+    #========== for display ==========
+    
+    def blogLink(self) -> str:
+        """ return a link to the user's blog """
+        h = form("<a href='/blog/{userName}'>@{userName}</a>",
+            userName = htmlEsc(self.userName))
+        return h
+    
+    
+    #==========
 
 
 
