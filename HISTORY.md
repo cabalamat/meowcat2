@@ -13,6 +13,17 @@ Got development web server running.
 
 User and Message tables up. Put on Github.
 
+## 2018-Dec-16
+
+CSS for message display in `/mess` etc...
+
+Next to do:
+
+- show list of messages in blog
+- make messages use markdown
+- add reply to message
+- add tags
+
 
 
 

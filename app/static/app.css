@@ -71,7 +71,7 @@ body,p,h1,h2,h3,h4,h5,h6,a,li {
 }
 
 body, p {
-  font-size: 16px;
+  font-size: 17px;
 }
 
 /*------------------------------------------------------------------*/
@@ -301,14 +301,6 @@ a { color: #36a; }
 a:hover { color: #248; }
 
 /*------------------------------------------------------------------*/
-/* tables */
-
-
-/*------------------------------------------------------------------*/
-/* forms */
-
-
-/*------------------------------------------------------------------*/
 /* date/time picker */
 
 .ui-datepicker {
@@ -457,36 +449,6 @@ span.fuzzy-navbar {
 }
 
 
-/*------------------------------------------------------------------*/
-/* calendars */
-
-
-table.month_table {
-  border-collapse: collapse;
-  margin: 7px 0 7px 0;
-  background: #fff;
-}
-
-table.month_table td {
-  height: 70px;
-  min-width: 80px;
-}
-
-table.month_table th {
-  text-align: center;
-  padding: 4px 6px 2px 6px;
-}
-
-table.month_table td {
-  border: 2px solid #666;
-  padding: 3px 6px 1px 6px;
-  vertical-align: top;
-}
-
-table.month_table td.empty {
-  border: none;
-}
-
 
 /*------------------------------------------------------------------*/
 /* misc  */
@@ -497,44 +459,15 @@ table.month_table td.empty {
 }
 
 
-.first_column {
-  margin-right: 30px;
-  //border-right: 20px solid #33f;
-}
-
-.second_column {
-  //margin-left: 30px;
-  //padding-left: 30px;
-  //background: #f00;
-}
-
-/*========== /report_main */
+/*==========  */
 
 tt.filename {
   //color: #552a00;
   //background: #ffffcf;
 }
 
-/*------------------------------------------------------------------*/
-/* debugging */
-
-.debug {
-  background: #feb;
-  color: #630;
-  padding: 2px 4px;
-  border: 1px solid #a96;
-  border-radius: 5px;
-}
-
-.debug {
-  /* make debugging stuff not appear on page */
-  visibility: collapse;
-  display: none;
-}
 
 /*------------------------------------------------------------------*/
-/* different from alphabet */
-
 
 body {
   color: #000;
@@ -580,108 +513,6 @@ a.navbar-brand {
 }
 
 .btn-warning { background: #f80; border-color: #f80; }
-
-/*------------------------------------------------------------------*/
-/* /bankhols */
-
-td.year_calendar {
-  text-align: left;
-  vertical-align: top;
-  padding: 5px 10px;
-  border: 1px solid #ccc;
-  //background: #bcf;
-}
-
-.small_month_table,
-.small_month_table tr,
-.small_month_table th,
-.small_month_table td,
-{
-  padding: 0px;
-  margin: 0px;
-}
-
-.small_month_table th {
-  text-align: center;
-  line-height: 130%;
-}
-
-.small_month_table td {
-  text-align: right;
-  line-height: 130%;
-  padding: 1px 2px;
-  font-family: monospace;
-}
-.small_month_table td:hover {
-  color: #fff;
-  background: #090;
-}
-.small_month_table td.empty:hover {
-  color: #000;
-  background: #fff;
-}
-
-td.weekend {
-  color: #000;
-  background: #ddd;
-}
-
-
-.green {
-  color: #060;
-  font-weight: bold;
-}
-
-/*------------------------------------------------------------------*/
-
-.switched-on {
-  /* highlight a font awesome icon */
-  color: #fff;
-  background: #262;
-  border: 1px solid #262;
-  font-size: 85%;
-}
-.switched-off {
-  //color: #369;
-  background: #fff;
-  border: 1px solid #369;
-  font-size: 85%;
-}
-.switched-on, .switched-off {
-  padding: 2px;
-  border-radius: 4px;
-}
-
-/* highlight existing file on survey page: */
-.existing-file {
-  font-weight: bold;
-  border: 2px solid #158;
-  border-radius: 4px;
-  //color: #fff;
-  //background: #262;
-  background: #def;
-  padding: 3px 6px;
-  margin-bottom: 6px;
-}
-
-/* file size on documentation, project documentation pages */
-.fileSize {
-  font-size: 90%;
-  font-style: italic;
-  color: #333;
-}
-
-tt.fieldName {
-  color: #420;
-  background: #fff8cc;
-}
-
-/* cross browser checkbox and radio size and align */
-input[type=checkbox], input[type=radio] {
-  vertical-align: -2px;
-  margin: 0;
-  padding: 0;
-}
 
 /*------------------------------------------------------------------*/
 /* popovers & filters */

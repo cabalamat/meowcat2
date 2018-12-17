@@ -48,7 +48,10 @@ class Message(MonDoc):
     </div>
     <h3>{title}</h3>
     {body}
-    <p class='mess-footer'>context -- thread -- reply -- view source</p>
+    <p class='mess-footer'><a href=''>context</a> 
+    - <a href=''>thread</a> 
+    - <a href=''>reply</a> 
+    - <a href=''>view source</a></p>
 </div>""",
             messLink = self.linkA(),
             userLink = self.author.blogLink(),

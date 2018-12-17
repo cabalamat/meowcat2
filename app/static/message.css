@@ -1,0 +1,50 @@
+/* message.css
+   ===========
+
+Style sheet fior messages
+*/
+
+/*------------------------------------------------------------------*/
+
+.mess {
+    color: #000;
+    background: #fff;
+    
+    max-width: 800px;
+    padding: 2px 5px;
+    border: 2px solid #459;
+    border-radius: 10px;
+    margin: 2px 4px;
+    
+    box-shadow: 5px 5px 8px #888;
+    
+}    
+
+.mess-header {
+   margin-top: 0px;
+   margin-bottom: 0pt;
+   padding: 0.2em;
+   font-size: 80%;
+    
+}    
+
+.mess-footer {
+    margin-top: 3px;
+    margin-bottom: 0pt;
+    padding-top: 0pt;
+    padding-bottom: 0pt;
+    font-size: 80%;
+}   
+
+.mess-header, .mess-header a, .mess-footer, .mess-footer a {
+    color: #569; 
+}    
+
+.mess a {
+    text-decoration: underline;    
+}    
+
+
+/*------------------------------------------------------------------*/
+
+/*end */
