@@ -1,0 +1,22 @@
+{# messSource.html
+   ===============
+
+View message source
+#}
+{% extends "main.html" %}
+
+{% block body %}
+<h1><i class='fa fa-comment-o'></i> Source for Message {{m.id()}}</h1>
+
+{{ms}}
+
+<h2><i class='fa fa-file-text-o'></i> Message Source</h2>
+
+<pre>
+{{messSource}}
+</pre>
+
+{% endblock body %}
+
+
+{# end #}

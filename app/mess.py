@@ -27,6 +27,22 @@ def mess(id):
  
     
 #---------------------------------------------------------------------
+   
+@app.route('/messSource/<id>')
+def messSource(id):
+    m = models.Message.getDoc(id)
+        
+    tem = jinjaEnv.get_template("messSource.html")
+    h = tem.render(
+        m = m,
+        id = id,
+        ms = m.viewH(),
+        messSource = htmlEsc(m.source),
+    )
+    return h
+ 
+
+#---------------------------------------------------------------------
 
 
 #end
