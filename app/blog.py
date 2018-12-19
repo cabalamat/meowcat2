@@ -9,17 +9,22 @@ from bozen import paginate
 from allpages import app, jinjaEnv
 import ht
 from userdb import User
+
+import messlist
    
 #---------------------------------------------------------------------
   
 @app.route('/blog/<id>')
 def blog(id):
     user = User.getDoc(id)
+    q = {'author_id': user._id}
+    lf = messlist.ListFormatter(q)
         
     tem = jinjaEnv.get_template("blog.html")
     h = tem.render(
         user = user,
         id = id,
+        messages = lf.getMessagesH(),
     )
     return h
  

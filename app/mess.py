@@ -10,7 +10,23 @@ from allpages import app, jinjaEnv
 import ht
 from userdb import User
 import models
+import messlist
    
+#---------------------------------------------------------------------
+
+@app.route('/messList')
+def messList():
+    """ recent messages in message list view """
+        
+    lf = messlist.ListFormatter({})
+        
+    tem = jinjaEnv.get_template("messList.html")
+    h = tem.render(
+        messages = lf.getMessagesH(),
+    )
+    return h
+ 
+
 #---------------------------------------------------------------------
   
 @app.route('/mess/<id>')

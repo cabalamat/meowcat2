@@ -1,13 +1,15 @@
 {# blog.html
    =========
 
-Front page
+Blog for a user
 #}
 {% extends "main.html" %}
 
 {% block body %}
-<h1>Blog for {{user.getNameH()}}</h1>
-{% endblock body %}
+<h1><i class='fa fa-list-ul'></i> Blog for {{user.getNameH()}}</h1>
 
+{{messages}}
+
+{% endblock body %}
 
 {# end #}
