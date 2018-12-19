@@ -15,6 +15,27 @@ import allpages
 bozen.notifyFlaskForAutopages(allpages.app, allpages.jinjaEnv)
 
 #---------------------------------------------------------------------
+# process markdown
+
+
+markdownProcessor = markdown.Markdown([
+    'extra',
+    'sane_lists',
+    'toc',
+    'codehilite(guess_lang=False)',
+])
+
+def md(s: str) -> str:
+    """ Convert markdown to html
+
+    Uses the Python Markdown library to do this.
+    See: <http://packages.python.org/Markdown/>
+    """
+    markdownProcessor.reset()
+    h = markdownProcessor.convert(s)
+    return h
+
+#---------------------------------------------------------------------
 # messages
 
 MESS_TIME_DISPLAY_FORMAT = "%Y.%m.%d %H:%M:%S"
