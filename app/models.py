@@ -14,26 +14,7 @@ bozen.setDefaultDatabase(config.DB_NAME)
 import allpages
 bozen.notifyFlaskForAutopages(allpages.app, allpages.jinjaEnv)
 
-#---------------------------------------------------------------------
-# process markdown
-
-
-markdownProcessor = markdown.Markdown([
-    'extra',
-    'sane_lists',
-    'toc',
-    'codehilite(guess_lang=False)',
-])
-
-def md(s: str) -> str:
-    """ Convert markdown to html
-
-    Uses the Python Markdown library to do this.
-    See: <http://packages.python.org/Markdown/>
-    """
-    markdownProcessor.reset()
-    h = markdownProcessor.convert(s)
-    return h
+import mark
 
 #---------------------------------------------------------------------
 # messages
@@ -41,8 +22,10 @@ def md(s: str) -> str:
 MESS_TIME_DISPLAY_FORMAT = "%Y.%m.%d %H:%M:%S"
 
 class Message(MonDoc):
-    title = StrField()
-    body = TextAreaField()
+    title = StrField(readOnly=True)
+    source = TextAreaField(monospaced=True)
+    html = TextAreaField(monospaced=True, readOnly=True)
+    
     replyTo_id = FK('Message', allowNull=True,
         desc="the message this is a reply to")
     author_id = FK('User', allowNull=False,
@@ -58,6 +41,19 @@ class Message(MonDoc):
     def preCreate(self):
         self.published = BzDateTime.now()
         
+    def preSave(self):
+        """ before saving, create the html and title """
+        self.html = mark.md(self.source)
+        
+        # title
+        lines = self.source.split("\n")
+        if len(lines)>=1:
+            line0 = lines[0].strip()
+            self.title = line0
+        else:
+            self.title = ""
+        
+        
     #==========
     
     def viewH(self) -> str:
@@ -67,7 +63,6 @@ class Message(MonDoc):
     <div class='mess-header'>
         {messLink}/{userLink} at {published}
     </div>
-    <h3>{title}</h3>
     {body}
     <p class='mess-footer'><a href=''>context</a> 
     - <a href=''>thread</a> 
@@ -77,8 +72,7 @@ class Message(MonDoc):
             messLink = self.linkA(),
             userLink = self.author.blogLink(),
             published = self.asReadableH('published'),
-            title = self.asReadableH('title'),
-            body = self.asReadableH('body'),
+            body = self.html,
         )
         return h
     
@@ -91,7 +85,7 @@ class Message(MonDoc):
     #==========
 
 Message.autopages(
-    showFields=['title','body','author_id', 'published'], 
+    showFields=['title','source','author_id', 'published'], 
     sort='published')
 
 #---------------------------------------------------------------------

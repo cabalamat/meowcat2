@@ -394,10 +394,10 @@ class TextAreaField(StrField):
 
     def formField_rw(self, v, **kwargs) -> str:
         """ return html for a form field for this fieldInfo """
-        h = form(('''<textarea{cc}
+        h = form('''<textarea{cc}
  id="id_{fieldName}" name="{fieldName}"
  {rows} {cols}
- >{v}</textarea>'''),
+ >{v}</textarea>''',
             cc = cssClasses(
                 "bz-input",
                 self.monospaced and "monospace",
@@ -410,11 +410,19 @@ class TextAreaField(StrField):
         return h
 
     def formField_ro(self, v, **kwargs) -> str:
-        lines = [htmlEsc(line.strip()) for line in v.split("\n")]
-        h = "<br>\n".join(lines)
-        if h == "": h = "&nbsp;"
-        h2 = "<span class='read-only'>{}</span>".format(butil.myStr(h))
-        return h2
+        if self.monospaced:
+            h2 = form("<pre{cc}>{v}</pre>",
+                cc = cssClasses("bz-read-only", "monospace"),
+                v = htmlEsc(v))      
+            return h2
+        else:    
+            lines = [htmlEsc(line.strip()) for line in v.split("\n")]
+            h = "<br>\n".join(lines)
+            if h == "": h = "&nbsp;"
+            h2 = form("<span{cc}>{h}</span>",
+                cc = cssClasses("bz-read-only"),
+                h = h)
+            return h2
 
 #---------------------------------------------------------------------
 
