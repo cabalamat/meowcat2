@@ -1,6 +1,5 @@
 # models.py = database initilisation for frambozenapp
 
-
 import bozen
 from bozen.butil import *
 from bozen import MonDoc, BzDateTime
@@ -14,6 +13,7 @@ bozen.setDefaultDatabase(config.DB_NAME)
 import allpages
 bozen.notifyFlaskForAutopages(allpages.app, allpages.jinjaEnv)
 
+from permission import currentUserName
 import mark
 
 #---------------------------------------------------------------------
@@ -66,7 +66,7 @@ class Message(MonDoc):
     {body}
     <p class='mess-footer'><a href=''>context</a> 
     - <a href=''>thread</a> 
-    - <a href=''>reply</a> 
+    {reply}
     - <a href='/messSource/{id}'>view source</a></p>
 </div>""",
             id = self.id(),
@@ -74,6 +74,7 @@ class Message(MonDoc):
             userLink = self.author.blogLink(),
             published = self.asReadableH('published'),
             body = self.html,
+            reply = self.replyA(),
         )
         return h
     
@@ -81,6 +82,16 @@ class Message(MonDoc):
         """ link to this message's /mess page """
         h = form("<a href='/mess/{id}'>{id}</a>",
             id = htmlEsc(self._id))
+        return h
+    
+    def replyA(self) -> str:
+        """ html containing the link to reply to this message.
+        If not logged in this is empty.
+        """
+        cun = currentUserName()
+        if not cun: return ""
+        h = form("- <a href='/messRep/{id}'>reply</a> ",
+            id = self.id())
         return h
     
     #==========
