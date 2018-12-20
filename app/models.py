@@ -45,7 +45,7 @@ class Message(MonDoc):
         """ before saving, create the html and title """
         self.html = mark.md(self.source)
         
-        # title
+        #>>>>> title
         lines = self.source.split("\n")
         if len(lines)>=1:
             line0 = lines[0].strip()

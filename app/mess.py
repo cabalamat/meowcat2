@@ -12,6 +12,7 @@ from bozen import (StrField, ChoiceField, TextAreaField,
 from allpages import app, jinjaEnv
 import ht
 from userdb import User
+import permission
 import models
 import messlist
    
@@ -70,8 +71,8 @@ class MessageForm(FormDoc):
         required=True,
         monospaced=True)
    
-@app.route('/messRep')
-@app.route('/messRep/<id>')
+@app.route('/messRep', methods=['POST', 'GET'])
+@app.route('/messRep/<id>', methods=['POST', 'GET'])
 def messRep(id=None):
     if id:
         isReply = True
@@ -82,7 +83,24 @@ def messRep(id=None):
         m = None
         mh = ""
         
-    mf = MessageForm()    
+    mf = MessageForm()
+    if request.method=='POST':
+        mf = mf.populateFromRequest(request)
+        
+        messRepButton = request.form['messRepButton']
+        dpr("messRepButton=%r", messRepButton)     
+        if mf.isValid():
+            if messRepButton=='preview':
+                
+            else:    
+                newM = models.Message(
+                    source = mf.message,
+                    author_id = permission.currentUserName())
+                newM.save()
+                
+ 
+        #//if valid 
+    #//if POST   
         
     tem = jinjaEnv.get_template("messRep.html")
     h = tem.render(
