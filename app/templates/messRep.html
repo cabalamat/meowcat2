@@ -1,0 +1,32 @@
+{# messRep.html
+   ============
+
+New Message or reply to message
+#}
+{% extends "main.html" %}
+
+{% block body %}
+{%if isReply %}
+<h1><i class='fa fa-reply'></i> Reply to {{m.id()}}</h1>
+{{mh}}
+{%else%}
+<h1><i class='fa fa-share'></i> Create New Message</h1>
+{%endif%}
+
+<form method=POST>
+<br>
+{{mf.buildForm()}}
+{{msg}}
+
+<p><br>
+<a href="" class="btn btn-info"><i class='fa fa-eye'></i> 
+Preview</a>
+&nbsp;
+<a href="" class="btn btn-success"><i class='fa fa-paper-plane'></i> 
+Enter Message</a>
+</p>
+</form>
+
+{% endblock body %}
+
+{# end #}

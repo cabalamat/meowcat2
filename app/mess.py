@@ -4,7 +4,10 @@ from flask import request, redirect
 
 from bozen.butil import pr, prn, dpr, form, htmlEsc
 from bozen import FormDoc, MonDoc, BzDate, BzDateTime
-from bozen import paginate
+from bozen import (StrField, ChoiceField, TextAreaField,
+    IntField, FloatField, BoolField,
+    MultiChoiceField, FK, FKeys,
+    DateField, DateTimeField)
 
 from allpages import app, jinjaEnv
 import ht
@@ -58,6 +61,40 @@ def messSource(id):
     return h
  
 
+    
+#---------------------------------------------------------------------
+   
+class MessageForm(FormDoc):
+    message = TextAreaField(title="Your Message",
+        rows=8, cols=60,
+        required=True,
+        monospaced=True)
+   
+@app.route('/messRep')
+@app.route('/messRep/<id>')
+def messRep(id=None):
+    if id:
+        isReply = True
+        m = models.Message.getDoc(id)
+        mh = m.viewH()
+    else:    
+        isReply = False
+        m = None
+        mh = ""
+        
+    mf = MessageForm()    
+        
+    tem = jinjaEnv.get_template("messRep.html")
+    h = tem.render(
+        id = id,
+        isReply = isReply,
+        m = m,
+        mh = mh,
+        mf = mf,
+        msg = "",
+    )
+    return h
+ 
 #---------------------------------------------------------------------
 
 

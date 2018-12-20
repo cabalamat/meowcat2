@@ -20,7 +20,7 @@ class ListFormatter:
         ms = models.Message.find(self.q, sort=('published', -1))
         h = ""
         for m in ms:
-            h += m.viewH()
+            h += m.viewH() + "<p></p>"
         #//for
         return h
 
