@@ -61,7 +61,7 @@ class Message(MonDoc):
         h = form("""
 <div class='mess'>            
     <div class='mess-header'>
-        {messLink}/{userLink} at {published}
+        {messLink}/{userLink} at {published}{replyToText}
     </div>
     {body}
     <p class='mess-footer'><a href=''>context</a> 
@@ -72,6 +72,7 @@ class Message(MonDoc):
             id = self.id(),
             messLink = self.linkA(),
             userLink = self.author.blogLink(),
+            replyToText = self.replyToText(),
             published = self.asReadableH('published'),
             body = self.html,
             reply = self.replyA(),
@@ -94,10 +95,23 @@ class Message(MonDoc):
             id = self.id())
         return h
     
+    def replyToText(self) -> str:
+        """ if this message is a reply, text in the header linking to the
+        message it's a reply to. """
+        if not self.replyTo_id: return ""
+        parent = self.replyTo
+        if not parent: return ""
+        h = form(" reply-to: {messLink}/{userLink}",
+            messLink = parent.linkA(),
+            userLink = parent.author.blogLink()
+        )
+        return h
+                 
+    
     #==========
 
 Message.autopages(
-    showFields=['title','source','author_id', 'published'], 
+    showFields=['title', 'source', 'replyTo_id', 'author_id', 'published'], 
     sort='published')
 
 #---------------------------------------------------------------------
