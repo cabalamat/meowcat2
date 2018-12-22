@@ -9,6 +9,7 @@ from bozen import (StrField, ChoiceField, TextAreaField,
     MultiChoiceField, FK, FKeys,
     DateField, DateTimeField)
 
+import mark
 from allpages import app, jinjaEnv
 import ht
 from userdb import User
@@ -82,6 +83,7 @@ def messRep(id=None):
         isReply = False
         m = None
         mh = ""
+    hasPreview = False; previewH = ""   
         
     mf = MessageForm()
     if request.method=='POST':
@@ -92,7 +94,8 @@ def messRep(id=None):
         if mf.isValid():
             if messRepButton=='preview':
                 #>>>>> preview message
-                pass
+                previewH = mark.md(mf.message)
+                hasPreview = True
             else:    
                 #>>>>> create message
                 dpr("create new message")
@@ -115,6 +118,8 @@ def messRep(id=None):
         mh = mh,
         mf = mf,
         msg = "",
+        hasPreview = hasPreview,
+        previewH = previewH,
     )
     return h
  

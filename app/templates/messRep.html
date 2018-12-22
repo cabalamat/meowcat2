@@ -13,6 +13,16 @@ New Message or reply to message
 <h1><i class='fa fa-share'></i> Create New Message</h1>
 {%endif%}
 
+{%if hasPreview%}
+<h2><i class='fa fa-eye'></i> Preview of message</h2>
+<div class='mess'>  
+    <div class='mess-header'>
+        preview/@{{currentUserName()}}
+    </div>
+    {{previewH}}
+</div>
+{%endif%}
+
 <form method=POST>
 <br>
 {{mf.buildForm()}}
