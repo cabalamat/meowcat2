@@ -91,14 +91,19 @@ def messRep(id=None):
         dpr("messRepButton=%r", messRepButton)     
         if mf.isValid():
             if messRepButton=='preview':
-                
+                #>>>>> preview message
+                pass
             else:    
+                #>>>>> create message
+                dpr("create new message")
                 newM = models.Message(
                     source = mf.message,
                     author_id = permission.currentUserName())
                 newM.save()
-                
- 
+                dpr("newM=%r", newM)
+                u = "/mess/" + newM.id()
+                dpr("u=%r", u)
+                return redirect(u, code=303)
         #//if valid 
     #//if POST   
         
