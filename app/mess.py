@@ -102,6 +102,8 @@ def messRep(id=None):
                 newM = models.Message(
                     source = mf.message,
                     author_id = permission.currentUserName())
+                if isReply:
+                    newM.replyTo_id = id
                 newM.save()
                 dpr("newM=%r", newM)
                 u = "/mess/" + newM.id()
