@@ -1,4 +1,4 @@
-# mess.py = the /mess page, view a single message
+# mess.py = pages for messages
  
 from flask import request, redirect
 
@@ -124,6 +124,22 @@ def messRep(id=None):
     return h
  
 #---------------------------------------------------------------------
-
+  
+@app.route('/context/<id>')
+def context(id):
+    m = models.Message.getDoc(id)
+    ms = m.context()
+    msh = "<p></p>\n".join(m.viewH() for m in ms)
+        
+    tem = jinjaEnv.get_template("context.html")
+    h = tem.render(
+        m = m,
+        id = id,
+        msh = msh,
+    )
+    return h
+   
+#---------------------------------------------------------------------
+ 
 
 #end

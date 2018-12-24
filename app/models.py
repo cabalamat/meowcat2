@@ -1,5 +1,7 @@
 # models.py = database initilisation for frambozenapp
 
+from typing import *
+
 import bozen
 from bozen.butil import *
 from bozen import MonDoc, BzDateTime
@@ -54,7 +56,7 @@ class Message(MonDoc):
             self.title = ""
         
         
-    #==========
+    #========== dispaly a message ==========
     
     def viewH(self) -> str:
         """ return HTML displaying this message """
@@ -64,7 +66,8 @@ class Message(MonDoc):
         {messLink}/{userLink} at {published}{replyToText}
     </div>
     {body}
-    <p class='mess-footer'><a href=''>context</a> 
+    <p class='mess-footer'>
+    {context}
     - <a href=''>thread</a> 
     {reply}
     - <a href='/messSource/{id}'>view source</a></p>
@@ -75,6 +78,7 @@ class Message(MonDoc):
             replyToText = self.replyToText(),
             published = self.asReadableH('published'),
             body = self.html,
+            context = self.contextA(),
             reply = self.replyA(),
         )
         return h
@@ -107,8 +111,37 @@ class Message(MonDoc):
         )
         return h
                  
+    def contextA(self) -> str:
+        """ if post is a reply, return html for link to context of post """
+        if self.isHeadPost(): return ""
+        h = form("- <a href='/context/{id}'>context</a>",
+            id = self.id())
+        return h
     
-    #==========
+    #========== misc ==========
+    
+    def context(self) -> List['Message']:
+        """ the list of messages leading up to this one, including this 
+        one, in chronological order 
+        """
+        if self.isHeadPost(): return [self]
+        parent = self.getParent()
+        if parent:
+            return parent.context() + [self]
+        else: 
+            return [self]     
+    
+    def isReply(self) -> bool:
+        return bool(self.replyTo_id)
+    
+    def isHeadPost(self) -> bool:
+        return not self.isReply()
+    
+    def getParent(self) -> Union['Message',None]:
+        """ if a post has a parent, return it, else return None """
+        if self.isHeadPost(): return None
+        return Message.getDoc(self.replyTo_id)
+        
 
 Message.autopages(
     showFields=['title', 'source', 'replyTo_id', 'author_id', 'published'], 
