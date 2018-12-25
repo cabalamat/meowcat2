@@ -44,7 +44,84 @@ Style sheet fior messages
     text-decoration: underline;    
 }    
 
+/*------------------------------------------------------------------*/
+/* quotes in messages */
 
+.mess blockquote {
+   margin: -4px 2px -4px 0px;
+   padding:  2px 2px 2px 8px;
+   border-width: 2px;
+   border-style: solid;
+   //border-top-left-radius: 0.3em;
+
+   border-color: #944;
+   background: #ffe8e8;
+}
+
+.mess p, .mess blockquote p {
+    font-size: 17px;   
+    margin: 5px 0px;
+}    
+
+/*
+.mess blockquote {
+   margin:       -2px  1.4em -2px 1em;
+   padding:      0px   8px  0px 0.5em;
+   border-width: 2px   2px  2px   2px;
+   border-style: solid;
+   border-color: #944;border-color: #7276b9;
+   background: #fff4f4;
+   background: #f0f0ff;
+}
+*/
+
+.mess blockquote blockquote {
+   margin-right: 0;
+   border-color: #494;
+   background: #e4ffe4;
+}
+
+.mess blockquote blockquote blockquote {
+   border-color: #449;
+   background: #e4e4ff;
+}
+
+/*------------------------------------------------------------------*/
+/*
+// 1st, blue
+.mess blockquote {
+   margin:       -2px  1.4em -2px 1em;
+   padding:      0px   8px  0px 0.5em;
+   border-width: 2px   2px  2px   2px;
+   border-style: solid;
+   border-color: #944;border-color: #7276b9;
+   background: #fff4f4;
+   background: #f0f0ff;
+}
+
+// 2nd, green
+.mess blockquote blockquote,
+blockquote.allowed_markup blockquote.allowed_markup {
+   margin:      -2px -10px -2px 0em;
+   //padding-right: 0;
+   border-color: #7b7;
+   background: #f0fff0;
+}
+
+// 3rd, red
+.mess blockquote blockquote blockquote {
+   //margin-right: -2px;
+   border-color: #449; border-color: #b77;
+   background: #e2e6ff;
+   background: #fff0f0;
+}
+
+// 4th and subsequent, grey
+.mess blockquote blockquote blockquote blockquote {
+   border-color: #aaa;
+   background: #f8f8f8;
+}
+*/
 /*------------------------------------------------------------------*/
 
 /*end */
