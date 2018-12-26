@@ -140,6 +140,29 @@ def context(id):
         msh = msh,
     )
     return h
+#---------------------------------------------------------------------
+  
+@app.route('/thread/<id>')
+def thread(id):
+    m = models.Message.getDoc(id)
+        
+    tem = jinjaEnv.get_template("thread.html")
+    h = tem.render(
+        m = m,
+        id = id,
+        msh = threadFromH(m),
+    )
+    return h
+   
+def threadFromH(m: models.Message) -> str:
+    """ return html containing a message and its descendents """
+    h = m.viewH()
+    if m.getNumChildren():
+        h += "<blockquote class=thread>\n"
+        h += "<p></p>\n".join(threadFromH(child) 
+                              for child in m.getChildren())
+        h += "</blockquote>\n"
+    return h    
    
 #---------------------------------------------------------------------
  

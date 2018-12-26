@@ -5,6 +5,14 @@ Style sheet fior messages
 */
 
 /*------------------------------------------------------------------*/
+/* groups of messages */
+
+blockquote.thread {
+    border-left: solid 4px #888;
+    padding: 10px 0px 0px 20px;    
+}    
+
+/*------------------------------------------------------------------*/
 
 .mess {
     color: #000;
@@ -28,7 +36,7 @@ Style sheet fior messages
     
 }    
 
-.mess-footer {
+.mess .mess-footer, .mess p.mess-footer {
     margin-top: 3px;
     margin-bottom: 0pt;
     padding-top: 0pt;
@@ -87,41 +95,7 @@ Style sheet fior messages
 }
 
 /*------------------------------------------------------------------*/
-/*
-// 1st, blue
-.mess blockquote {
-   margin:       -2px  1.4em -2px 1em;
-   padding:      0px   8px  0px 0.5em;
-   border-width: 2px   2px  2px   2px;
-   border-style: solid;
-   border-color: #944;border-color: #7276b9;
-   background: #fff4f4;
-   background: #f0f0ff;
-}
 
-// 2nd, green
-.mess blockquote blockquote,
-blockquote.allowed_markup blockquote.allowed_markup {
-   margin:      -2px -10px -2px 0em;
-   //padding-right: 0;
-   border-color: #7b7;
-   background: #f0fff0;
-}
-
-// 3rd, red
-.mess blockquote blockquote blockquote {
-   //margin-right: -2px;
-   border-color: #449; border-color: #b77;
-   background: #e2e6ff;
-   background: #fff0f0;
-}
-
-// 4th and subsequent, grey
-.mess blockquote blockquote blockquote blockquote {
-   border-color: #aaa;
-   background: #f8f8f8;
-}
-*/
 /*------------------------------------------------------------------*/
 
 /*end */

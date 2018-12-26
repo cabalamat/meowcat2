@@ -68,7 +68,7 @@ class Message(MonDoc):
     {body}
     <p class='mess-footer'>
     {context}
-    - <a href=''>thread</a> 
+    - <a href='/thread/{id}'>thread</a> 
     {reply}
     - <a href='/messSource/{id}'>view source</a></p>
 </div>""",
@@ -118,7 +118,7 @@ class Message(MonDoc):
             id = self.id())
         return h
     
-    #========== misc ==========
+    #========== misc utility functions ==========
     
     def context(self) -> List['Message']:
         """ the list of messages leading up to this one, including this 
@@ -142,6 +142,16 @@ class Message(MonDoc):
         if self.isHeadPost(): return None
         return Message.getDoc(self.replyTo_id)
         
+    def getNumChildren(self) -> int:
+        """ return the number of replies this message has """
+        return Message.count({'replyTo_id': self._id})
+    
+    def getChildren(self):
+        """ return an iterator to the message's replies (oldest first) 
+        returns an Iterable[Message]
+        """
+        ms = Message.find({'replyTo_id': self._id}, sort='published')
+        return ms
 
 Message.autopages(
     showFields=['title', 'source', 'replyTo_id', 'author_id', 'published'], 
