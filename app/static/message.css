@@ -8,8 +8,9 @@ Style sheet fior messages
 /* groups of messages */
 
 blockquote.thread {
+    margin: 10px 0 0 0;
     border-left: solid 4px #888;
-    padding: 10px 0px 0px 20px;    
+    padding: 0px 0px 0px 20px;    
 }    
 
 /*------------------------------------------------------------------*/
