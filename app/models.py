@@ -158,6 +158,33 @@ Message.autopages(
     sort='published')
 
 #---------------------------------------------------------------------
+"""
+Holds information about an account other that what is in the user table.
+The key is the User._id.
+"""
+
+class AccountInfo(MonDoc):
+    _id = StrField(desc="User id")
+    bio = TextAreaField(desc="Biography of user (Markdown)",
+        monospaced=True)
+    following_ids = FKeys('User',
+        title="Following",
+        readOnly=True,
+        desc="users this user is following")
+    realName = StrField(
+        desc="your real name or anything else you want to put here")
+    
+
+AccountInfo.autopages()
+
+def getAccountInfo(userId:str) -> AccountInfo:
+    """ get an account info ,greating it if necessary """
+    ai = AccountInfo.getDoc(userId)
+    if not ai:
+        ai = AccountInfo(_id=userId)
+    return ai    
+
+#---------------------------------------------------------------------
 # tags   
 
 

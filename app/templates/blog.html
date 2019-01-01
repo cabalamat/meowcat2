@@ -6,10 +6,22 @@ Blog for a user
 {% extends "main.html" %}
 
 {% block body %}
+{{rowcol("md-9")}}
 <h1><i class='fa fa-list-ul'></i> Blog for {{user.getNameH()}}</h1>
 
 {{messages}}
+{{col("md-3")}}
+<h2>About @{{user.getNameH()}}</h2>
 
+<h2><i class='fa fa-sliders'></i> Formatting Options</h2>
+
+<h2>Subscription</h2>
+
+<p>
+<a class='btn btn-default'><i class='fa fa-rss'></i> RSS Feed</a>
+</p>
+
+{{endrow()}}
 {% endblock body %}
 
 {# end #}

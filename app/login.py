@@ -102,9 +102,9 @@ def users():
 
 def usersTable():
     """ returns an html table of users """
+    import models
     h = """<table class='bz-report-table'>
 <tr>
-   <th class=debug>(id)</th>
    <th>User name</th>
    <th>Email</th>
    <th>Is Admin?</th>
@@ -114,6 +114,7 @@ def usersTable():
 </tr>
 """
     for doc in userdb.User.find(sort=[('userName',pymongo.ASCENDING)]):
+        ai = models.getAccountInfo(doc._id)
 
         item = form("""<tr>
     <td>{a}</td>
