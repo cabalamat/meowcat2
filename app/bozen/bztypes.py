@@ -40,6 +40,29 @@ ChoiceList is used for the choices in ChoiceFiled and MultiChoiceField
 """
 ChoiceList = List[Tuple[DbValue, DisplayValue]]
 
+"""
+SortSpec is how MongoDB sorts are specified in Bozen. See MonDoc.fixSort(),
+which converts SortSpec values into the format used by pymongo.
+"""
+SortSpec1 = Union[str,
+                  Tuple[str,int]]
+SortSpec = Union[SortSpec1, 
+                 List[SortSpec1]]
+
+
+"""
+Jsonable is a python value that can be converted into JSON
+"""
+
+"""
+MongoValue is a value that can go in a MongoBD document 
+"""
+
+"""
+MongoDict is a MongoDB object (==python dictionary)
+"""
+
+
 #---------------------------------------------------------------------
 
 #end

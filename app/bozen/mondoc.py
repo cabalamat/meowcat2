@@ -6,7 +6,7 @@ import pymongo
 
 from .butil import *
 from . import bozenutil
-from .bztypes import DbId, DisplayValue, DbValue, HtmlStr
+from .bztypes import DbId, DisplayValue, DbValue, HtmlStr, SortSpec
 from . import formdoc
 from . import mongo
 from . import autopages
@@ -229,7 +229,7 @@ class MonDoc(formdoc.FormDoc, metaclass=MonDocMeta):
         """
         pass
     
-    def mongoDict(self):
+    def mongoDict(self) -> dict:
         """ return a dictionary for the current document,
         in the format wanted by pymongo. Only include fields
         defined in the class definition.
@@ -403,7 +403,7 @@ class MonDoc(formdoc.FormDoc, metaclass=MonDocMeta):
         return kwargs
 
     @staticmethod
-    def fixSort(sortArg) -> List[Tuple[str,int]]:
+    def fixSort(sortArg: SortSpec) -> List[Tuple[str,int]]:
         """ Normalise sort argument.
 
         This puts the sort argument into a form that pymongo requires. See:

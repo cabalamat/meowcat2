@@ -10,6 +10,7 @@ import sys
 import html
 import inspect
 import functools
+import pprint
 
 #---------------------------------------------------------------------
 
@@ -102,6 +103,10 @@ def printargs(fn):
         return retVal
     return wrapper
 
+def pretty(ob, indent:int=4) -> str:
+    pp = pprint.PrettyPrinter(indent)
+    s = pp.pformat(ob)
+    return s
 
 #---------------------------------------------------------------------
 
