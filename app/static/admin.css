@@ -1,0 +1,26 @@
+/* admin.css
+
+CSS for admin site
+*/
+
+/*------------------------------------------------------------------*/
+/* over-ride colours */
+
+.navbar, .navbar-brand,
+.navbar-header, .navbar-header a, a.dropdown-toggle, .dropdown a,
+.side-nav, .side-nav a {
+  background: #348 !important;
+}
+
+h1, h2, h3, h4 {
+  color: #136;  
+}
+
+.idvalue {
+    font-family: 'Ubuntu Mono', monospace;
+    background: #faf3e3;
+}
+
+/*------------------------------------------------------------------*/
+
+/*end*/

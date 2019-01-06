@@ -1,0 +1,20 @@
+{# admin_front_page.html
+   =====================
+
+Front page of the admin site.
+#}
+
+{% extends "admin_main.html" %}
+
+{% block body %}
+<h1><i class='fa fa-cog'></i> Admin Front Page</h1>
+
+<p><a class='btn btn-primary' href="/"><i class='fa fa-arrow-left'></i>
+Back to main site</a></p>
+
+<p>Collections under administration</p>
+
+{{colTable}}
+{% endblock body %}
+
+{# end #}

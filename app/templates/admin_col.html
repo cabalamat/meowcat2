@@ -1,0 +1,29 @@
+{# admin_col.html
+   ==============
+
+Admin site, collection pages, with urls /admin/col/{colName}
+
+Lists all documents in the collection.
+#}
+
+{% extends "admin_main.html" %}
+
+{% block body %}
+<div class='right-pagination'>{{pag.links}}</div>
+<h1><i class='fa fa-cog'></i> Admin: {{colClass.classLogo()}} {{colName}}
+({{count}})</h1>
+
+<p>Documents for collection {{colName}}. {{pag.info}}</p>
+
+{{docTable}}
+<div class='right-pagination'>{{pag.links}}</div>
+
+<p><br>
+<a class="btn btn-success" href="{{adminStub}}/doc/{{colName}}/NEW">
+    <i class="fa fa-plus"></i>
+    Create new {{colName}}</a>
+</p>
+
+{% endblock body %}
+
+{# end #}

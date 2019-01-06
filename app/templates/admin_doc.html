@@ -1,0 +1,62 @@
+{# admin_doc.html
+   ==============
+
+Admin site, page for one document, 
+with urls /admin/doc/{colName}/{id}
+#}
+
+{% extends "admin_main.html" %}
+
+{% block body %}
+<h1>{{doc.logo()}} {{colName}}: {{doc.getName()}}</h1>
+
+<p>Document id is <tt>{{id}}</tt>. Go back to 
+  <a href='{{adminStub}}/col/{{colName}}'>
+    Admin: {{doc.classLogo()}} {{colName}}</a>.    
+</p>
+
+<form id="theForm" action="{{adminStub}}/doc/{{colName}}/{{id}}" 
+      method="POST" enctype='multipart/form-data'>
+<input name="id" type="hidden" value="{{id}}">
+<input id="delete_record" name="delete" type="hidden" value="0">
+
+{{doc.buildForm(readOnly=readOnly,adminStub=adminStub)}}
+{{fwem}}
+
+{% if not readOnly %}
+
+<p><br>
+<button class="btn btn-primary">
+  <i class='fa fa-save'></i>
+   Save {{colName}}</button>
+  &nbsp;
+  <a class="btn btn-danger"
+    onclick="deleteEntity('{{doc.getName()}}','{{id}}')">
+  <i class='fa fa-times'></i>
+    Delete {{colName}}</a>
+</p>
+{% endif %}
+</form>
+
+{% endblock body %}
+
+{% block atend %}
+<script>
+function deleteEntity(name, id){
+    console.log("deleteEntity " + name + ", " + id);
+    var msg = ("Do you really want to delete '"
+        + name + "'?");
+    bootbox.confirm(msg, function(result) {
+        if (result==true)
+            reallyDeleteEntity(name, id);
+    });
+}
+
+function reallyDeleteEntity(name, id){
+    console.log("reallyDeleteEntity " + id);
+    document.getElementById("delete_record").value = "1";
+    document.forms['theForm'].submit();
+}
+</script>
+{% endblock atend %}
+{# end #}
