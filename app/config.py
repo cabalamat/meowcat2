@@ -17,6 +17,8 @@ APP_LOGO = "<i class='fa fa-commenting-o'></i> "
 APP_NAME = "meowcat2"
 DB_NAME = "meowcat"
 
+# Bozen admin site (scaffolding)
+CREATE_ADMIN_SITE = True
 
 #---------------------------------------------------------------------
 

@@ -23,6 +23,9 @@ import front
 import blog
 import mess
 
+# do this last:
+import adminsite
+
 #---------------------------------------------------------------------
 
 #@app.route("/")

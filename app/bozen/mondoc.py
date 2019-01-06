@@ -365,7 +365,25 @@ class MonDoc(formdoc.FormDoc, metaclass=MonDocMeta):
         FieldInfo field defined for the MonDoc.
         """
         return htmlEsc(self.getName())
+    
+    #========== links to admin site ==========
 
+    def adminA(self, adminStub:str="/admin") -> HtmlStr:
+        """Get an a-href for a document, in the admin site
+        :param adminStub: the url prefix of the admin site
+        """
+        return "<a href='%s'>%s%s</a>" % (
+            attrEsc(self.adminUrl(adminStub=adminStub)),
+            self.logo(), htmlEsc(self.getName()))
+
+    def adminUrl(self, adminStub:str="/admin") -> str:
+        """Get a URL for a document, in the admin site
+        :param adminStub: the url prefix of the admin site
+        """
+        collectionName = self.__class__.__name__
+        u = form("{}/doc/{}/{}", adminStub, collectionName, self.id())
+        return u
+    
     #========== autopages ==========
     
     @classmethod
