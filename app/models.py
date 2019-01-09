@@ -164,21 +164,26 @@ The key is the User._id.
 """
 
 class AccountInfo(MonDoc):
-    _id = StrField(desc="User id")
+    _id = StrField(desc="User id", readOnly=True)
     bio = TextAreaField(desc="Biography of user (Markdown)",
         monospaced=True)
-    following_ids = FKeys('User',
+    bioHtml = TextAreaField(desc="bio compiled to HTML",
+        monospaced=True, readOnly=True)
+    following_ids = FKeys('AccountInfo',
         title="Following",
         readOnly=True,
         desc="users this user is following")
     realName = StrField(
         desc="your real name or anything else you want to put here")
     
+    def preSave(self):
+        """ before saving, create the bioHtml """
+        self.bioHtml = mark.md(self.bio)
 
 AccountInfo.autopages()
 
-def getAccountInfo(userId:str) -> AccountInfo:
-    """ get an account info ,greating it if necessary """
+def getAccountInfo(userId: str) -> AccountInfo:
+    """ get an account info, creating it if necessary """
     ai = AccountInfo.getDoc(userId)
     if not ai:
         ai = AccountInfo(_id=userId)

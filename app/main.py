@@ -22,6 +22,7 @@ import login
 import front
 import blog
 import mess
+import account
 
 # do this last:
 import adminsite

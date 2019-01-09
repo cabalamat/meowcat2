@@ -11,15 +11,18 @@ Blog for a user
 
 {{messages}}
 {{col("md-3")}}
-<h2>About @{{user.getNameH()}}</h2>
+<h2>@{{user.getNameH()}}'s blog</h2>
+
+<p><a class='btn btn-info' href="/accountSettings/{{id}}">
+<i class='fa fa-cog'></i> 
+Account Settings</a></p>
 
 <h2><i class='fa fa-sliders'></i> Formatting Options</h2>
 
 <h2>Subscription</h2>
 
-<p>
-<a class='btn btn-default'><i class='fa fa-rss'></i> RSS Feed</a>
-</p>
+<p><a class='btn btn-default' href="/rss/blog/{{id}}">
+<i class='fa fa-rss'></i> RSS Feed</a></p>
 
 {{endrow()}}
 {% endblock body %}

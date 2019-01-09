@@ -1,5 +1,5 @@
-# blog.py = the /blog page
- 
+# account.py = account settings, etc
+
 from flask import request, redirect
 
 from bozen.butil import pr, prn, dpr, form, htmlEsc
@@ -10,29 +10,21 @@ from allpages import app, jinjaEnv
 import ht
 from userdb import User
 import models
-
-import messlist
    
 #---------------------------------------------------------------------
   
-@app.route('/blog/<id>')
-def blog(id):
+@app.route('/accountSettings/<id>')
+def accountSettings(id):
     user = User.getDoc(id)
     ai = models.getAccountInfo(id)
-    q = {'author_id': user._id}
-    lf = messlist.ListFormatter(q)
         
-    tem = jinjaEnv.get_template("blog.html")
+    tem = jinjaEnv.get_template("accountSettings.html")
     h = tem.render(
         id = id,
         user = user,
         ai = ai,
-        messages = lf.getMessagesH(),
     )
     return h
  
     
 #---------------------------------------------------------------------
-
-
-#end
