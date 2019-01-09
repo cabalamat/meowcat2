@@ -28,6 +28,9 @@ def blog(id):
         user = user,
         ai = ai,
         messages = lf.getMessagesH(),
+        blogTitle = ai.asReadableH('title'),
+        name = ai.asReadableH('realName'),
+        bio = ai.bioHtml,
     )
     return h
  

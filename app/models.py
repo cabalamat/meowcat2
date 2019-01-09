@@ -169,12 +169,17 @@ class AccountInfo(MonDoc):
         monospaced=True)
     bioHtml = TextAreaField(desc="bio compiled to HTML",
         monospaced=True, readOnly=True)
+    title = StrField(title="Title of Blog")
     following_ids = FKeys('AccountInfo',
         title="Following",
         readOnly=True,
         desc="users this user is following")
     realName = StrField(
         desc="your real name or anything else you want to put here")
+    
+    def preCreate(self):
+        self.title = form("{id}'s blog", 
+            self.asReadableH('_id'))
     
     def preSave(self):
         """ before saving, create the bioHtml """

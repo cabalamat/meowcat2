@@ -7,11 +7,15 @@ Blog for a user
 
 {% block body %}
 {{rowcol("md-9")}}
-<h1><i class='fa fa-list-ul'></i> Blog for {{user.getNameH()}}</h1>
+<h1><i class='fa fa-list-ul'></i> {{blogTitle}}</h1>
 
 {{messages}}
 {{col("md-3")}}
 <h2>@{{user.getNameH()}}'s blog</h2>
+
+<p>Name: {{name}}</p>
+
+{{bio}}
 
 <p><a class='btn btn-info' href="/accountSettings/{{id}}">
 <i class='fa fa-cog'></i> 

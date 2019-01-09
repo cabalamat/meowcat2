@@ -11,8 +11,16 @@ Settings for an account
 
 <p>View <a href='/blog/{{id}}'>@{{id}}'s blog</a>.
 
+<form method=POST>
 {{ai.buildForm()}}
+{{msg}}
 
+<p><br>
+<button class='btn btn-success'><i class='fa fa-save'></i>
+Save Changes
+</button>
+</p>
+</form>
 
 {% endblock body %}
 
