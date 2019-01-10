@@ -10,6 +10,7 @@ from allpages import app, jinjaEnv
 import ht
 from userdb import User
 import models
+import permission
 
 import messlist
    
@@ -21,6 +22,19 @@ def blog(id):
     ai = models.getAccountInfo(id)
     q = {'author_id': user._id}
     lf = messlist.ListFormatter(q)
+    
+    cun = permission.currentUserName()
+    if not cun:
+        # not logged in, so no follow button
+        followButton = ""
+    else:
+        if models.follows(cun, id):
+            # follows, so unfollow button
+            followButton = "unfollow"
+        else:  
+            # diesn't currently follow, so follow button  
+            followButton = "follow"
+    dpr("followButton=%r", followButton)        
         
     tem = jinjaEnv.get_template("blog.html")
     h = tem.render(
@@ -31,6 +45,7 @@ def blog(id):
         blogTitle = ai.asReadableH('title'),
         name = ai.asReadableH('realName'),
         bio = ai.bioHtml,
+        followButton = followButton,
     )
     return h
  

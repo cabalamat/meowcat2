@@ -10,11 +10,17 @@ from allpages import app, jinjaEnv
 import ht
 from userdb import User
 import models
+from permission import *
    
 #---------------------------------------------------------------------
   
 @app.route('/accountSettings/<id>', methods=['POST', 'GET'])
+#@needUser
 def accountSettings(id):
+    cun = currentUserName()
+    dpr("id=%r cun=%r", id, cun)
+    #if id != cun:
+    #    return http403()
     user = User.getDoc(id)
     ai = models.getAccountInfo(id)
     msg = ""

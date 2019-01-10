@@ -194,6 +194,11 @@ def getAccountInfo(userId: str) -> AccountInfo:
         ai = AccountInfo(_id=userId)
     return ai    
 
+def follows(a1: str, a2: str) -> bool:
+    ai = AccountInfo.find_one({'_id': a1, 'following_ids': a2})
+    return bool(ai)
+    
+
 #---------------------------------------------------------------------
 # tags   
 

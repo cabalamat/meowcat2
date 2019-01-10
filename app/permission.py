@@ -23,8 +23,6 @@ def needUser(fn):
     import models
     @functools.wraps(fn)
     def viewWrapper(*args, **kwargs):
-        if not models.goodDMS():
-            return http403("User permission error")
         if currentUserName() == "":
             return http403()
         return fn(*args, **kwargs)
@@ -55,7 +53,7 @@ def http403(msg=""):
     """
     tem = jinjaEnv.get_template("403.html")
     h = tem.render(
-        msg = html.errorBox(msg),
+        msg = ht.errorBox(msg),
     )
     return (h, 403)
 

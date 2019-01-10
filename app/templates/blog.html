@@ -28,6 +28,18 @@ Account Settings</a></p>
 <p><a class='btn btn-default' href="/rss/blog/{{id}}">
 <i class='fa fa-rss'></i> RSS Feed</a></p>
 
+{#---------- follow button ----------#}
+{% if followButton=='follow' %}
+<button class='btn btn-success'><i class='fa fa-check-circle'></i>
+Follow @{{id}}
+</button>
+{% elif followButton=='unfollow' %}
+<button class='btn btn-danger'><i class='fa fa-times-circle'></i>
+Unfollow @{{id}}
+</button>
+{% endif %}
+
+
 {{endrow()}}
 {% endblock body %}
 
