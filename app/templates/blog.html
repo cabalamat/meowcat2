@@ -17,9 +17,11 @@ Blog for a user
 
 {{bio}}
 
+{% if currentUserName()==id %}
 <p><a class='btn btn-info' href="/accountSettings/{{id}}">
 <i class='fa fa-cog'></i> 
 Account Settings</a></p>
+{% endif %}
 
 <h2><i class='fa fa-sliders'></i> Formatting Options</h2>
 
