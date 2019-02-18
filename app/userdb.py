@@ -47,12 +47,6 @@ class User(MonDoc):
     isActive = BoolField(desc="is this an active user?", 
         title="Is Active?",
         default=True)
-    following_ids = FKeys('User',
-        title="Following",
-        readOnly=True,
-        desc="users this user is following")
-    realName = StrField(
-        desc="your real name or anything else you want to put here")
 
     @classmethod
     def classLogo(cls):

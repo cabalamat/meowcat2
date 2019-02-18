@@ -56,7 +56,7 @@ class Message(MonDoc):
             self.title = ""
         
         
-    #========== dispaly a message ==========
+    #========== display a message ==========
     
     def viewH(self) -> str:
         """ return HTML displaying this message """
