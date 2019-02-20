@@ -5,6 +5,11 @@ Blog for a user
 #}
 {% extends "main.html" %}
 
+{% block extrahead %}
+<link rel="alternate" type="application/rss+xml"
+  title="RSS Feed for {{id}}" href="/rss/blog/{{id}}" />
+{% endblock extrahead %}
+
 {% block body %}
 {{rowcol("md-9")}}
 <h1><i class='fa fa-list-ul'></i> {{blogTitle}}</h1>

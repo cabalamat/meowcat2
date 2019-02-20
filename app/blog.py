@@ -103,7 +103,7 @@ def rss_blog(id):
     
     lf.setRssFeed(fg)
     xml = lf.renderRss()
-    return Response(xml, mimetype="application/xml")
+    return Response(xml, mimetype="text/xml")
 
     
     
