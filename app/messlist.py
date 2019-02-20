@@ -2,6 +2,8 @@
 
 from typing import *
 
+from feedgen.feed import FeedGenerator
+
 import models
 
 
@@ -41,8 +43,21 @@ class ListFormatter:
 
     #========== RSS methods
     
+
+    def setRssFeed(self, feed: FeedGenerator):
+        self.rssFeed = feed
+
     def renderRss(self) -> str:
         """ Return RSS for this feed """
+        
+        for m in self.getMessages():
+            fe = self.rssFeed.add_entry()
+            fe.id(m.fullUrl())
+            fe.title(m.title)
+            fe.content(m.html)
+        #//for  
+        
+        return self.rssFeed.rss_str(pretty=True) 
 
 
 #---------------------------------------------------------------------

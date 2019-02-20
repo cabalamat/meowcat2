@@ -22,5 +22,15 @@ CREATE_ADMIN_SITE = True
 
 #---------------------------------------------------------------------
 
+# protocol (either http of https)
+SITE_PROTOCOL = "http"
+
+# DNS address of site
+SITE_LOCATION = "127.0.0.1"
+
+SITE_STUB =  SITE_PROTOCOL + "://" + SITE_LOCATION 
+
+#---------------------------------------------------------------------
+
 
 #end

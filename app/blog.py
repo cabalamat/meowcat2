@@ -2,12 +2,14 @@
  
 import json 
  
-from flask import request, redirect
+from feedgen.feed import FeedGenerator
+from flask import request, redirect, Response
 
 from bozen.butil import pr, prn, dpr, form, htmlEsc
 from bozen import FormDoc, MonDoc, BzDate, BzDateTime
 from bozen import paginate
 
+import config
 from allpages import app, jinjaEnv
 import ht
 from userdb import User
@@ -87,6 +89,22 @@ def xFollow(id: str, status: str):
 @app.route('/rss/blog/<id>')
 def rss_blog(id):
     """ RSS feed for blog """
+    user = User.getDoc(id)
+    ai = models.getAccountInfo(id)
+    q = {'author_id': user._id}
+    lf = messlist.ListFormatter(q)
+    
+    fg = FeedGenerator()
+    
+    fg.title(ai.title or id)
+    fg.author({'name': ai.realName or id}) 
+    fg.link(href="%s/blog/%s" % (config.SITE_STUB, id))
+    fg.description(ai.bioHtml)
+    
+    lf.setRssFeed(fg)
+    xml = lf.renderRss()
+    return Response(xml, mimetype="application/xml")
+
     
     
 #---------------------------------------------------------------------

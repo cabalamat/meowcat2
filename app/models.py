@@ -55,6 +55,12 @@ class Message(MonDoc):
         else:
             self.title = ""
         
+    def url(self):
+        u = "/mess/" + self.id()
+        return u
+    
+    def fullUrl(self):
+        return config.SITE_STUB + self.url()
         
     #========== display a message ==========
     

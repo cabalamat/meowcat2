@@ -9,16 +9,16 @@ CSS for admin site
 .navbar, .navbar-brand,
 .navbar-header, .navbar-header a, a.dropdown-toggle, .dropdown a,
 .side-nav, .side-nav a {
-  background: #348 !important;
+  background: #528 !important;
 }
 
 h1, h2, h3, h4 {
-  color: #136;  
+  color: #316;  
 }
 
 .idvalue {
     font-family: 'Ubuntu Mono', monospace;
-    background: #faf3e3;
+    background: #f8f0e0;
 }
 
 /*------------------------------------------------------------------*/
