@@ -60,7 +60,10 @@ function follow(n){
         url: u,
         method: "POST",
     }).done(function(){
-        $("#followButton").html("[follow " + n + "]");
+        var h = ("<span class='btn btn-default'>"
+            + (n==1 ? "Now following" : "Unfollowed")
+            + " @" + id + "</span>");
+        $("#followButton").html(h);
     });
 }
 
