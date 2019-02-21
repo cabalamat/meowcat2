@@ -17,6 +17,11 @@ Blog for a user
 {{messages}}
 {{col("md-3")}}
 <h2>@{{user.getNameH()}}'s blog</h2>
+{% if currentUserName()==id %}
+<p><a class='btn btn-primary' href="/messRep">
+<i class='fa fa-comment-o'></i> 
+Write new message</a></p>
+{% endif %}
 
 <p>Name: {{name}}</p>
 
