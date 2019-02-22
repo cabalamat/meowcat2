@@ -28,6 +28,11 @@ Next to do:
 
 Adding admin pages from frambozenapp
 
+## 2019-Feb-20
+
+Added follow/unfollow button on /blog page.
+
+Added RSS feed.
 
 
 

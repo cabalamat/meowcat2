@@ -14,15 +14,15 @@ from permission import *
    
 #---------------------------------------------------------------------
   
-@app.route('/accountSettings/<id>', methods=['POST', 'GET'])
-#@needUser
-def accountSettings(id):
+@app.route('/accountSettings', methods=['POST', 'GET'])
+@needUser
+def accountSettings():
     cun = currentUserName()
     dpr("id=%r cun=%r", id, cun)
     #if id != cun:
     #    return http403()
-    user = User.getDoc(id)
-    ai = models.getAccountInfo(id)
+    user = User.getDoc(cun)
+    ai = models.getAccountInfo(cun)
     msg = ""
         
     if request.method=='POST':
@@ -33,7 +33,6 @@ def accountSettings(id):
     
     tem = jinjaEnv.get_template("accountSettings.html")
     h = tem.render(
-        id = id,
         user = user,
         ai = ai,
         msg = ht.goodMessageBox(msg),
