@@ -183,6 +183,10 @@ class AccountInfo(MonDoc):
     realName = StrField(
         desc="your real name or anything else you want to put here")
     
+    @classmethod
+    def classLogo(cls) -> str:
+        return "<i class='fa fa-sliders'></i> "
+    
     def preCreate(self):
         self.title = form("{id}'s blog", 
             self.asReadableH('_id'))
