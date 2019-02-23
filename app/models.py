@@ -159,9 +159,9 @@ class Message(MonDoc):
         ms = Message.find({'replyTo_id': self._id}, sort='published')
         return ms
 
-Message.autopages(
-    showFields=['title', 'source', 'replyTo_id', 'author_id', 'published'], 
-    sort='published')
+#Message.autopages(
+#    showFields=['title', 'source', 'replyTo_id', 'author_id', 'published'], 
+#    sort='published')
 
 #---------------------------------------------------------------------
 """
