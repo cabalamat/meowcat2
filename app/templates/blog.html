@@ -14,7 +14,9 @@ Blog for a user
 {{rowcol("md-9")}}
 <h1><i class='fa fa-list-ul'></i> {{blogTitle}}</h1>
 
+<div id="messages">
 {{messages}}
+</div>
 {{col("md-3")}}
 <h2>@{{user.getNameH()}}'s blog</h2>
 {% if currentUserName()==id %}
@@ -34,6 +36,9 @@ Account Settings</a></p>
 {% endif %}
 
 <h2><i class='fa fa-sliders'></i> Formatting Options</h2>
+<form id="formatingOptionForm" method=GET>
+{{fof.buildForm()}}
+</form>
 
 <h2>Subscription</h2>
 
@@ -60,6 +65,24 @@ Unfollow @{{id}}
 
 {%block atend%}
 <script>
+//--------------------------------------------------------------------
+/* formatting options */
+
+function foChanged(){
+    /* fired when a Formatting Option has changed 
+    Fire off the form as a GET request 
+    */
+    $("#formatingOptionForm").submit();
+}    
+
+$("#id_oneLine").change(foChanged);
+$("#id_headOnly").change(foChanged);
+$("#id_mrf").change(foChanged);
+$("#id_au").change(foChanged);
+
+//--------------------------------------------------------------------
+/* follow button */
+
 var id={{idJson}};
 
 function follow(n){
@@ -76,6 +99,8 @@ function follow(n){
         $("#followButton").html(h);
     });
 }
+
+//--------------------------------------------------------------------
 
 </script>
 {%endblock atend%}
