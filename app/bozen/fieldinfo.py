@@ -141,8 +141,8 @@ class FieldInfo:
     
     @classmethod
     def takesMultipleValues(cls) -> bool:
-        """ Return true of thisd is the fort of field type that in the
-        MultiDict that comers bacxk from the form, it can have multiple
+        """ Return true if this is the sort of field type that in the
+        MultiDict that comes back from the form, it can have multiple
         values from the same key.
         Usually this is False. If it true for field types where the
         form displaces a series of check boxes, such as MultiChoiceField 
@@ -307,6 +307,7 @@ class FieldInfo:
         This is called from formdoc.initialiseClass() to set the
         fieldName to be whatever the class variable name is in the
         class definition.
+        Also sets the title and columnTitle.
         """
         dpr("setting field name to %r", fieldName)
         self.fieldName = fieldName
@@ -314,7 +315,6 @@ class FieldInfo:
             self.title = titleize(self.fieldName)
         if not hasattr(self, 'columnTitle'):
             self.columnTitle = self.title
-        return self.title
 
     def setDocClass(self, docClass: Type['FieldInfo']):
         """
@@ -339,7 +339,7 @@ class StrField(FieldInfo):
     """ a field holding a Python str """
 
     def readArgs(self, **kwargs):
-        super(StrField, self).readArgs(**kwargs)
+        super().readArgs(**kwargs)
         self.minLength = kwargs.get('minLength', None)
         self.maxLength = kwargs.get('maxLength', None)
         self.charsAllowed = kwargs.get('charsAllowed', None)
@@ -386,7 +386,7 @@ class TextAreaField(StrField):
     """ a string field displayed using a textarea element """
 
     def readArgs(self, **kwargs):
-        super(TextAreaField, self).readArgs(**kwargs)
+        super().readArgs(**kwargs)
         self.rows = kwargs.get('rows', 2)
         self.cols = kwargs.get('cols', 30)
         self.wysiwyg = kwargs.get('wysiwyg', False)

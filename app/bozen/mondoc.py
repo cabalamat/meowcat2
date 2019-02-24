@@ -30,7 +30,7 @@ monDocSubclassDict = {}
 
 class MonDocMeta(formdoc.FormDocMeta):
     def __init__(cls, name, bases, dyct):
-        super(MonDocMeta, cls).__init__(name, bases, dyct)
+        super().__init__(name, bases, dyct)
         #cls.classInfo = Struct()
         #formdoc.initialiseClass(cls, dyct)
         initialiseMonDocClass(cls, dyct)
@@ -72,7 +72,7 @@ class MonDoc(formdoc.FormDoc, metaclass=MonDocMeta):
         :param dict kwargs: these arguments can be used to give initial
             values to the fields in the MonDoc
         """
-        super(MonDoc, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         
     def allowedFieldNameSet(self)->Set[str]:
         """ Return allowed field names for this class. Valid fields

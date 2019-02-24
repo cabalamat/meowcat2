@@ -176,6 +176,81 @@ select {
 }
 
 /*------------------------------------------------------------------*/
+/* Toggle Switch (varient of BoolField */
+
+.bz-toggleSwitch {
+  position: relative;
+  display: inline-block;
+  width: 58px;
+  height: 28px;
+}
+
+/* Hide default HTML checkbox */
+.bz-toggleSwitch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.bz-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px solid #060;
+  background-color: #ccc;
+  background-color: #fff;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.bz-slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 2px;
+  bottom: 2px;
+  background-color: #060;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .bz-slider {
+  background-color: #afa;
+  //background-color: #fff;
+}
+
+input:focus + .bz-slider {
+  box-shadow: 0 0 1px #000;
+}
+
+input:checked + .bz-slider:before {
+  transform: translateX(30px);
+}
+
+/* Rounded sliders */
+.bz-slider.bz-round {
+  border-radius: 18px;
+}
+
+.bz-slider.bz-round:before {
+  border-radius: 50%;
+}
+
+/* text to the right of a toggle switch */
+.bz-toggleSwitch-right {
+    font-weight: bold;
+    margin-left: 4px;
+    position: relative;
+    top: 2px;
+}    
+
+
+/*------------------------------------------------------------------*/
 /* report tables */
 
 

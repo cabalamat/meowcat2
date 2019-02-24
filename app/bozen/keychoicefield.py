@@ -103,7 +103,7 @@ class FK(FieldInfo):
         self.readArgs(**kwargs)
 
     def readArgs(self, **kwargs):
-        super(FK, self).readArgs(**kwargs)
+        super().readArgs(**kwargs)
         self.field = kwargs.get('field', None)
 
         # choice function, returns choices, similar to ChoiceField.

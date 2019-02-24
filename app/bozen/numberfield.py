@@ -65,6 +65,14 @@ class FloatField(fieldinfo.FieldInfo):
 class BoolField(fieldinfo.FieldInfo):
     """ a field holding a Python bool """
 
+
+    def readArgs(self, **kwargs):
+        super().readArgs(**kwargs)
+        self.widget = kwargs.get('widget', 'checkbox')
+        self.offText = kwargs.get('offText', "Off")
+        self.onText = kwargs.get('onText', "On")
+        self.showTitle = kwargs.get('showTitle', True)
+        
     def defaultDefault(self):
         """ return the default value for the default value of the
         object.
@@ -83,12 +91,47 @@ class BoolField(fieldinfo.FieldInfo):
         """
         checked = ""
         if v: checked = " checked"
-        h = form('''<input id="id_{fieldName}" type="checkbox"
-            name="{fieldName}"{checked}>''',
-            fieldName = self.fieldName,
-            checked = checked,
-        )
+        if self.widget=='checkbox':
+            h = form('''<input id="id_{fieldName}" type="checkbox"
+                name="{fieldName}"{checked}>''',
+                fieldName = self.fieldName,
+                checked = checked,
+            )
+        elif self.widget=='toggleSwitch':
+            h = form('''<label class="bz-toggleSwitch">
+                <input id="id_{fieldName}" type="checkbox"
+                name="{fieldName}"{checked}> 
+                <span class="bz-slider bz-round"></span></label> 
+                <b class='bz-toggleSwitch-right'>{rightText}</b>''',
+                fieldName = self.fieldName,
+                checked = checked,
+                rightText = self.onText,
+            ) 
+        else:
+            raise ShouldntGetHere
+        #endif        
         return h
+    
+    def setFieldName(self, fieldName: str) -> str:
+        """
+        This is called from formdoc.initialiseClass() to set the
+        fieldName to be whatever the class variable name is in the
+        class definition.
+        Also sets the title and columnTitle.
+        """
+        super().setFieldName(fieldName)
+        
+        # now alter title for toggle switch
+        if self.widget=='toggleSwitch':
+            if self.showTitle:
+                titleAndOff = (self.title and self.offText)
+                self.title = (self.title
+                    + (": " if titleAndOff else "")
+                    + self.offText)
+            else:
+                self.title = self.offText
+            dpr("title is now %r", self.title)    
+        #//if    
 
 
 

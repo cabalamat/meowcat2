@@ -12,7 +12,7 @@ class MultiChoiceField(fieldinfo.FieldInfo):
         return True
 
     def readArgs(self, **kwargs):
-        super(MultiChoiceField,self).readArgs(**kwargs)
+        super().readArgs(**kwargs)
         self.choices = kwargs.get('choices', [])
         self.separateLines = kwargs.get('separateLines', True)
 
@@ -109,7 +109,7 @@ class FKeys(fieldinfo.FieldInfo):
         return True
     
     def readArgs(self, **kwargs):
-        super(FKeys, self).readArgs(**kwargs)
+        super().readArgs(**kwargs)
 
     def defaultDefault(self):
         return []
