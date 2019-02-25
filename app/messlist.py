@@ -64,20 +64,24 @@ class ListFormatter:
         self.fof = FormattingOptionsForm()
         self.fof.setFromUrl()
 
-    def getMessages(self) -> Iterable[models.Message]:
+    def getMessages(self, useNullFof:bool=False) -> Iterable[models.Message]:
+        if useNullFof:
+            useFof = FormattingOptionsForm()
+        else:    
+            useFof = self.fof
         q2 = {}
         q2.update(self.q)
         
-        if self.fof.oneLine:
+        if useFof.oneLine:
             numShow = MESS_SHOW_ONE
         else:
             numShow = MESS_SHOW
         
-        if self.fof.headOnly:
+        if useFof.headOnly:
             # only select head posts
             q2.update({'replyTo_id': {'$in': [None, '']}})
             
-        if self.fof.mrf: 
+        if useFof.mrf: 
             sortValue = ('published', -1)  
         else:
             sortValue = ('published', 1)  
@@ -92,9 +96,8 @@ class ListFormatter:
         """ Return HTML for the list of messages """
         h = ""
         if self.fof.oneLine:
-            for m in self.getMessages():
-                h += m.viewOneLine()
-            #//for    
+            h = "".join(m.viewOneLine() 
+                        for m in self.getMessages())
         else:    
             for m in self.getMessages():
                 h += m.viewH() + "<p></p>"
@@ -117,7 +120,7 @@ class ListFormatter:
     def renderRss(self) -> str:
         """ Return RSS for this feed """
         
-        for m in self.getMessages():
+        for m in self.getMessages(useNullFof=True):
             fe = self.rssFeed.add_entry()
             fe.id(m.fullUrl())
             fe.title(m.title)
