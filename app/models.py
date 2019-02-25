@@ -124,6 +124,18 @@ class Message(MonDoc):
             id = self.id())
         return h
     
+    def viewOneLine(self) -> str:
+        """ View this message as one line """
+        publishedShort = self.asReadableH('published')[2:-3]
+        title = self.asReadableH('title')
+        h = form("<br>{publishedShort} "
+            "<a href='/mess/{id}'>{title}</a>\n", 
+            publishedShort = publishedShort, 
+            id = self.id(),
+            title = title)
+        return h
+        
+    
     #========== misc utility functions ==========
     
     def context(self) -> List['Message']:

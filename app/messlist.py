@@ -15,7 +15,7 @@ from bozen import (MonDoc, FormDoc,
 import models
 
 
-MESS_SHOW = 15 # default messages to show
+MESS_SHOW = 10 # default messages to show
 MESS_SHOW_ONE = 100 # default messages to show when one-line
    
 #---------------------------------------------------------------------
@@ -68,6 +68,11 @@ class ListFormatter:
         q2 = {}
         q2.update(self.q)
         
+        if self.fof.oneLine:
+            numShow = MESS_SHOW_ONE
+        else:
+            numShow = MESS_SHOW
+        
         if self.fof.headOnly:
             # only select head posts
             q2.update({'replyTo_id': {'$in': [None, '']}})
@@ -79,16 +84,21 @@ class ListFormatter:
             
         ms = models.Message.find(q2, 
              sort=sortValue,
-             limit=MESS_SHOW)
+             limit=numShow)
         return ms
         
         
     def getMessagesH(self) -> str:
         """ Return HTML for the list of messages """
         h = ""
-        for m in self.getMessages():
-            h += m.viewH() + "<p></p>"
-        #//for
+        if self.fof.oneLine:
+            for m in self.getMessages():
+                h += m.viewOneLine()
+            #//for    
+        else:    
+            for m in self.getMessages():
+                h += m.viewH() + "<p></p>"
+            #//for
         return h
 
 
