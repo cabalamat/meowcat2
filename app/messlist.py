@@ -42,6 +42,11 @@ class FormattingOptionsForm(FormDoc):
     def setFromUrl(self):
         """ Set the values of the fields in the form to that
         from the GET parameters in the URL """
+        x = request.args.get('x', "")
+        if not x:
+            # no form fields, don't change anything
+            return
+        
         self.oneLine = bool(request.args.get('oneLine', False))
         self.headOnly = bool(request.args.get('headOnly', False))
         self.mrf = bool(request.args.get('mrf', False))
