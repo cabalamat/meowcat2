@@ -26,8 +26,6 @@ def blog(id):
     ai = models.getAccountInfo(id)
     q = {'author_id': user._id}
     lf = messlist.ListFormatter(q)
-    fof = messlist.FormattingOptionsForm()
-    fof.setFromUrl()
     
     cun = currentUserName()
     if not cun:
@@ -53,7 +51,7 @@ def blog(id):
         name = ai.asReadableH('realName'),
         bio = ai.bioHtml,
         followButton = followButton,
-        fof = fof,
+        fof = lf.fof,
     )
     return h
  

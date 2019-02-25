@@ -61,10 +61,24 @@ class ListFormatter:
 
     def __init__(self, q):
         self.q = q
+        self.fof = FormattingOptionsForm()
+        self.fof.setFromUrl()
 
     def getMessages(self) -> Iterable[models.Message]:
-        ms = models.Message.find(self.q, 
-             sort=('published', -1),
+        q2 = {}
+        q2.update(self.q)
+        
+        if self.fof.headOnly:
+            # only select head posts
+            q2.update({'replyTo_id': {'$in': [None, '']}})
+            
+        if self.fof.mrf: 
+            sortValue = ('published', -1)  
+        else:
+            sortValue = ('published', 1)  
+            
+        ms = models.Message.find(q2, 
+             sort=sortValue,
              limit=MESS_SHOW)
         return ms
         
