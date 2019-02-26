@@ -36,7 +36,7 @@ def blog(id):
             # follows, so unfollow button
             followButton = "unfollow"
         else:  
-            # diesn't currently follow, so follow button  
+            # doesn't currently follow, so follow button  
             followButton = "follow"
     dpr("followButton=%r", followButton)        
         

@@ -47,6 +47,7 @@ Account Settings</a></p>
 <i class='fa fa-rss'></i> RSS Feed</a></p>
 
 {#---------- follow button ----------#}
+{% if currentUserName() %}
 <span id="followButton">
 {% if followButton=='follow' %}
 <button class='btn btn-success' onclick="follow(1)">
@@ -60,6 +61,7 @@ Unfollow @{{id}}
 </button>
 {% endif %}
 </span>
+{% endif %}
 
 {{endrow()}}
 {% endblock body %}

@@ -6,10 +6,52 @@ List of messages
 {% extends "main.html" %}
 
 {% block body %}
+{{rowcol("md-8")}}
 <h1><i class='fa fa-list-ul'></i> Recent Messages</h1>
 
+<div id="messages">
 {{messages}}
+</div>
 
+{{col("md-4")}}
+<br><br>
+{% if currentUserName() %}
+<p><a class='btn btn-primary' href="/messRep">
+<i class='fa fa-comment-o'></i> 
+Write new message</a></p>
+{% endif %}
+
+<h2><i class='fa fa-sliders'></i> Formatting Options</h2>
+<form id="formatingOptionForm" method=GET>
+<input type="hidden" name="x" value="x">
+{{fof.buildForm()}}
+</form>
+
+<h2>Subscription</h2>
+
+<p><a class='btn btn-default' href="/rss/messList">
+<i class='fa fa-rss'></i> RSS Feed</a></p>
+
+{{endrow()}}
 {% endblock body %}
+{%block atend%}
+<script>
+//--------------------------------------------------------------------
+/* formatting options */
 
+function foChanged(){
+    /* fired when a Formatting Option has changed 
+    Fire off the form as a GET request 
+    */
+    $("#formatingOptionForm").submit();
+}    
+
+$("#id_oneLine").change(foChanged);
+$("#id_headOnly").change(foChanged);
+$("#id_mrf").change(foChanged);
+$("#id_au").change(foChanged);
+
+//--------------------------------------------------------------------
+</script>
+{%endblock atend%}
 {# end #}

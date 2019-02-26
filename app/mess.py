@@ -22,12 +22,14 @@ import messlist
 @app.route('/messList')
 def messList():
     """ recent messages in message list view """
+    q = {}
+    lf = messlist.ListFormatter(q)
         
-    lf = messlist.ListFormatter({})
         
     tem = jinjaEnv.get_template("messList.html")
     h = tem.render(
         messages = lf.getMessagesH(),
+        fof = lf.fof,
     )
     return h
  
