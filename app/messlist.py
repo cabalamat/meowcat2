@@ -1,6 +1,7 @@
 # messlist.py = lists of messages
 
 from typing import *
+import abc
 
 from feedgen.feed import FeedGenerator
 from flask import request, redirect, Response
@@ -54,39 +55,57 @@ class FormattingOptionsForm(FormDoc):
  
  
 #---------------------------------------------------------------------
+
+# something that can be a FormatingOptionsForm or None   
+OptFOF = Union[FormattingOptionsForm,None] 
    
 class ListFormatter:
     """ formats a list of messages """
 
 
-    def __init__(self, q):
-        self.q = q
+    def __init__(self):
+        self.q = {}
         self.fof = FormattingOptionsForm()
         self.fof.setFromUrl()
 
-    def getMessages(self, useNullFof:bool=False) -> Iterable[models.Message]:
-        if useNullFof:
-            useFof = FormattingOptionsForm()
-        else:    
+    def getQuery(self, fof:OptFOF=None) -> dict:
+        """ Return the query to use for the MongoDB find() call, 
+        including the start query (self.q) and the formatting options
+        (in fof or self.fof)
+        """
+        if fof:
+            useFof = fof
+        else:
             useFof = self.fof
         q2 = {}
-        q2.update(self.q)
-        
-        if useFof.oneLine:
-            numShow = MESS_SHOW_ONE
-        else:
-            numShow = MESS_SHOW
-        
+        q2.update(self.q)      
         if useFof.headOnly:
             # only select head posts
-            q2.update({'replyTo_id': {'$in': [None, '']}})
+            q2.update({'replyTo_id': {'$in': [None, '']}})            
+        return q2    
+    
+
+    def getMessages(self, fof:OptFOF=None) -> Iterable[models.Message]:
+        """ return an iterator for the list of messages to be got from
+        MongoDB. The formatting opt5ions are either those in (fof) or
+        if None there, those in (self.fof).
+        """
+        if fof:
+            useFof = fof
+        else:
+            useFof = self.fof
             
         if useFof.mrf: 
             sortValue = ('published', -1)  
         else:
-            sortValue = ('published', 1)  
+            sortValue = ('published', 1) 
             
-        ms = models.Message.find(q2, 
+        if useFof.oneLine:
+            numShow = MESS_SHOW_ONE
+        else:
+            numShow = MESS_SHOW 
+            
+        ms = models.Message.find(self.getQuery(fof), 
              sort=sortValue,
              limit=numShow)
         return ms
@@ -106,10 +125,44 @@ class ListFormatter:
 
 
     #========== methods to be implemented by subclass
-
+    
+    @abc.abstractmethod
+    def pageUrl(self) -> str:
+        """ Return the url of the page, e.g. "/blog/cabalamat"
+        or "/messList"
+        """
 
     #========== auto-update
-
+    
+    def mostRecentTimeStamp(self) -> str:
+        """ Return the timestamp of thev most recent message,
+        Take into account the (fof.headOnly) option,
+        """
+        m = models.Message.find_one(self.getQuery(),
+             sort=('published', -1))
+        if m:
+            ts = m.published
+        else:
+            ts = "2000-01-01T00:00:00"
+        return ts    
+        
+    
+    def autoUpdateJS(self) -> str:
+        """ return some JavaScript for handling automatic updates. These
+        occur when these is a message more recent that the more recent
+        timestamp. Timestamps are in the format e.g. '2011-12-31T23:55:20'
+        and can therefore be sorted by ascii collating sequence.
+        """
+        autoUpdate = self.fof.au and self.fof.mrf
+        if not autoUpdate: return ""
+    
+        js = form("""\
+var updatePollUrl = "{url}";
+var mostRecentTimeStamp = "{timeStamp}";
+""",
+            url = "/au" + self.pageUrl(),
+            timeStamp = self.mostRecentTimeStamp())
+        return js
 
     #========== RSS methods
     
@@ -120,7 +173,7 @@ class ListFormatter:
     def renderRss(self) -> str:
         """ Return RSS for this feed """
         
-        for m in self.getMessages(useNullFof=True):
+        for m in self.getMessages(FormattingOptionsForm()):
             fe = self.rssFeed.add_entry()
             fe.id(m.fullUrl())
             fe.title(m.title)

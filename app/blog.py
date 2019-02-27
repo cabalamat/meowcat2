@@ -20,12 +20,25 @@ import messlist
    
 #---------------------------------------------------------------------
   
+class BlogFormatter(messlist.ListFormatter):
+    
+    def __init__(self, id: str):
+        super().__init__()
+        self.id = id
+        self.q = {'author_id': id}
+    
+    def pageUrl(self) -> str:
+        """ Return the url of the page,
+        """
+        return "/blog/" + id
+    
+#---------------------------------------------------------------------
+ 
 @app.route('/blog/<id>')
 def blog(id):
     user = User.getDoc(id)
     ai = models.getAccountInfo(id)
-    q = {'author_id': user._id}
-    lf = messlist.ListFormatter(q)
+    lf = BlogFormatter(id)
     
     cun = currentUserName()
     if not cun:
@@ -51,6 +64,7 @@ def blog(id):
         name = ai.asReadableH('realName'),
         bio = ai.bioHtml,
         followButton = followButton,
+        lf = lf,
         fof = lf.fof,
     )
     return h

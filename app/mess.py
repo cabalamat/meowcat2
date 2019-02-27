@@ -18,20 +18,36 @@ import models
 import messlist
    
 #---------------------------------------------------------------------
-
+  
+class MessListFormatter(messlist.ListFormatter):
+    
+    def __init__(self):
+        super().__init__()
+        self.q = {}
+    
+    def pageUrl(self) -> str:
+        """ Return the url of the page,
+        """
+        return "/messList"
+  
 @app.route('/messList')
 def messList():
     """ recent messages in message list view """
-    q = {}
-    lf = messlist.ListFormatter(q)
-        
-        
+    lf = MessListFormatter()
+
     tem = jinjaEnv.get_template("messList.html")
     h = tem.render(
         messages = lf.getMessagesH(),
+        lf = lf,
         fof = lf.fof,
     )
     return h
+
+@app.route('/au/messList')
+def auMessList():
+    lf = MessListFormatter()
+    return lf.mostRecentTimeStamp()
+    
  
 
 #---------------------------------------------------------------------
