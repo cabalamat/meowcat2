@@ -21,7 +21,7 @@ import mark
 #---------------------------------------------------------------------
 # messages
 
-MESS_TIME_DISPLAY_FORMAT = "%Y.%m.%d %H:%M:%S"
+MESS_TIME_DISPLAY_FORMAT = "%Y-%m-%d %H:%M"
 
 class Message(MonDoc):
     title = StrField(readOnly=True)
@@ -126,7 +126,7 @@ class Message(MonDoc):
     
     def viewOneLine(self) -> str:
         """ View this message as one line """
-        publishedShort = self.asReadableH('published')[2:-3]
+        publishedShort = self.asReadableH('published')[2:]
         title = self.asReadableH('title')
         h = form("<br>{publishedShort} "
             "<a href='/mess/{id}'>{title}</a>\n", 
