@@ -17,8 +17,9 @@ function pollForAutoUpdate(url, mrts){
             location.reload(true);
         } else {
             /* try again 10 s later */
-            setTimeout(function(){pollForAutoUpdate(url, mrts)}, 
-                       15000);
+            setTimeout(
+                function(){pollForAutoUpdate(url, mrts)}, 
+                10000);
         }
     }); 
 }    

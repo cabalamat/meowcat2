@@ -162,7 +162,7 @@ var updatePollUrl = "{url}";
 var mostRecentTimeStamp = "{timeStamp}";
 pollForAutoUpdate(updatePollUrl, mostRecentTimeStamp);
 """,
-            url = "/au" + self.pageUrl(),
+            url = "/au" + request.full_path,
             timeStamp = self.mostRecentTimeStamp())
         return js
 
