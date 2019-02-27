@@ -1,5 +1,7 @@
 # mess.py = pages for messages
  
+import json 
+ 
 from flask import request, redirect
 
 from bozen.butil import pr, prn, dpr, form, htmlEsc
@@ -46,7 +48,10 @@ def messList():
 @app.route('/au/messList')
 def auMessList():
     lf = MessListFormatter()
-    return lf.mostRecentTimeStamp()
+    ts = lf.mostRecentTimeStamp()
+    tsj = json.dumps({'ts':ts})
+    dpr("ts=%r tsj=%r", ts, tsj)
+    return tsj
     
  
 

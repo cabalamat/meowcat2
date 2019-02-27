@@ -7,6 +7,7 @@ from feedgen.feed import FeedGenerator
 from flask import request, redirect, Response
 
 import bozen
+from bozen.butil import pr, prn, dpr, form, htmlEsc
 from bozen import (MonDoc, FormDoc,
     StrField, TextAreaField, PasswordField,
     ChoiceField, FK, FKeys, MultiChoiceField,
@@ -159,6 +160,7 @@ class ListFormatter:
         js = form("""\
 var updatePollUrl = "{url}";
 var mostRecentTimeStamp = "{timeStamp}";
+pollForAutoUpdate(updatePollUrl, mostRecentTimeStamp);
 """,
             url = "/au" + self.pageUrl(),
             timeStamp = self.mostRecentTimeStamp())
