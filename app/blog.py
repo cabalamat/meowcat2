@@ -39,6 +39,14 @@ def blog(id):
     user = User.getDoc(id)
     ai = models.getAccountInfo(id)
     lf = BlogFormatter(id)
+    numFollowers = 12
+    numPosts = models.Message.count({'author_id': id})
+    numHeadPosts = models.Message.count({
+        'author_id': id,
+        'replyTo_id': {'$in': [None, '']},  
+    })
+    numFollowing = len(ai.following_ids)
+    numFollowers = models.AccountInfo.count({'following_ids': id})
     
     cun = currentUserName()
     if not cun:
@@ -63,6 +71,10 @@ def blog(id):
         blogTitle = ai.asReadableH('title'),
         name = ai.asReadableH('realName'),
         bio = ai.bioHtml,
+        numPosts = numPosts,
+        numHeadPosts = numHeadPosts,
+        numFollowing = numFollowing,
+        numFollowers = numFollowers,
         followButton = followButton,
         lf = lf,
         fof = lf.fof,

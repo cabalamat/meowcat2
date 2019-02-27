@@ -19,6 +19,22 @@ Blog for a user
 </div>
 {{col("md-4")}}
 <h2>@{{user.getNameH()}}'s blog</h2>
+
+<table class='bz-report-table'>
+<tr>
+    <th>posts</th>
+    <th>head</th>
+    <th>following</th>
+    <th>followers</th>
+</tr>
+<tr>
+    <td style='text-align:center;'>{{numPosts}}</td>
+    <td style='text-align:center;'>{{numHeadPosts}}</td>
+    <td style='text-align:center;'>{{numFollowing}}</td>
+    <td style='text-align:center;'>{{numFollowers}}</td>
+</tr>
+</table>
+
 {% if currentUserName()==id %}
 <p><a class='btn btn-primary' href="/messRep">
 <i class='fa fa-comment-o'></i> 
