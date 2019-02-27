@@ -8,7 +8,7 @@ APP_DATE_FORMAT = "%Y-%b-%d"
 PORT=7340
 
 # title on web pages
-APP_TITLE = "Meowcat"
+APP_TITLE = "MeowCat"
 APP_LOGO = "<i class='fa fa-commenting-o'></i> "
 
 # unique identifier for the app, typically the same as its directory 
@@ -21,6 +21,10 @@ DB_NAME = "meowcat"
 CREATE_ADMIN_SITE = True
 
 #---------------------------------------------------------------------
+# about this MeowCat instance
+
+# Site name
+SITE_NAME = "Development MeowCat"
 
 # protocol (either http of https)
 SITE_PROTOCOL = "http"

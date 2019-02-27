@@ -2,7 +2,8 @@
  
 import json 
  
-from flask import request, redirect
+from feedgen.feed import FeedGenerator
+from flask import request, redirect, Response
 
 from bozen.butil import pr, prn, dpr, form, htmlEsc
 from bozen import FormDoc, MonDoc, BzDate, BzDateTime
@@ -11,6 +12,7 @@ from bozen import (StrField, ChoiceField, TextAreaField,
     MultiChoiceField, FK, FKeys,
     DateField, DateTimeField)
 
+import config
 import mark
 from allpages import app, jinjaEnv
 import ht
@@ -46,12 +48,24 @@ def messList():
     return h
 
 @app.route('/au/messList')
-def auMessList():
+def au_messList():
     lf = MessListFormatter()
     ts = lf.mostRecentTimeStamp()
     tsj = json.dumps({'ts':ts})
     dpr("ts=%r tsj=%r", ts, tsj)
     return tsj
+    
+@app.route('/rss/messList') 
+def rss_messList():
+    """ RSS feed for message list """
+    lf = MessListFormatter()
+    fg = FeedGenerator()
+    fg.title("%s - Recent Messages" % (config.SITE_NAME,))
+    fg.link(href="%s/messList" % (config.SITE_STUB,))
+    fg.description("Recent messages")
+    lf.setRssFeed(fg)
+    xml = lf.renderRss()
+    return Response(xml, mimetype="text/xml")
     
  
 
