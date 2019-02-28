@@ -1,0 +1,15 @@
+{# listFollowers.html
+   ==================
+
+List people who follow a user
+#}
+{% extends "main.html" %}
+
+{% block body %}
+<h1>People who follow @{{id}}</h1>
+
+<p>List of people who follow @{{id}}.</p>
+
+{{table}}
+
+{% endblock body %}

@@ -39,7 +39,6 @@ def blog(id):
     user = User.getDoc(id)
     ai = models.getAccountInfo(id)
     lf = BlogFormatter(id)
-    numFollowers = 12
     numPosts = models.Message.count({'author_id': id})
     numHeadPosts = models.Message.count({
         'author_id': id,

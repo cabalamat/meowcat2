@@ -30,8 +30,10 @@ Blog for a user
 <tr>
     <td style='text-align:center;'>{{numPosts}}</td>
     <td style='text-align:center;'>{{numHeadPosts}}</td>
-    <td style='text-align:center;'>{{numFollowing}}</td>
-    <td style='text-align:center;'>{{numFollowers}}</td>
+    <td style='text-align:center;'>
+        <a href='/listFollowing/{{id}}'>{{numFollowing}}</a></td>
+    <td style='text-align:center;'>
+        <a href='/listFollowers/{{id}}'>{{numFollowers}}</a></td>
 </tr>
 </table>
 

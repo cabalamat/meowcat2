@@ -21,6 +21,7 @@ import models
 import login
 import front
 import blog
+import follow
 import mess
 import account
 
