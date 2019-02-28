@@ -35,44 +35,27 @@ def listFollowing(id):
     return h
  
 def followingTableH(id, ai):
-    h = """<table class='bz-report-table'>
-<tr>
-    <th>User</th>
-    <th>Posts</th>
-    <th>Head Posts</th>
-    <th>Following</th>
-    <th>Followers</th>
-</tr>
-"""
+    h = USER_INFO_TABLE_HEADER
     userIds = sorted(ai.following_ids)
     for userId in userIds:
-        np, nhp, nf, nfer = getNumPostFollowInfo(userId)
-        h += form("""<tr>
-    <td><a href='/blog/{user}'>@{user}</a></td> 
-    <td style='text-align:right;'>{numPosts}</td> 
-    <td style='text-align:right;'>{numHeadPosts}</td> 
-    <td style='text-align:right;'>
-        <a href='/listFollowing/{user}'>{numFollowing}</a></td> 
-    <td style='text-align:right;'>
-        <a href='/listFollowers/{user}'>{numFollowers}</a></td>                                    
-</tr>""",
-            user = userId,
-            numPosts = np, 
-            numHeadPosts = nhp,
-            numFollowing = nf,
-            numFollowers = nfer,
-        )
+        h += userInfoLine(userId)
     #//for
     h += "</table>\n"
     return h
- 
-def getNumPostFollowInfo(id: str) -> Tuple[int,int,int,int]:
-    """ For a user get:
-    - number of posts the user has written
-    - number of head posts the user has written
-    - number of accounts the user is following
-    - number of accounts who follow the user
-    """   
+
+USER_INFO_TABLE_HEADER = """<table class='bz-report-table'>
+<tr>
+    <th>User</th>
+    <th>Posts</th>
+    <th>Head<br>Posts</th>
+    <th>Following</th>
+    <th>Followers</th>
+</tr>
+"""   
+
+def userInfoLine(id: str) -> str:
+    """ Return an HTML line (<tr>) for one user.
+    """
     ai = models.getAccountInfo(id)
     numPosts = models.Message.count({'author_id': id})
     numHeadPosts = models.Message.count({
@@ -81,8 +64,25 @@ def getNumPostFollowInfo(id: str) -> Tuple[int,int,int,int]:
     })
     numFollowing = len(ai.following_ids)
     numFollowers = models.AccountInfo.count({'following_ids': id})
-    return (numPosts, numHeadPosts, numFollowing, numFollowers)
+
+    h = form("""<tr>
+    <td><a href='/blog/{user}'>@{user}</a></td> 
+    <td style='text-align:right;'>{numPosts}</td> 
+    <td style='text-align:right;'>{numHeadPosts}</td> 
+    <td style='text-align:right;'>
+        <a href='/listFollowing/{user}'>{numFollowing}</a></td> 
+    <td style='text-align:right;'>
+        <a href='/listFollowers/{user}'>{numFollowers}</a></td>                                    
+</tr>""",
+            user = id,
+            numPosts = numPosts, 
+            numHeadPosts = numHeadPosts,
+            numFollowing = numFollowing,
+            numFollowers = numFollowers,
+    )
+    return h
     
+ 
  
 #---------------------------------------------------------------------
 
@@ -100,35 +100,32 @@ def listFollowers(id):
     return h
  
 def followersTableH(id):
-    h = """<table class='bz-report-table'>
-<tr>
-    <th>User</th>
-    <th>Posts</th>
-    <th>Head Posts</th>
-    <th>Following</th>
-    <th>Followers</th>
-</tr>
-"""    
+    h = USER_INFO_TABLE_HEADER
     followers = models.AccountInfo.find({'following_ids': id},
         sort='_id')
     for follower in followers:
-        ferId = follower._id
-        np, nhp, nf, nfer = getNumPostFollowInfo(follower._id)
-        h += form("""<tr>
-    <td><a href='/blog/{user}'>@{user}</a></td> 
-    <td style='text-align:right;'>{numPosts}</td> 
-    <td style='text-align:right;'>{numHeadPosts}</td> 
-    <td style='text-align:right;'>
-        <a href='/listFollowing/{user}'>{numFollowing}</a></td> 
-    <td style='text-align:right;'>
-        <a href='/listFollowers/{user}'>{numFollowers}</a></td>                                    
-</tr>""",
-            user = ferId,
-            numPosts = np, 
-            numHeadPosts = nhp,
-            numFollowing = nf,
-            numFollowers = nfer,
-        )
+        h += userInfoLine(follower._id)
+    #//for
+    h += "</table>\n"
+    return h
+ 
+#---------------------------------------------------------------------
+
+
+@app.route('/userList')
+def userList():
+    """ list all users """   
+    tem = jinjaEnv.get_template("userList.html")
+    h = tem.render(
+        table = userListTableH(),
+    )
+    return h
+
+def userListTableH():
+    h = USER_INFO_TABLE_HEADER
+    users = User.find(sort='_id')
+    for u in users:
+        h += userInfoLine(u._id)
     #//for
     h += "</table>\n"
     return h

@@ -91,9 +91,13 @@ Uses SB-Admin
     {% if currentUserName() %}
     {% endif %} 
     
-      <li{{hpic('user')}}><a href="/users">
+      <li{{hpex('users','user')}}><a href="/users">
         <i class="fa fa-user"></i>
         Users</a></li>
+        
+      <li{{hpic('userList')}}><a href="/userList">
+        <i class="fa fa-user"></i>
+        List Users</a></li>
         
       <li{{hpic('messList')}}><a href="/messList">
         <i class="fa fa-list-ul"></i>
