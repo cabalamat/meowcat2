@@ -55,6 +55,9 @@ USER_INFO_TABLE_HEADER = """<table class='bz-report-table'>
     <th>Head<br>Posts</th>
     <th>Following</th>
     <th>Followers</th>
+    <th>Real<br>Name</th>
+    <th>Blog<br>Title</th>
+    <th>Bio</th>
 </tr>
 """   
 
@@ -77,13 +80,19 @@ def userInfoLine(id: str) -> str:
     <td style='text-align:right;'>
         <a href='/listFollowing/{user}'>{numFollowing}</a></td> 
     <td style='text-align:right;'>
-        <a href='/listFollowers/{user}'>{numFollowers}</a></td>                                    
+        <a href='/listFollowers/{user}'>{numFollowers}</a></td>   
+    <td>{realName}</td> 
+    <td>{title}</td>
+    <td>{bioH}</td>    
 </tr>""",
             user = id,
             numPosts = numPosts, 
             numHeadPosts = numHeadPosts,
             numFollowing = numFollowing,
             numFollowers = numFollowers,
+            realName = ai.asReadableH('realName'),
+            title = ai.asReadableH('title'),
+            bioH = ai.bioHtml,
     )
     return h
     

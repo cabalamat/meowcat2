@@ -118,10 +118,9 @@ def rss_blog(id):
     user = User.getDoc(id)
     ai = models.getAccountInfo(id)
     q = {'author_id': user._id}
-    lf = messlist.ListFormatter(q)
+    lf = BlogFormatter(id)
     
-    fg = FeedGenerator()
-    
+    fg = FeedGenerator()    
     fg.title(ai.title or id)
     fg.author({'name': ai.realName or id}) 
     fg.link(href="%s/blog/%s" % (config.SITE_STUB, id))
