@@ -6,10 +6,12 @@ List people who follow a user
 {% extends "main.html" %}
 
 {% block body %}
-<h1>People who follow @{{id}}</h1>
+<div class='right-pagination'>{{pag.links}}</div>
+<h1>People who follow @{{id}} ({{count}})</h1>
 
-<p>List of people who follow @{{id}}.</p>
+<p>List of people who follow @{{id}}. {{pag.info}}</p>
 
 {{table}}
+<div class='right-pagination'>{{pag.links}}</div>
 
 {% endblock body %}

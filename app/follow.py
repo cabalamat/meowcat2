@@ -24,20 +24,25 @@ def listFollowing(id):
     """ list of people who follow (id) """   
     user = User.getDoc(id)
     ai = models.getAccountInfo(id)
+    count = len(ai.following_ids)
+    pag = paginate.Paginator(count)
     
     tem = jinjaEnv.get_template("listFollowing.html")
     h = tem.render(
         id = id,
         user = user,
         ai = ai,
-        table = followingTableH(id, ai),
+        count = count,
+        pag = pag,
+        table = followingTableH(ai, pag),
     )
     return h
  
-def followingTableH(id, ai):
+def followingTableH(ai: str, pag: paginate.Paginator) -> str:
     h = USER_INFO_TABLE_HEADER
     userIds = sorted(ai.following_ids)
-    for userId in userIds:
+    userIds2 = userIds[pag.skip:pag.skip+pag.numShow]
+    for userId in userIds2:
         h += userInfoLine(userId)
     #//for
     h += "</table>\n"
@@ -90,18 +95,24 @@ def userInfoLine(id: str) -> str:
 def listFollowers(id):
     """ list of people who follow (id) """   
     user = User.getDoc(id)
+    count = models.AccountInfo.count({'following_ids': id})
+    pag = paginate.Paginator(count)
     
     tem = jinjaEnv.get_template("listFollowers.html")
     h = tem.render(
         id = id,
         user = user,
-        table = followersTableH(id),
+        count = count,
+        pag = pag,
+        table = followersTableH(id, pag),
     )
     return h
  
-def followersTableH(id):
+def followersTableH(id: str, pag: paginate.Paginator) -> str:
     h = USER_INFO_TABLE_HEADER
     followers = models.AccountInfo.find({'following_ids': id},
+        skip=pag.skip, # skip this number of docs before returning some
+        limit=pag.numShow, # max number of docs to return
         sort='_id')
     for follower in followers:
         h += userInfoLine(follower._id)
@@ -115,15 +126,22 @@ def followersTableH(id):
 @app.route('/userList')
 def userList():
     """ list all users """   
+    count = User.count()
+    pag = paginate.Paginator(count)
     tem = jinjaEnv.get_template("userList.html")
     h = tem.render(
-        table = userListTableH(),
+        count = count,
+        pag = pag,
+        table = userListTableH(pag),
     )
     return h
 
-def userListTableH():
+def userListTableH(pag):
     h = USER_INFO_TABLE_HEADER
-    users = User.find(sort='_id')
+    users = User.find(
+        skip=pag.skip, # skip this number of docs before returning some
+        limit=pag.numShow, # max number of docs to return
+        sort='_id')
     for u in users:
         h += userInfoLine(u._id)
     #//for
