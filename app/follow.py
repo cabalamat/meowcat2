@@ -78,7 +78,8 @@ def userInfoLine(id: str) -> str:
     <td style='text-align:right;'>{numPosts}</td> 
     <td style='text-align:right;'>{numHeadPosts}</td> 
     <td style='text-align:right;'>
-        <a href='/listFollowing/{user}'>{numFollowing}</a></td> 
+        <a href='/listFollowing/{user}'>{numFollowing}</a> &nbsp;
+        <a href='/followingMess/{{id}}'><i class='fa fa-eye'></i></a></td> 
     <td style='text-align:right;'>
         <a href='/listFollowers/{user}'>{numFollowers}</a></td>   
     <td>{realName}</td> 
