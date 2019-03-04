@@ -159,6 +159,37 @@ def userListTableH(pag):
     return h
  
 #---------------------------------------------------------------------
+
+class FollowingFormatter(messlist.ListFormatter):
+    
+    def __init__(self, id: str):
+        super().__init__()
+        self.id = id
+        ai = models.getAccountInfo(id)
+        self.q = {'author_id': {'$in': ai.following_ids}}
+    
+    def pageUrl(self) -> str:
+        """ Return the url of the page,
+        """
+        return "/followingMess/" + id
+
+@app.route('/followingMess/<id>')
+def followingMess(id): 
+    user = User.getDoc(id)
+    lf = FollowingFormatter(id)
+    tem = jinjaEnv.get_template("followingMess.html")
+    
+    h = tem.render(
+        id = id,
+        user = user,
+        lf = lf,
+        messages = lf.getMessagesH(),
+        fof = lf.fof,
+    )
+    return h
+    
+ 
+#---------------------------------------------------------------------
  
 
 #end
