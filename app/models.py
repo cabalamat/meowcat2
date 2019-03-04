@@ -74,9 +74,9 @@ class Message(MonDoc):
     {body}
     <p class='mess-footer'>
     {context}
-    - <a href='/thread/{id}'>thread</a> 
-    {reply}
-    - <a href='/messSource/{id}'>view source</a></p>
+    - <a href='/thread/{id}'>thread</a>
+    - <a href='/messSource/{id}'>source</a>
+    {reply}</p>
 </div>""",
             id = self.id(),
             messLink = self.linkA(),

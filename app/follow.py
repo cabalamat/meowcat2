@@ -79,9 +79,11 @@ def userInfoLine(id: str) -> str:
     <td style='text-align:right;'>{numHeadPosts}</td> 
     <td style='text-align:right;'>
         <a href='/listFollowing/{user}'>{numFollowing}</a> &nbsp;
-        <a href='/followingMess/{{id}}'><i class='fa fa-eye'></i></a></td> 
+        <a href='/followingMess/{user}'><i class='fa fa-eye'></i></a></td> 
     <td style='text-align:right;'>
-        <a href='/listFollowers/{user}'>{numFollowers}</a></td>   
+        <a href='/listFollowers/{user}'>{numFollowers}</a> &nbsp;
+        <a href='/followerMess/{user}'>
+            <i class='fa fa-arrow-circle-left'></i></a></td>   
     <td>{realName}</td> 
     <td>{title}</td>
     <td>{bioH}</td>    
@@ -178,6 +180,37 @@ def followingMess(id):
     user = User.getDoc(id)
     lf = FollowingFormatter(id)
     tem = jinjaEnv.get_template("followingMess.html")
+    
+    h = tem.render(
+        id = id,
+        user = user,
+        lf = lf,
+        messages = lf.getMessagesH(),
+        fof = lf.fof,
+    )
+    return h
+     
+#---------------------------------------------------------------------
+
+class FollowerFormatter(messlist.ListFormatter):
+    
+    def __init__(self, id: str):
+        super().__init__()
+        self.id = id
+        followers = models.AccountInfo.find({'following_ids': id})
+        follower_ids = [f._id for f in followers]
+        self.q = {'author_id': {'$in': follower_ids}}
+    
+    def pageUrl(self) -> str:
+        """ Return the url of the page,
+        """
+        return "/followerMess/" + id
+
+@app.route('/followerMess/<id>')
+def followerMess(id): 
+    user = User.getDoc(id)
+    lf = FollowerFormatter(id)
+    tem = jinjaEnv.get_template("followerMess.html")
     
     h = tem.render(
         id = id,

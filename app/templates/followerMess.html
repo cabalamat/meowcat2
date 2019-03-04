@@ -1,0 +1,61 @@
+{# followerMess.html
+   =================
+
+Messages by people who follow a user
+#}
+{% extends "main.html" %}
+
+{% block extrahead %}
+<link rel="alternate" type="application/rss+xml"
+  title="RSS Feed @{{id}} follows" href="/rss/followerMess/{{id}}" />
+{% endblock extrahead %}
+
+{% block body %}
+{{rowcol("md-8")}}
+<h1><i class='fa fa-arrow-circle-left'></i> Followers of
+<a href='/blog/{{id}}'>@{{id}}</a></h1>
+
+<div id="messages">
+{{messages}}
+</div>
+
+{{col("md-4")}}
+<br><br>
+<p>Posts from the feeds who follow <a href='/blog/{{id}}'>@{{id}}</a>.</p>
+
+<h2><i class='fa fa-sliders'></i> Formatting Options</h2>
+<form id="formatingOptionForm" method=GET>
+<input type="hidden" name="x" value="x">
+{{fof.buildForm()}}
+</form>
+
+<h2>Subscription</h2>
+
+<p><a class='btn btn-default' href="/rss/followingMess/{{id}}">
+<i class='fa fa-rss'></i> RSS @{{id}} follows</a></p>
+
+{{endrow()}}
+{% endblock body %}
+
+{%block atend%}
+<script>
+//--------------------------------------------------------------------
+/* formatting options */
+
+function foChanged(){
+    /* fired when a Formatting Option has changed 
+    Fire off the form as a GET request 
+    */
+    $("#formatingOptionForm").submit();
+}    
+
+$("#id_oneLine").change(foChanged);
+$("#id_headOnly").change(foChanged);
+$("#id_mrf").change(foChanged);
+$("#id_au").change(foChanged);
+
+//--------------------------------------------------------------------
+{{lf.autoUpdateJS()}}
+</script>
+{%endblock atend%}
+{# end #}
