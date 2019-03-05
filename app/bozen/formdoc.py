@@ -113,7 +113,6 @@ class FormDoc(metaclass=FormDocMeta):
         """
         classDict = dict(type(self).__dict__)
         for con, co in classDict.items():
-            if con[:1] == "_": continue
             if isinstance(co, FieldInfo):
                 self.__dict__[con] = co.createWithInitialValue()
         #//for

@@ -182,7 +182,7 @@ The key is the User._id.
 """
 
 class AccountInfo(MonDoc):
-    _id = StrField(desc="User id", readOnly=True)
+    _id = StrField(desc="User id", required=True, readOnly=True)
     bio = TextAreaField(desc="Biography of user (Markdown)",
         monospaced=True)
     bioHtml = TextAreaField(desc="bio compiled to HTML",
