@@ -32,7 +32,7 @@ class Message(MonDoc):
         desc="the message this is a reply to")
     author_id = FK('User', allowNull=False,
         desc="the author of this message")
-    #tags_ids = FKeys('Tag')
+    tags_ids = FKeys('Tag')
     published = DateTimeField(readOnly=True,
         dateTimeFormat=MESS_TIME_DISPLAY_FORMAT)
      
@@ -46,6 +46,9 @@ class Message(MonDoc):
     def preSave(self):
         """ before saving, create the html and title """
         self.html = mark.md(self.source)
+        h, tags = mark.render(self.source)
+        self.html = h
+        self.tags_ids = tags
         
         #>>>>> title
         lines = self.source.split("\n")
@@ -223,6 +226,9 @@ def follows(a1: str, a2: str) -> bool:
 
 #---------------------------------------------------------------------
 # tags   
+
+class Tag(MonDoc):
+    _id = StrField(desc="tag id")
 
 
 #---------------------------------------------------------------------

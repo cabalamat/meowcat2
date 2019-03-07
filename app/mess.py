@@ -66,8 +66,6 @@ def rss_messList():
     lf.setRssFeed(fg)
     xml = lf.renderRss()
     return Response(xml, mimetype="text/xml")
-    
- 
 
 #---------------------------------------------------------------------
   
@@ -82,7 +80,6 @@ def mess(id):
         ms = m.viewH(),
     )
     return h
- 
     
 #---------------------------------------------------------------------
    
@@ -98,8 +95,6 @@ def messSource(id):
         messSource = htmlEsc(m.source),
     )
     return h
- 
-
     
 #---------------------------------------------------------------------
    
@@ -121,6 +116,7 @@ def messRep(id=None):
         m = None
         mh = ""
     hasPreview = False; previewH = ""   
+    tags = None
         
     mf = MessageForm()
     if request.method=='POST':
@@ -139,6 +135,7 @@ def messRep(id=None):
                 newM = models.Message(
                     source = mf.message,
                     author_id = permission.currentUserName())
+                tags = newM.tags_ids
                 if isReply:
                     newM.replyTo_id = id
                 newM.save()
@@ -159,6 +156,7 @@ def messRep(id=None):
         msg = "",
         hasPreview = hasPreview,
         previewH = previewH,
+        tagsH = htmlEsc(repr(tags))
     )
     return h
  
