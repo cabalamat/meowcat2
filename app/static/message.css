@@ -96,6 +96,23 @@ blockquote.thread {
 }
 
 /*------------------------------------------------------------------*/
+/* tags */
+
+
+a.tag {
+  color: #404;
+  background: #fdf;
+  padding: 0px 2px;
+  
+  border-width: 0px 1px 1px 0px;
+  border-style: solid;
+  border-right-color: #a8a;
+  border-bottom-color: #a8a;
+  //border: 1px solid #a8a;
+  
+  text-decoration: none;
+}
+
 
 /*------------------------------------------------------------------*/
 

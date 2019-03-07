@@ -135,10 +135,10 @@ def messRep(id=None):
                 newM = models.Message(
                     source = mf.message,
                     author_id = permission.currentUserName())
-                tags = newM.tags_ids
                 if isReply:
                     newM.replyTo_id = id
                 newM.save()
+                tags = newM.tags_ids
                 dpr("newM=%r", newM)
                 u = "/mess/" + newM.id()
                 dpr("u=%r", u)

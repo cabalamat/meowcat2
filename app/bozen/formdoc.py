@@ -144,18 +144,18 @@ class FormDoc(metaclass=FormDocMeta):
 
         if fnid in self.__dict__:
             fi = self.getFieldInfo(fnid)
-            dpr("fi=%r", fi)
+            #dpr("fi=%r", fi)
             if isinstance(fi, FK):
-                dpr("got it")
+                #dpr("got it")
                 fetchedDoc = fi.getDoc(self[fnid]) #new
                 if not fetchedDoc:
                     fetchedDoc = nulldoc.NullDoc(fi.foreignTable)
-                dpr("fetchedDoc=%r", fetchedDoc)
+                #dpr("fetchedDoc=%r", fetchedDoc)
                 self.__dict__[fieldName] = fetchedDoc
                 return fetchedDoc
             
         fnids = fieldName + "_ids"
-        dpr("fieldName=%r fnids=%r", fieldName, fnids)
+        #dpr("fieldName=%r fnids=%r", fieldName, fnids)
         
         if fnids in self.__dict__:
             return self.getFKeysDereference(fnids)
