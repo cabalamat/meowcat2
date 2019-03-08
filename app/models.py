@@ -79,7 +79,9 @@ class Message(MonDoc):
     {context}
     - <a href='/thread/{id}'>thread</a>
     - <a href='/messSource/{id}'>source</a>
-    {reply}</p>
+    {reply}
+    - <i style='' class='fa fa-star-o fa-lg'></i>
+      <!--i style='color:#060' class='fa fa-star fa-lg'></i--></p>
 </div>""",
             id = self.id(),
             messLink = self.linkA(),
