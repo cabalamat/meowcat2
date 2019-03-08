@@ -23,6 +23,7 @@ import front
 import blog
 import follow
 import mess
+import tag
 import account
 
 # do this last:

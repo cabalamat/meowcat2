@@ -1,0 +1,62 @@
+{# tag.html
+   ========
+
+Messages containing a particular tag
+#}
+{% extends "main.html" %}
+
+{% block extrahead %}
+<link rel="alternate" type="application/rss+xml"
+  title="RSS Feed for #{{t}}" href="/rss/tag/{{t}}" />
+{% endblock extrahead %}
+
+{% block body %}
+{{rowcol("md-8")}}
+<h1><i class='fa fa-hashtag'></i> Messages with tag #{{t}}</h1>
+
+<p>lf.q=<tt>{{qh}}</tt></p>
+
+<div id="messages">
+{{lf.getMessagesH()}}
+</div>
+
+{{col("md-4")}}
+<br><br>
+<p>More information about <a href='/tagInfo/{{t}}'>#{{t}}</a></p>
+
+<h2><i class='fa fa-sliders'></i> Formatting Options</h2>
+<form id="formatingOptionForm" method=GET>
+<input type="hidden" name="x" value="x">
+{{lf.fof.buildForm()}}
+</form>
+
+<h2>Subscription</h2>
+
+<p><a class='btn btn-default' href="/rss/tag/{{t}}">
+<i class='fa fa-rss'></i> RSS for #{{t}}</a></p>
+
+{{endrow()}}
+{% endblock body %}
+
+{%block atend%}
+<script>
+//--------------------------------------------------------------------
+/* formatting options */
+
+function foChanged(){
+    /* fired when a Formatting Option has changed 
+    Fire off the form as a GET request 
+    */
+    $("#formatingOptionForm").submit();
+}    
+
+$("#id_oneLine").change(foChanged);
+$("#id_headOnly").change(foChanged);
+$("#id_mrf").change(foChanged);
+$("#id_au").change(foChanged);
+
+//--------------------------------------------------------------------
+{{lf.autoUpdateJS()}}
+</script>
+{%endblock atend%}
+{# end #}

@@ -229,6 +229,15 @@ def follows(a1: str, a2: str) -> bool:
 
 class Tag(MonDoc):
     _id = StrField(desc="tag id")
+    created = DateTimeField(desc="when tag was created")
+    lastUsed = DateTimeField(desc="when tag was most recently used")
+    timesUsed = IntField(desc="number of times used")
+    
+    def preCreate(self):
+        self.created = BzDateTime.now()
+        
+    def getName(self):
+        return "#" + self._id
 
 
 #---------------------------------------------------------------------
