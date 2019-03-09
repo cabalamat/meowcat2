@@ -55,6 +55,7 @@ def encloseHashtagAtStart(s: str) -> str:
 #---------------------------------------------------------------------
 
 hashtagRe = re.compile(r"#[A-Za-z0-9_-]+")
+#hashtagRe = re.compile(r"\[#[ A-Za-z0-9_-]+\]|#[A-Za-z0-9_-]+")
 
 class GetHashtags:
 
@@ -81,7 +82,10 @@ class GetHashtags:
         dpr("substFun() mo.groups()=%r start=%r end=%r",
             mo.groups(), mo.start(), mo.end())
         matchedText = mo.string[mo.start():mo.end()]
-        hashtag = matchedText[1:]
+        if matchedText[:2]=="[#":
+            hashtag = matchedText[2:-1]
+        else:
+            hashtag = matchedText[1:]
         dpr("matchedText=%r hashtag=%r", matchedText, hashtag)
         canonicalTag = hashtag.lower().replace("-", "_")
         dpr("canonicalTag=%r", canonicalTag)

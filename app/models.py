@@ -228,12 +228,6 @@ class Tag(MonDoc):
     created = DateTimeField(desc="when tag was created")
     lastUsed = DateTimeField(desc="when tag was most recently used")
     timesUsed = IntField(desc="number of times used")
-    
-    def preCreate(self):
-        now = BzDateTime.now()
-        self.created = now
-        self.lastUsed = now
-        self.timesUsed = 1
         
     def getName(self) -> str:
         return "#" + self._id
@@ -245,11 +239,15 @@ def notifyTags(tags: List[str]):
 
 def notifyTag(ts: str):
     t = Tag.getDoc(ts)
+    now = BzDateTime.now()
     if t:
-        t.lastUsed = BzDateTime.now()
+        t.lastUsed = now
         t.timesUsed += 1
     else:
-        t = Tag(_id = ts)
+        t = Tag(_id = ts,
+            created = now,
+            lastUsed = now,
+            timesUsed = 1)
     t.save()    
 
 #---------------------------------------------------------------------
