@@ -1,0 +1,18 @@
+{# popularTags.html
+   ================
+
+Tags, by popularity
+#}
+{% extends "main.html" %}
+
+{% block body %}
+<div class='right-pagination'>{{pag.links}}</div>
+<h1><i class='fa fa-hashtag'></i> Popular Tags</h1>
+
+<p>{{pag.info}}</p>
+{{table}}
+
+<div class='right-pagination'>{{pag.links}}</div>
+{% endblock body %}
+
+{# end #}

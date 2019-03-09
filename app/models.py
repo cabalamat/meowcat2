@@ -232,6 +232,10 @@ class Tag(MonDoc):
     def getName(self) -> str:
         return "#" + self._id
 
+    @classmethod
+    def classLogo(cls) -> str:
+        return "<i class='fa fa-hashtag'></i> "
+    
 def notifyTags(tags: List[str]):
     """ notify that a message with new tags has been saved """
     for ts in tags:
