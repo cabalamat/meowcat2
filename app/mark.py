@@ -18,7 +18,7 @@ markdownProcessor = markdown.Markdown(externsions=[
     codehilite.CodeHilite(guess_lang=False),
     sane_lists])
 
-def md(s: str) -> str:
+def xxxmd(s: str) -> str:
     """ Convert markdown to html
 
     Uses the Python Markdown library to do this.
@@ -36,8 +36,8 @@ def render(s: str) -> Tuple[str, List[str]]:
        h:str = rendered html
        tags:List[str] = canonicalised hashtags
     """
-    md = markdown.Markdown()
-    h = md.convert(encloseHashtagAtStart(s))
+    markdownProcessor.reset()
+    h = markdownProcessor.convert(encloseHashtagAtStart(s))
     newHtml, tags = GetHashtags(h).calc()
     return (newHtml, tags)
 
@@ -47,8 +47,7 @@ hashtagAtStartRe = re.compile(r"^#([A-Za-z0-9_-]+)", re.MULTILINE)
 def encloseHashtagAtStart(s: str) -> str:
     """ If a line starts with a hashtag, enclose it in [...], so that
     markdown does not treat it as a header
-    @param smu [str] = sdhout markup
-    @return [str]
+    @param s = marked-up message
     """
     s2 = hashtagAtStartRe.sub(r"[#\1]", s)
     return s2
@@ -64,7 +63,7 @@ class GetHashtags:
         @param html [unicode] some html
         """
         self.html = html
-        self.tags = []
+        self.tagSet = set()
 
     def calc(self) -> Tuple[str, List[str]]:
         """ Put correct html around tag, return a list of them
@@ -74,7 +73,7 @@ class GetHashtags:
         #print "calc() html=%r" % (self.html,)
 
         newHtml = hashtagRe.sub(self.substFun, self.html)
-        return (newHtml, self.tags)
+        return (newHtml, list(self.tagSet))
 
     def substFun(self, mo) -> str:
         """ Substitution function
@@ -86,8 +85,8 @@ class GetHashtags:
         dpr("matchedText=%r hashtag=%r", matchedText, hashtag)
         canonicalTag = hashtag.lower().replace("-", "_")
         dpr("canonicalTag=%r", canonicalTag)
-        self.tags.append(canonicalTag)
-        dpr("self.tags=%r", self.tags)
+        self.tagSet.add(canonicalTag)
+        dpr("self.tagSet=%r", self.tagSet)
         result = "<a class='tag' href='/tag/%s'>#%s</a>" % (canonicalTag,
             hashtag)
         return result

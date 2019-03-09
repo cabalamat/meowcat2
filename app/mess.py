@@ -127,19 +127,23 @@ def messRep(id=None):
         if mf.isValid():
             if messRepButton=='preview':
                 #>>>>> preview message
-                previewH = mark.md(mf.message)
+                previewH, tags = mark.render(mf.message)
                 hasPreview = True
             else:    
                 #>>>>> create message
                 dpr("create new message")
+                previewH, tags = mark.render(mf.message)
                 newM = models.Message(
                     source = mf.message,
+                    html = previewH,
+                    tags = tags,
                     author_id = permission.currentUserName())
                 if isReply:
                     newM.replyTo_id = id
                 newM.save()
-                tags = newM.tags_ids
+                models.notifyTags(tags)
                 dpr("newM=%r", newM)
+                dpr("tags=%r", tags)
                 u = "/mess/" + newM.id()
                 dpr("u=%r", u)
                 return redirect(u, code=303)

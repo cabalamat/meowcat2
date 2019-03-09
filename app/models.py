@@ -7,7 +7,7 @@ from bozen.butil import *
 from bozen import MonDoc, BzDateTime
 from bozen import (StrField, ChoiceField, TextAreaField,
     IntField, FloatField, BoolField,
-    MultiChoiceField, FK, FKeys,
+    MultiChoiceField, FK, FKeys, ObjectField,
     DateField, DateTimeField)
 
 import config
@@ -25,14 +25,14 @@ MESS_TIME_DISPLAY_FORMAT = "%Y-%m-%d %H:%M"
 
 class Message(MonDoc):
     title = StrField(readOnly=True)
-    source = TextAreaField(monospaced=True)
+    source = TextAreaField(monospaced=True, required=True)
     html = TextAreaField(monospaced=True, readOnly=True)
     
     replyTo_id = FK('Message', allowNull=True,
         desc="the message this is a reply to")
     author_id = FK('User', allowNull=False,
         desc="the author of this message")
-    tags_ids = FKeys('Tag')
+    tags = ObjectField()
     published = DateTimeField(readOnly=True,
         dateTimeFormat=MESS_TIME_DISPLAY_FORMAT)
      
@@ -44,13 +44,7 @@ class Message(MonDoc):
         self.published = BzDateTime.now()
         
     def preSave(self):
-        """ before saving, create the html and title """
-        self.html = mark.md(self.source)
-        h, tags = mark.render(self.source)
-        self.html = h
-        self.tags_ids = tags
-        
-        #>>>>> title
+        """ before saving, create the title """
         lines = self.source.split("\n")
         if len(lines)>=1:
             line0 = lines[0].strip()
@@ -236,11 +230,27 @@ class Tag(MonDoc):
     timesUsed = IntField(desc="number of times used")
     
     def preCreate(self):
-        self.created = BzDateTime.now()
+        now = BzDateTime.now()
+        self.created = now
+        self.lastUsed = now
+        self.timesUsed = 1
         
-    def getName(self):
+    def getName(self) -> str:
         return "#" + self._id
 
+def notifyTags(tags: List[str]):
+    """ notify that a message with new tags has been saved """
+    for ts in tags:
+        notifyTag(ts)
+
+def notifyTag(ts: str):
+    t = Tag.getDoc(ts)
+    if t:
+        t.lastUsed = BzDateTime.now()
+        t.timesUsed += 1
+    else:
+        t = Tag(_id = ts)
+    t.save()    
 
 #---------------------------------------------------------------------
 

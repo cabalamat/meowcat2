@@ -18,6 +18,8 @@ from permission import needUser, currentUserName
 import messlist
    
 #---------------------------------------------------------------------
+ 
+#---------------------------------------------------------------------
    
    
 class TagFormatter(messlist.ListFormatter):
@@ -25,7 +27,7 @@ class TagFormatter(messlist.ListFormatter):
     def __init__(self, t: str):
         super().__init__()
         self.tag = t
-        self.q = {'tags_ids': self.tag}
+        self.q = {'tags': self.tag}
     
     def pageUrl(self) -> str:
         """ Return the url of the page,
