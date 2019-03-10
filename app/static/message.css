@@ -20,12 +20,12 @@ blockquote.thread {
     background: #fff;
     
     max-width: 800px;
-    padding: 2px 5px;
-    border: 2px solid #459;
+    padding: 2px 7px;
+    border: 2px solid #56a;
     border-radius: 10px;
     margin: 2px 4px;
     
-    box-shadow: 5px 5px 8px #888;
+    //box-shadow: 5px 5px 8px #888;
     line-height: 20px;
 }    
 
@@ -49,28 +49,59 @@ blockquote.thread {
 }    
 
 
+
+/*------------------------------------------------------------------*/
+/* headings */
+
+.mess {counter-reset: h2}
+.mess h2:before {
+  counter-increment: h2;
+  content: counter(h2, upper-roman) ". "
+}
+
+
+/*------------------------------------------------------------------*/
 /* table of contents */
+
 .toc {
-  min-width: 200px;
-  display: table;
-  border: 1px solid #666;
-  background: #f4f4f4;
-  margin: 3px 20px 6px 0px;
-  padding: 4px 12px 0px 8px;
+    min-width: 200px;
+    display: table;
+    border: 1px solid #666;
+    background: #f4f4f4;
+    margin: 3px 20px 6px 0px;
+    padding: 4px 12px 0px 8px;
 }
 .toc:before {
-  content: "Table of contents";
-  font-weight: bold;
+    content: "Table of contents";
+    font-weight: bold;
 }
-.toc li:before { content: ""; }
+.toc li::before { content: ""; }
 
+div.toc > ul {
+    padding-left: 20px;
+}
+
+div.toc > ul > li > a {
+    display: none;
+}
+
+div.toc > ul > li {
+   list-style-type: none;
+}
+
+div.toc > ul > li > ul {
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
+/*------------------------------------------------------------------*/
 
 .mess a {
     text-decoration: underline;    
 }    
 
 .mess p+p {
-    margin-top: 9px;    
+    margin-top: 11px;    
 }  
 
 .mess pre {
