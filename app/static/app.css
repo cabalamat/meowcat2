@@ -58,6 +58,18 @@ User style sheet
   src: url(fonts/Roboto-BoldItalic.ttf) format('truetype');
 }
 
+@font-face {
+  font-family: 'RobotoSlab';
+  font-style: normal;
+  font-weight: 400;
+  src: url(fonts/RobotoSlab-Regular.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'RobotoSlab';
+  font-style: normal;
+  font-weight: 700;
+  src: url(fonts/RobotoSlab-Bold.ttf) format('truetype');
+}
 /*------------------------------------------------------------------*/
 
 tt, pre, code {

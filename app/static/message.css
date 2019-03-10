@@ -53,6 +53,15 @@ blockquote.thread {
 /*------------------------------------------------------------------*/
 /* headings */
 
+.mess h1, .mess h2, .mess h3 {
+    font-family: 'RobotoSlab', serif;
+    color: #248; 
+}    
+.mess h1 {font-size: 28px; font-weight: bold;}
+.mess h2 {font-size: 22px; font-weight: bold;}
+.mess h3 {font-size: 20px; font-weight: bold;}
+
+
 .mess {counter-reset: h2}
 .mess h2:before {
   counter-increment: h2;
