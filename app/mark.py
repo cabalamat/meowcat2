@@ -5,32 +5,38 @@ import re
 from typing import List, Tuple
 
 import markdown
-from markdown.extensions import extra, sane_lists, codehilite
+from markdown.extensions import extra, sane_lists, codehilite, toc
+from markdown.extensions.toc import TocExtension
 
 from bozen.butil import dpr
 
 #---------------------------------------------------------------------
-
-
-
-markdownProcessor = markdown.Markdown(externsions=[
+'''
+markdownProcessor = markdown.Markdown(extensions=[
     extra, 
+    toc,
     codehilite.CodeHilite(guess_lang=False),
     sane_lists])
+'''
+markdownProcessor = markdown.Markdown(extensions=[
+    'extra',
+    'toc', 
+    'sane_lists',
+    'codehilite',
+    ])
 
-def xxxmd(s: str) -> str:
-    """ Convert markdown to html
-
-    Uses the Python Markdown library to do this.
-    See: <http://packages.python.org/Markdown/>
+def render(s: str) -> Tuple[str, List[str]]:
+    """ Render markup into HTML also return tags
+    (this version doesn't process tags)
+    @return (h,tags) where:
+       h:str = rendered html
+       tags:List[str] = canonicalised hashtags
     """
     markdownProcessor.reset()
     h = markdownProcessor.convert(s)
-    return h
+    return (h, [])
 
-#---------------------------------------------------------------------
-
-def render(s: str) -> Tuple[str, List[str]]:
+def renderWithTags(s: str) -> Tuple[str, List[str]]:
     """ Render markup into HTML als o return tags
     @return (h,tags) where:
        h:str = rendered html
