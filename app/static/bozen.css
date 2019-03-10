@@ -109,6 +109,10 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+.bz-form-table textarea {
+  line-height: 110% !important;
+}    
+
 .bz-read-only {
   padding: 0px 4px 0px 4px;
   min-width: 150px;
