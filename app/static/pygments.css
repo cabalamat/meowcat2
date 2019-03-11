@@ -28,13 +28,13 @@
 /*------------------------------------------------------------------*/
 /* keywords */
 
-.codehilite .k  { color: #008000; font-weight: bold } /* Keyword */
-.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
-.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
-.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
-.codehilite .kp { color: #003080; font-weight: bold } /* Keyword.Pseudo */
-.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
-.codehilite .kt { color: #303090; font-weight: bold } /* Keyword.Type */
+.codehilite .k  { color: #006000; font-weight: bold } /* Keyword */
+.codehilite .kc { color: #006000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #006000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #006000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #006080; font-weight: bold } /* Keyword.Pseudo */
+.codehilite .kr { color: #006000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #306090; font-weight: bold } /* Keyword.Type */
 
 /*------------------------------------------------------------------*/
 /* literals */

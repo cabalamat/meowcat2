@@ -94,6 +94,11 @@ Styles used by HTML created by Bozen.
   border: 2px solid #060;
   border-radius: 4px;
 }
+
+textarea.bz-input {
+  line-height: 110% !important;
+}  
+  
 .bz-form-error-line input.bz-input, 
 .bz-form-error-line textarea.bz-input,
 .bz-form-error-line .bz-input {
@@ -107,11 +112,7 @@ Styles used by HTML created by Bozen.
 input[type=number] {
   /* remove up/down buttons from firefox */
   -moz-appearance: textfield;
-}
-
-.bz-form-table textarea {
-  line-height: 110% !important;
-}    
+}  
 
 .bz-read-only {
   padding: 0px 4px 0px 4px;

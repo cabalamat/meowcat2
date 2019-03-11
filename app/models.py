@@ -204,7 +204,7 @@ class AccountInfo(MonDoc):
     
     def preSave(self):
         """ before saving, create the bioHtml """
-        self.bioHtml = mark.md(self.bio)
+        self.bioHtml, _ = mark.render(self.bio)
 
 AccountInfo.autopages()
 
