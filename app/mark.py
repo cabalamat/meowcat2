@@ -11,13 +11,7 @@ from markdown.extensions.toc import TocExtension
 from bozen.butil import dpr
 
 #---------------------------------------------------------------------
-'''
-markdownProcessor = markdown.Markdown(extensions=[
-    extra, 
-    toc,
-    codehilite.CodeHilite(guess_lang=False),
-    sane_lists])
-'''
+
 markdownProcessor = markdown.Markdown(extensions=[
     'extra',
     'toc', 
@@ -25,7 +19,7 @@ markdownProcessor = markdown.Markdown(extensions=[
     'codehilite',
     ])
 
-def render(s: str) -> Tuple[str, List[str]]:
+def xxxrender(s: str) -> Tuple[str, List[str]]:
     """ Render markup into HTML also return tags
     (this version doesn't process tags)
     @return (h,tags) where:
@@ -46,6 +40,7 @@ def renderWithTags(s: str) -> Tuple[str, List[str]]:
     h = markdownProcessor.convert(encloseHashtagAtStart(s))
     newHtml, tags = GetHashtags(h).calc()
     return (newHtml, tags)
+render = renderWithTags
 
 
 hashtagAtStartRe = re.compile(r"^#([A-Za-z0-9_-]+)", re.MULTILINE)
@@ -60,8 +55,8 @@ def encloseHashtagAtStart(s: str) -> str:
 
 #---------------------------------------------------------------------
 
-hashtagRe = re.compile(r"#[A-Za-z0-9_-]+")
-#hashtagRe = re.compile(r"\[#[ A-Za-z0-9_-]+\]|#[A-Za-z0-9_-]+")
+#hashtagRe = re.compile(r"#[A-Za-z0-9_-]+")
+hashtagRe = re.compile(r"\[#[ A-Za-z0-9_-]+\]|#[A-Za-z0-9_-]+")
 
 class GetHashtags:
 
@@ -93,7 +88,7 @@ class GetHashtags:
         else:
             hashtag = matchedText[1:]
         dpr("matchedText=%r hashtag=%r", matchedText, hashtag)
-        canonicalTag = hashtag.lower().replace("-", "_")
+        canonicalTag = hashtag.lower().replace("-", "_").replace(" ", "_")
         dpr("canonicalTag=%r", canonicalTag)
         self.tagSet.add(canonicalTag)
         dpr("self.tagSet=%r", self.tagSet)
