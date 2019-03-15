@@ -33,6 +33,13 @@ class MessListFormatter(messlist.ListFormatter):
         """ Return the url of the page,
         """
         return "/messList"
+    
+    def getFeedGenerator(self) -> FeedGenerator:
+        fg = FeedGenerator()
+        fg.title("%s - Recent Messages" % (config.SITE_NAME,))
+        fg.link(href="%s/messList" % (config.SITE_STUB,))
+        fg.description("Recent messages")
+        return fg
   
 @app.route('/messList')
 def messList():
@@ -59,11 +66,6 @@ def au_messList():
 def rss_messList():
     """ RSS feed for message list """
     lf = MessListFormatter()
-    fg = FeedGenerator()
-    fg.title("%s - Recent Messages" % (config.SITE_NAME,))
-    fg.link(href="%s/messList" % (config.SITE_STUB,))
-    fg.description("Recent messages")
-    lf.setRssFeed(fg)
     xml = lf.renderRss()
     return Response(xml, mimetype="text/xml")
 

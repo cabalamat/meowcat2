@@ -133,6 +133,11 @@ class ListFormatter:
         """ Return the url of the page, e.g. "/blog/cabalamat"
         or "/messList"
         """
+        
+    @abc.abstractmethod
+    def getFeedGenerator(self) -> FeedGenerator:
+        """ return a feed generator for an RSS feed for this class
+        """
 
     #========== auto-update
     
@@ -169,21 +174,18 @@ pollForAutoUpdate(updatePollUrl, mostRecentTimeStamp);
 
     #========== RSS methods
     
-
-    def setRssFeed(self, feed: FeedGenerator):
-        self.rssFeed = feed
-
     def renderRss(self) -> str:
         """ Return RSS for this feed """
+        fg = self.getFeedGenerator()
         
         for m in self.getMessages(FormattingOptionsForm()):
-            fe = self.rssFeed.add_entry()
+            fe = fg.add_entry()
             fe.id(m.fullUrl())
             fe.title(m.title)
             fe.content(m.html)
         #//for  
         
-        return self.rssFeed.rss_str(pretty=True) 
+        return fg.rss_str(pretty=True) 
 
 
 #---------------------------------------------------------------------

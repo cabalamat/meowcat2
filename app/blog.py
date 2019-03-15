@@ -32,6 +32,18 @@ class BlogFormatter(messlist.ListFormatter):
         """
         return "/blog/" + id
     
+    def getFeedGenerator(self) -> FeedGenerator:
+        """ return a feed generator for an RSS feed for this class
+        """
+        ai = models.getAccountInfo(self.id)
+        fg = FeedGenerator()    
+        fg.title(ai.title or self.id)
+        fg.author({'name': self.id}) 
+        fg.link(href="%s/blog/%s" % (config.SITE_STUB, self.id))
+        fg.description(ai.bioHtml)  
+        return fg
+
+    
 #---------------------------------------------------------------------
  
 @app.route('/blog/<id>')
@@ -115,18 +127,7 @@ def xFollow(id: str, status: str):
 @app.route('/rss/blog/<id>')
 def rss_blog(id):
     """ RSS feed for blog """
-    user = User.getDoc(id)
-    ai = models.getAccountInfo(id)
-    q = {'author_id': user._id}
     lf = BlogFormatter(id)
-    
-    fg = FeedGenerator()    
-    fg.title(ai.title or id)
-    fg.author({'name': ai.realName or id}) 
-    fg.link(href="%s/blog/%s" % (config.SITE_STUB, id))
-    fg.description(ai.bioHtml)
-    
-    lf.setRssFeed(fg)
     xml = lf.renderRss()
     return Response(xml, mimetype="text/xml")
 

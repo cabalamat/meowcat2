@@ -2,6 +2,7 @@
 
 from typing import *
  
+from feedgen.feed import FeedGenerator
 from flask import request, redirect, Response
 
 from bozen.butil import pr, prn, dpr, form, htmlEsc
@@ -171,6 +172,15 @@ class FollowingFormatter(messlist.ListFormatter):
         """ Return the url of the page,
         """
         return "/followingMess/" + id
+    
+    def getFeedGenerator(self) -> FeedGenerator:
+        """ return a feed generator for an RSS feed for this class
+        """
+        fg = FeedGenerator()
+        fg.title("%s - Newsfeed for @%s" % (config.SITE_NAME, self.id))
+        fg.link(href="%s/followingMess/%s" % (config.SITE_STUB, self.id))
+        fg.description("Newsfeed for @%s" % (self.id,))
+        return fg
 
 @app.route('/followingMess/<id>')
 def followingMess(id): 
@@ -186,6 +196,13 @@ def followingMess(id):
         fof = lf.fof,
     )
     return h
+
+@app.route('/rss/followingMess/<id>') 
+def rss_followingMess(id):
+    """ RSS feed for following messages """
+    lf = FollowingFormatter(id)
+    xml = lf.renderRss()
+    return Response(xml, mimetype="text/xml")
      
 #---------------------------------------------------------------------
 
@@ -202,6 +219,15 @@ class FollowerFormatter(messlist.ListFormatter):
         """ Return the url of the page,
         """
         return "/followerMess/" + id
+    
+    def getFeedGenerator(self) -> FeedGenerator:
+        """ return a feed generator for an RSS feed for this class
+        """
+        fg = FeedGenerator()
+        fg.title("%s - Followers of @%s" % (config.SITE_NAME, self.id))
+        fg.link(href="%s/followerMess/%s" % (config.SITE_STUB, self.id))
+        fg.description("Followers of @%s" % (self.id,))
+        return fg
 
 @app.route('/followerMess/<id>')
 def followerMess(id): 
@@ -217,6 +243,12 @@ def followerMess(id):
         fof = lf.fof,
     )
     return h
+
+@app.route('/rss/followerMess/<id>') 
+def rss_followerMess(id):
+    lf = FollowerFormatter(id)
+    xml = lf.renderRss()
+    return Response(xml, mimetype="text/xml")
     
  
 #---------------------------------------------------------------------
