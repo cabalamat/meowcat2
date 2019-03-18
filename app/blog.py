@@ -131,7 +131,14 @@ def rss_blog(id):
     xml = lf.renderRss()
     return Response(xml, mimetype="text/xml")
 
-    
+ 
+@app.route('/au/blog/<id>')
+def au_blog(id):
+    lf = BlogFormatter(id)
+    ts = lf.mostRecentTimeStamp()
+    tsj = json.dumps({'ts':ts})
+    dpr("ts=%r tsj=%r", ts, tsj)
+    return tsj   
     
 #---------------------------------------------------------------------
 

@@ -53,6 +53,13 @@ def messList():
         fof = lf.fof,
     )
     return h
+    
+@app.route('/rss/messList') 
+def rss_messList():
+    """ RSS feed for message list """
+    lf = MessListFormatter()
+    xml = lf.renderRss()
+    return Response(xml, mimetype="text/xml")
 
 @app.route('/au/messList')
 def au_messList():
@@ -61,13 +68,6 @@ def au_messList():
     tsj = json.dumps({'ts':ts})
     dpr("ts=%r tsj=%r", ts, tsj)
     return tsj
-    
-@app.route('/rss/messList') 
-def rss_messList():
-    """ RSS feed for message list """
-    lf = MessListFormatter()
-    xml = lf.renderRss()
-    return Response(xml, mimetype="text/xml")
 
 #---------------------------------------------------------------------
   

@@ -140,18 +140,6 @@ class ListFormatter:
         """
 
     #========== auto-update
-    
-    def mostRecentTimeStamp(self) -> str:
-        """ Return the timestamp of thev most recent message,
-        Take into account the (fof.headOnly) option,
-        """
-        m = models.Message.find_one(self.getQuery(),
-             sort=('published', -1))
-        if m:
-            ts = m.published
-        else:
-            ts = "2000-01-01T00:00:00"
-        return ts    
         
     def jsForPage(self) -> str:
         """ return appropiate JavaScript for the page 
@@ -188,6 +176,18 @@ pollForAutoUpdate(updatePollUrl, mostRecentTimeStamp);
             timeStamp = self.mostRecentTimeStamp())
         return js
 
+    def mostRecentTimeStamp(self) -> str:
+        """ Return the timestamp of thev most recent message,
+        Take into account the (fof.headOnly) option,
+        """
+        m = models.Message.find_one(self.getQuery(),
+             sort=('published', -1))
+        if m:
+            ts = m.published
+        else:
+            ts = "2000-01-01T00:00:00"
+        return ts   
+    
     #========== RSS methods
     
     def renderRss(self) -> str:
