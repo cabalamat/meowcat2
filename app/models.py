@@ -181,11 +181,13 @@ The key is the User._id.
 """
 
 class AccountInfo(MonDoc):
-    _id = StrField(desc="User id", required=True, readOnly=True)
+    _id = StrField(desc="User id", title="User Id",
+        required=True, readOnly=True)
     bio = TextAreaField(desc="Biography of user (Markdown)",
+        cols=60, rows=8,
         monospaced=True)
     bioHtml = TextAreaField(desc="bio compiled to HTML",
-        monospaced=True, readOnly=True)
+        monospaced=True, readOnly=True, displayInForm=False)
     title = StrField(title="Title of Blog")
     following_ids = FKeys('AccountInfo',
         title="Following",
@@ -194,9 +196,9 @@ class AccountInfo(MonDoc):
     realName = StrField(
         desc="your real name or anything else you want to put here")
     
-    @classmethod
-    def classLogo(cls) -> str:
-        return "<i class='fa fa-sliders'></i> "
+    def url(self):
+        """ The URL for an acocunt is that accounts blog page """
+        return "/blog/" + self._id
     
     def preCreate(self):
         self.title = form("{id}'s blog", 
@@ -205,8 +207,6 @@ class AccountInfo(MonDoc):
     def preSave(self):
         """ before saving, create the bioHtml """
         self.bioHtml, _ = mark.render(self.bio)
-
-AccountInfo.autopages()
 
 def getAccountInfo(userId: str) -> AccountInfo:
     """ get an account info, creating it if necessary """
