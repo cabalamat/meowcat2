@@ -153,6 +153,22 @@ class ListFormatter:
             ts = "2000-01-01T00:00:00"
         return ts    
         
+    def jsForPage(self) -> str:
+        """ return appropiate JavaScript for the page 
+        """
+        js = """
+/* created by ListFormatter.jsForPage() */
+function foChanged(){
+    $("#formatingOptionForm").submit();
+}    
+$("#id_oneLine").change(foChanged);
+$("#id_headOnly").change(foChanged);
+$("#id_mrf").change(foChanged);
+$("#id_au").change(foChanged);       
+        
+"""    
+        js += self.autoUpdateJS()
+        return js
     
     def autoUpdateJS(self) -> str:
         """ return some JavaScript for handling automatic updates. These
