@@ -1,5 +1,6 @@
 # mess.py = pages for messages
  
+from typing import *
 import json 
  
 from feedgen.feed import FeedGenerator

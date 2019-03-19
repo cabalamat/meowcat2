@@ -137,7 +137,6 @@ def au_blog(id):
     lf = BlogFormatter(id)
     ts = lf.mostRecentTimeStamp()
     tsj = json.dumps({'ts':ts})
-    dpr("ts=%r tsj=%r", ts, tsj)
     return tsj   
     
 #---------------------------------------------------------------------

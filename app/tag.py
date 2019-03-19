@@ -1,6 +1,7 @@
 # tag.py = tags
 
 from typing import *
+import json 
  
 from feedgen.feed import FeedGenerator
 from flask import request, redirect, Response
@@ -100,6 +101,15 @@ def rss_tag(t):
     lf = TagFormatter(t)
     xml = lf.renderRss()
     return Response(xml, mimetype="text/xml")
+
+@app.route('/au/tag/<t>')
+def au_tag(t):
+    lf = TagFormatter(t)
+    ts = lf.mostRecentTimeStamp()
+    tsj = json.dumps({'ts':ts})
+    dpr("ts=%r tsj=%r", ts, tsj)
+    return tsj   
+ 
    
 #---------------------------------------------------------------------
 
