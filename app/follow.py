@@ -1,6 +1,7 @@
 # follow.py = pages relating to folloing/followers
 
 from typing import *
+import json
  
 from feedgen.feed import FeedGenerator
 from flask import request, redirect, Response
@@ -192,8 +193,6 @@ def followingMess(id):
         id = id,
         user = user,
         lf = lf,
-        messages = lf.getMessagesH(),
-        fof = lf.fof,
     )
     return h
 
@@ -203,6 +202,13 @@ def rss_followingMess(id):
     lf = FollowingFormatter(id)
     xml = lf.renderRss()
     return Response(xml, mimetype="text/xml")
+
+@app.route('/au/followingMess/<id>')
+def au_followingMess(id):
+    lf = FollowingFormatter(id)
+    ts = lf.mostRecentTimeStamp()
+    tsj = json.dumps({'ts':ts})
+    return tsj   
      
 #---------------------------------------------------------------------
 

@@ -83,7 +83,7 @@ class ListFormatter:
         if useFof.headOnly:
             # only select head posts
             q2.update({'replyTo_id': {'$in': [None, '']}})      
-        dpr("q2=%r", q2)    
+        #dpr("q2=%r", q2)    
         return q2    
     
 

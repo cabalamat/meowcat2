@@ -15,8 +15,9 @@ Blog for a user
 <h1><i class='fa fa-list-ul'></i> {{blogTitle}}</h1>
 
 <div id="messages">
-{{messages}}
+{{lf.getMessagesH()}}
 </div>
+
 {{col("md-4")}}
 <h2>@{{user.getNameH()}}'s blog</h2>
 
@@ -61,7 +62,7 @@ Account Settings</a></p>
 <h2><i class='fa fa-sliders'></i> Formatting Options</h2>
 <form id="formatingOptionForm" method=GET>
 <input type="hidden" name="x" value="x">
-{{fof.buildForm()}}
+{{lf.fof.buildForm()}}
 </form>
 
 <h2>Subscription</h2>

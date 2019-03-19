@@ -42,23 +42,7 @@ Messages containing a particular tag
 
 {%block atend%}
 <script>
-//--------------------------------------------------------------------
-/* formatting options */
-
-function foChanged(){
-    /* fired when a Formatting Option has changed 
-    Fire off the form as a GET request 
-    */
-    $("#formatingOptionForm").submit();
-}    
-
-$("#id_oneLine").change(foChanged);
-$("#id_headOnly").change(foChanged);
-$("#id_mrf").change(foChanged);
-$("#id_au").change(foChanged);
-
-//--------------------------------------------------------------------
-{{lf.autoUpdateJS()}}
+{{lf.jsForPage()}}
 </script>
 {%endblock atend%}
 {# end #}

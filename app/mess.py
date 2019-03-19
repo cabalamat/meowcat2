@@ -49,9 +49,7 @@ def messList():
 
     tem = jinjaEnv.get_template("messList.html")
     h = tem.render(
-        messages = lf.getMessagesH(),
         lf = lf,
-        fof = lf.fof,
     )
     return h
     

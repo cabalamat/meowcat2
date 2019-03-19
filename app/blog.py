@@ -78,7 +78,6 @@ def blog(id):
         idJson = json.dumps(id),
         user = user,
         ai = ai,
-        messages = lf.getMessagesH(),
         blogTitle = ai.asReadableH('title'),
         name = ai.asReadableH('realName'),
         bio = ai.bioHtml,
@@ -88,7 +87,6 @@ def blog(id):
         numFollowers = numFollowers,
         followButton = followButton,
         lf = lf,
-        fof = lf.fof,
     )
     return h
  
