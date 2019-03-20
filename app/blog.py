@@ -27,6 +27,13 @@ class BlogFormatter(messlist.ListFormatter):
         self.id = id
         self.q = {'author_id': id}
     
+    def includeAuthorOneLine(self) -> bool:
+        """ Should we include the author when printing a one-line
+        summary of a message? This is true except for a blog (because
+        then all the messages are from trhe same author).
+        """
+        return False
+    
     def pageUrl(self) -> str:
         """ Return the url of the page,
         """

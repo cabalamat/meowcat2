@@ -123,13 +123,22 @@ class Message(MonDoc):
             id = self.id())
         return h
     
-    def viewOneLine(self) -> str:
-        """ View this message as one line """
+    def viewOneLine(self, showAuthor:bool =True) -> str:
+        """ View this message as one line 
+        @parasm showAuthor = if true, show the author of this message
+        """
         publishedShort = self.asReadableH('published')[2:]
         title = self.asReadableH('title')
+        authorA = ""
+        if showAuthor:
+            authorA = form("<a class='author' "
+                "href='/blog/{u}'>@{u}</a>: ",
+                u = self.author_id)
         h = form("<br>{publishedShort} "
+            "{authorA}"
             "<a href='/mess/{id}'>{title}</a>\n", 
             publishedShort = publishedShort, 
+            authorA = authorA,
             id = self.id(),
             title = title)
         return h

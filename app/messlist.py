@@ -112,12 +112,19 @@ class ListFormatter:
              limit=numShow)
         return ms
         
+    def includeAuthorOneLine(self) -> bool:
+        """ Should we include the author when printing a one-line
+        summary of a message? This is true except for a blog (because
+        then all the messages are from trhe same author).
+        """
+        return True
         
     def getMessagesH(self) -> str:
         """ Return HTML for the list of messages """
         h = ""
         if self.fof.oneLine:
-            h = "".join(m.viewOneLine() 
+            includeAuthor = self.includeAuthorOneLine()
+            h = "".join(m.viewOneLine(showAuthor=includeAuthor) 
                         for m in self.getMessages())
         else:    
             for m in self.getMessages():
