@@ -245,8 +245,6 @@ def followerMess(id):
         id = id,
         user = user,
         lf = lf,
-        messages = lf.getMessagesH(),
-        fof = lf.fof,
     )
     return h
 
@@ -255,7 +253,15 @@ def rss_followerMess(id):
     lf = FollowerFormatter(id)
     xml = lf.renderRss()
     return Response(xml, mimetype="text/xml")
+  
+@app.route('/au/followerMess/<id>')
+def au_followerMess(id):
+    lf = FollowerFormatter(id)
+    ts = lf.mostRecentTimeStamp()
+    tsj = json.dumps({'ts':ts})
+    return tsj   
     
+  
  
 #---------------------------------------------------------------------
  
