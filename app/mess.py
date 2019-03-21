@@ -171,7 +171,9 @@ def messRep(id=None):
 def context(id):
     m = models.Message.getDoc(id)
     ms = m.context()
-    msh = "<p></p>\n".join(m.viewH() for m in ms)
+    msh = ("<p style='margin: 0px 0px 0px 20px;color:#666;'>"
+        "<i class='fa fa-arrow-down fa-lg'></i></p>\n").join(
+        m.viewH() for m in ms)
         
     tem = jinjaEnv.get_template("context.html")
     h = tem.render(
