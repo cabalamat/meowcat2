@@ -14,9 +14,11 @@ Blog for a user
 {{rowcol("md-8")}}
 <h1><i class='fa fa-list-ul'></i> {{blogTitle}}</h1>
 
+{{lf.paginationBefore()}}
 <div id="messages">
 {{lf.getMessagesH()}}
 </div>
+{{lf.paginationAfter()}}
 
 {{col("md-4")}}
 <h2>@{{user.getNameH()}}'s blog</h2>

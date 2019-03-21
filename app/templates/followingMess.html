@@ -15,9 +15,11 @@ Messages by people a user follows
 <h1><i class='fa fa-eye'></i> Newsfeed for 
 <a href='/blog/{{id}}'>@{{id}}</a></h1>
 
+{{lf.paginationBefore()}}
 <div id="messages">
 {{lf.getMessagesH()}}
 </div>
+{{lf.paginationAfter()}}
 
 {{col("md-4")}}
 <br><br>

@@ -15,9 +15,11 @@ Messages by people who follow a user
 <h1><i class='fa fa-arrow-circle-left'></i> Followers of
 <a href='/blog/{{id}}'>@{{id}}</a></h1>
 
+{{lf.paginationBefore()}}
 <div id="messages">
 {{lf.getMessagesH()}}
 </div>
+{{lf.paginationAfter()}}
 
 {{col("md-4")}}
 <br><br>

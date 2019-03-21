@@ -48,7 +48,10 @@ blockquote.thread {
     color: #569; 
 }    
 
-
+.author {
+  color: #050;
+  background: #efe;
+}    
 
 /*------------------------------------------------------------------*/
 /* headings */

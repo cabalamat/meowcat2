@@ -14,11 +14,11 @@ Messages containing a particular tag
 {{rowcol("md-8")}}
 <h1><i class='fa fa-hashtag'></i> Messages with tag #{{t}}</h1>
 
-<p>lf.q=<tt>{{qh}}</tt></p>
-
+{{lf.paginationBefore()}}
 <div id="messages">
 {{lf.getMessagesH()}}
 </div>
+{{lf.paginationAfter()}}
 
 {{col("md-4")}}
 <br><br>

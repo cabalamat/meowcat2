@@ -8,6 +8,7 @@ from flask import request, redirect, Response
 
 import bozen
 from bozen.butil import pr, prn, dpr, form, htmlEsc
+from bozen import Paginator
 from bozen import (MonDoc, FormDoc,
     StrField, TextAreaField, PasswordField,
     ChoiceField, FK, FKeys, MultiChoiceField,
@@ -68,7 +69,8 @@ class ListFormatter:
         self.q = {}
         self.fof = FormattingOptionsForm()
         self.fof.setFromUrl()
-
+        self.pag = None
+ 
     def getQuery(self, fof:OptFOF=None) -> dict:
         """ Return the query to use for the MongoDB find() call, 
         including the start query (self.q) and the formatting options
@@ -85,13 +87,53 @@ class ListFormatter:
             q2.update({'replyTo_id': {'$in': [None, '']}})      
         #dpr("q2=%r", q2)    
         return q2    
+        
+    def setUpPagination(self):
+        """ set up the pagination system """
+        # if we are using auto-update, don't paginate
+        self.doPagination = not self.fof.au
+            
+        if self.fof.oneLine:
+            self.numShow = MESS_SHOW_ONE
+        else:
+            self.numShow = MESS_SHOW 
+        if not self.doPagination: return
+        self.count = models.Message.count(self.getQuery(self.fof))
+        self.pag = Paginator(self.count, perPage=self.numShow)
+        
+    def paginationBefore(self) -> str: 
+        """ Return pagination html that goes before the list of messages.  
+        """
+        if not self.pag: self.setUpPagination()
+        if not self.doPagination: return ""
+        if self.pag.skip<=0: return ""
+        h = form("<p>Displaying messages {fromIx}-{toIx} of {total}.</p>",
+            fromIx = self.pag.fromIx,
+            toIx = self.pag.toIx,
+            total = self.pag.total)
+        return h
+        
+    def paginationAfter(self) -> str:    
+        """ Return pagination html that goes after the list of messages.  
+        """
+        if not self.pag: self.setUpPagination()
+        if not self.doPagination: return ""
+        h = form("""<br>
+<p>Displaying messages {fromIx}-{toIx} of {total}.</p>
+<div class='right-pagination'>{links}</div>""",
+            fromIx = self.pag.fromIx,
+            toIx = self.pag.toIx,
+            total = self.pag.total,
+            links = self.pag.links)
+        return h
     
 
     def getMessages(self, fof:OptFOF=None) -> Iterable[models.Message]:
         """ return an iterator for the list of messages to be got from
-        MongoDB. The formatting opt5ions are either those in (fof) or
+        MongoDB. The formatting options are either those in (fof) or
         if None there, those in (self.fof).
         """
+        if not self.pag: self.setUpPagination()
         if fof:
             useFof = fof
         else:
@@ -102,14 +144,15 @@ class ListFormatter:
         else:
             sortValue = ('published', 1) 
             
-        if useFof.oneLine:
-            numShow = MESS_SHOW_ONE
-        else:
-            numShow = MESS_SHOW 
-            
-        ms = models.Message.find(self.getQuery(fof), 
-             sort=sortValue,
-             limit=numShow)
+        if self.doPagination:    
+            ms = models.Message.find(self.getQuery(fof), 
+                sort=sortValue,
+                skip=self.pag.skip,
+                limit=self.numShow)
+        else:      
+            ms = models.Message.find(self.getQuery(fof), 
+                sort=sortValue,
+                limit=self.numShow)
         return ms
         
     def includeAuthorOneLine(self) -> bool:

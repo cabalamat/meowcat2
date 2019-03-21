@@ -132,7 +132,7 @@ class Message(MonDoc):
         authorA = ""
         if showAuthor:
             authorA = form("<a class='author' "
-                "href='/blog/{u}'>@{u}</a>: ",
+                "href='/blog/{u}'>@{u}</a> ",
                 u = self.author_id)
         h = form("<br>{publishedShort} "
             "{authorA}"
