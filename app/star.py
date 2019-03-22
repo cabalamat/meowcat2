@@ -7,23 +7,37 @@ from bozen import paginate
 
 import config
 from allpages import app, jinjaEnv
+import userdb
 import models
    
 #---------------------------------------------------------------------
  
 @app.route('/mostStarred')
-def mostStarred():
+@app.route('/mostStarred/<uid>')
+def mostStarred(uid=None):
     """ list of most-starred messages """
-    count = models.Message.count({'numStars': {'$gte': 1}})
+    if uid:
+        u = userdb.User.getDoc(uid)
+        q = {'author_id': uid}
+    else:
+        q = {}
+        uid = None
+    q.update({'numStars': {'$gte': 1}})  
+    count = models.Message.count(q)
     pag = paginate.Paginator(count)
     tem = jinjaEnv.get_template("mostStarred.html")
     h = tem.render(
-        table = mostStarredTable(pag)
+        count = count,
+        uid = uid,
+        pag = pag,
+        table = mostStarredTable(q, pag),
     )
     return h
 
-def mostStarredTable(pag: paginate.Paginator) -> str:
-    """ html table of most-starred messages """
+def mostStarredTable(q: dict, pag: paginate.Paginator) -> str:
+    """ html table of most-starred messages 
+    @param q = MongoDB query
+    """
     h = """<table class='bz-report-table'>
 <tr>
     <th>Message</th>
@@ -32,7 +46,7 @@ def mostStarredTable(pag: paginate.Paginator) -> str:
     <th>Published</th>
 </tr>
 """
-    ms = models.Message.find({'numStars': {'$gte': 1}},
+    ms = models.Message.find(q,
         skip = pag.skip, 
         limit = pag.numShow,
         sort = [('numStars',-1), 'published'])

@@ -6,10 +6,18 @@ View most-starred messages
 {% extends "main.html" %}
 
 {% block body %}
-<h1><i class='fa fa-star'></i> Most-Starred Messages</h1>
+<div class='right-pagination'>{{pag.links}}</div>
+<h1><i class='fa fa-star'></i> Most-Starred Messages
+{%if uid %}
+for <a href='/blog/{{uid}}'>@{{uid}}</a>
+{%endif%}
+({{count}})</h1>
+
+<p>{{pag.info}}</p>
 
 {{table}}
 
+<div class='right-pagination'>{{pag.links}}</div>
 
 {% endblock body %}
 
