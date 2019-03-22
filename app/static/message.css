@@ -199,6 +199,7 @@ a.tag {
 /* stars */
 
 .starred {
+    font-weight: bold;
     color: #070;
 }
 

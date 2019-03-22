@@ -25,6 +25,7 @@ import follow
 import mess
 import tag
 import account
+import star
 
 # do this last:
 import adminsite
