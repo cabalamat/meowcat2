@@ -19,6 +19,7 @@ from allpages import app, jinjaEnv
 import ht
 from userdb import User
 import permission
+from permission import needUser
 import models
 import messlist
    
@@ -87,6 +88,7 @@ def mess(id):
 @app.route('/messSource/<id>')
 def messSource(id):
     m = models.Message.getDoc(id)
+    starredByH = ", ".join(u for u in m.starredBy_ids)
         
     tem = jinjaEnv.get_template("messSource.html")
     h = tem.render(
@@ -94,6 +96,7 @@ def messSource(id):
         id = id,
         ms = m.viewH(),
         messSource = htmlEsc(m.source),
+        starredBy = starredByH,
     )
     return h
     
@@ -107,6 +110,7 @@ class MessageForm(FormDoc):
    
 @app.route('/messRep', methods=['POST', 'GET'])
 @app.route('/messRep/<id>', methods=['POST', 'GET'])
+@needUser
 def messRep(id=None):
     if id:
         isReply = True
@@ -206,6 +210,12 @@ def threadFromH(m: models.Message) -> str:
         h += "</blockquote>\n"
     return h    
    
+#---------------------------------------------------------------------
+
+@app.route('/x/star/<id>', methods=['POST'])
+@needUser
+def x_star(id):
+    
 #---------------------------------------------------------------------
  
 

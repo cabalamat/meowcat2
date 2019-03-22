@@ -35,6 +35,8 @@ class Message(MonDoc):
     tags = ObjectField()
     published = DateTimeField(readOnly=True,
         dateTimeFormat=MESS_TIME_DISPLAY_FORMAT)
+    starredBy_ids = FKeys('User')
+    numStars = IntField(desc='number of stars on this message')
      
     @classmethod
     def classLogo(cls) -> str:
@@ -74,8 +76,8 @@ class Message(MonDoc):
     - <a href='/thread/{id}'>thread</a>
     - <a href='/messSource/{id}'>source</a>
     {reply}
-    - <i style='' class='fa fa-star-o fa-lg'></i>
-      <!--i style='color:#060' class='fa fa-star fa-lg'></i--></p>
+    - {star}
+    </p>
 </div>""",
             id = self.id(),
             messLink = self.linkA(),
@@ -85,8 +87,37 @@ class Message(MonDoc):
             body = self.html,
             context = self.contextA(),
             reply = self.replyA(),
+            star = self.starH(),
         )
         return h
+    
+    def starH(self) -> str:
+        """ The HTML for a star underneath a message """
+        h = ""; c = ""
+        if self.numStars >= 1: 
+            h = form("{} ", self.numStars)
+        cun = currentUserName()
+        if not cun or cun==self.author_id:
+            #>>>>> not logged in, or author
+            h += "<i class='fa fa-star-o fa-lg'></i> "
+        else:
+            #>>>>> user is not message author
+            # has this user starred the message?
+            starred = cun in self.starredBy_ids
+            if starred:
+                h += "<i class='starred fa fa-star fa-lg'></i> "
+                c = "starred"
+            else:
+                h += form("""<i onclick='starClicked("{mid}")' """
+                    "class='can_star fa fa-star-o fa-lg'></i> ",
+                    mid = self._id)
+                c = "can_star"
+        #//if
+        h2 = form("<span class='{c}'>{h}</span>",
+            c = c,
+            h = h)
+        return h2
+        
     
     def linkA(self) -> str:
         """ link to this message's /mess page """

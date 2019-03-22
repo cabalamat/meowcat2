@@ -4,7 +4,7 @@
 /* auto update */
 
 function pollForAutoUpdate(url, mrts){
-    console.log("pollForAutoUpdate url=" + url + " mrts=" +mrts);
+    //console.log("pollForAutoUpdate url=" + url + " mrts=" +mrts);
     $.ajax({
         url: url,
         method: "GET",
@@ -23,6 +23,23 @@ function pollForAutoUpdate(url, mrts){
         }
     }); 
 }    
+
+//--------------------------------------------------------------------
+/* starring messages */
+
+function starClicked(mid){
+    console.log("starClicked mid=" + mid);
+    var url = "/x/star/" + mid;
+    $.ajax({
+        url: url,
+        method: "POST",
+        dataType: "json"
+    }).done(function(ts){
+        
+        
+    });     
+}    
+
 
 
 //--------------------------------------------------------------------
