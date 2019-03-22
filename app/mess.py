@@ -215,6 +215,15 @@ def threadFromH(m: models.Message) -> str:
 @app.route('/x/star/<id>', methods=['POST'])
 @needUser
 def x_star(id):
+    cun = permission.currentUserName()
+    if not cun: return
+    m = models.Message.getDoc(id)
+    if not m: return
+    if cun not in m.starredBy_ids:
+        m.starredBy_ids += [cun]
+        m.numStars = len(m.starredBy_ids)
+        m.save()
+    return "{}"
     
 #---------------------------------------------------------------------
  

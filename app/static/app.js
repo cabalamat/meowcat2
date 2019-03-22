@@ -34,7 +34,7 @@ function starClicked(mid){
         url: url,
         method: "POST",
         dataType: "json"
-    }).done(function(ts){
+    }).done(function(d){
         
         
     });     
