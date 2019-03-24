@@ -56,7 +56,7 @@ def http403(msg=""):
     return (h, 403)
 
 @app.errorhandler(404)
-def http404(e):
+def http404(e=None):
     tem = jinjaEnv.get_template("404.html")
     h = tem.render()
     return (h, 404)

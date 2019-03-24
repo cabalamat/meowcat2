@@ -8,6 +8,7 @@ from bozen import paginate
 import config
 from allpages import app, jinjaEnv
 import userdb
+import permission
 import models
    
 #---------------------------------------------------------------------
@@ -18,6 +19,8 @@ def mostStarred(uid=None):
     """ list of most-starred messages """
     if uid:
         u = userdb.User.getDoc(uid)
+        if not u:
+            return permission.http404()
         q = {'author_id': uid}
     else:
         q = {}
