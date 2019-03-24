@@ -5,12 +5,11 @@ import functools
 from flask import request, redirect
 from flask_login import LoginManager, current_user, logout_user
 
-from bozen.butil import dpr
+from bozen.butil import dpr, htmlEsc
 
 import ht
 import allpages
-from allpages import jinjaEnv
-
+from allpages import jinjaEnv, app
 
 #---------------------------------------------------------------------
 # login manager
@@ -45,7 +44,6 @@ jinjaEnv.globals['currentUserName'] = currentUserName
 
 #---------------------------------------------------------------------
 
-
 def http403(msg=""):
     """
     @param msg::str = contains text as an optional error message.
@@ -56,5 +54,12 @@ def http403(msg=""):
         msg = ht.errorBox(msg),
     )
     return (h, 403)
+
+@app.errorhandler(404)
+def http404(e):
+    tem = jinjaEnv.get_template("404.html")
+    h = tem.render()
+    return (h, 404)
+
 
 #end
