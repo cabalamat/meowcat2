@@ -48,7 +48,7 @@ var dynamicAlerts=false;
 function getActiveAlerts(){
     console.log("getActiveAlerts()");
     $.ajax({
-        url: "/numActiveAlerts",
+        url: "/x/numActiveAlerts",
         method: "GET",
         dataType: "json",
     }).done(function(retVal){

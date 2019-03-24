@@ -9,6 +9,7 @@ import config
 from allpages import app, jinjaEnv
 import userdb
 import permission
+from permission import needUser
 import models
    
 #---------------------------------------------------------------------
@@ -69,7 +70,28 @@ def mostStarredTable(q: dict, pag: paginate.Paginator) -> str:
     #//for m
     h += "</table>"
     return h
-  
+   
+#---------------------------------------------------------------------
+
+@app.route('/x/star/<id>', methods=['POST'])
+@needUser
+def x_star(id):
+    cun = permission.currentUserName()
+    if not cun: return
+    m = models.Message.getDoc(id)
+    if not m: return
+    if cun not in m.starredBy_ids:
+        m.starredBy_ids += [cun]
+        m.numStars = len(m.starredBy_ids)
+        m.save()
+        al = models.Alert(
+            user_id = m.author_id,
+            alertType = 'star',
+            message_id = m._id,
+            doer_id = cun)
+        al.save()
+    return "{}"
+ 
 #---------------------------------------------------------------------
   
 #end

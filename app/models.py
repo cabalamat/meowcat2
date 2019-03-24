@@ -319,15 +319,21 @@ class Alert(MonDoc):
     doer_id = FK(userdb.User, desc="user who starred/replied")
     reply_id = FK(Message, desc="the reply",
          allowNull=True)         
-        
+ 
+    def preCreate(self):
+        """ before saving, create the bioHtml """
+        self.created = bozen.getTimeNow()
+       
 
 
-@app.route('/numActiveAlerts')
+@app.route('/x/numActiveAlerts')
 @needUser
-def numActiveAlerts() -> str:
-    #numAlerts = Alert.count(activeAlertQ())
-    numAlerts = 12
-    #dpr("numAlerts=%r", numAlerts)
+def x_numActiveAlerts() -> str:
+    cun = currentUserName()
+    if not cun: return json.dumps([0])
+
+    numAlerts = Alert.count({'user_id': cun, 'live': True})
+    dpr("numAlerts=%r", numAlerts)
     return json.dumps([numAlerts])
 
 
