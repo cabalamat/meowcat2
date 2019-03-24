@@ -19,7 +19,7 @@ function pollForAutoUpdate(url, mrts){
             /* try again 10 s later */
             setTimeout(
                 function(){pollForAutoUpdate(url, mrts)}, 
-                10000);
+                15000);
         }
     }); 
 }    
@@ -40,6 +40,32 @@ function starClicked(mid){
     });     
 }    
 
+//--------------------------------------------------------------------
+/* poll for alerts */
+
+var dynamicAlerts=false;
+
+function getActiveAlerts(){
+    console.log("getActiveAlerts()");
+    $.ajax({
+        url: "/numActiveAlerts",
+        method: "GET",
+        dataType: "json",
+    }).done(function(retVal){
+        console.log("*** getActiveAlerts retVal=" + toString(retVal));
+        var numAlerts = retVal[0];
+        var alertCssClass = numAlerts>0 ? "alerts" : "";
+        var h = `<a href='/alerts/active'>
+<span class='alert-badge ${alertCssClass}'>
+    ${numAlerts} <i class='fa fa-bell'></i>
+</span></a>`;
+        /**/
+        $('#dyn_active_alerts').html(h);
+        if (dynamicAlerts) setTimeout(getActiveAlerts, 60000);
+    });
+}
+
+getActiveAlerts();
 
 
 //--------------------------------------------------------------------

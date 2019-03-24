@@ -1,6 +1,7 @@
 # models.py = database initilisation for frambozenapp
 
 from typing import *
+import json
 
 import bozen
 from bozen.butil import *
@@ -13,9 +14,11 @@ from bozen import (StrField, ChoiceField, TextAreaField,
 import config
 bozen.setDefaultDatabase(config.DB_NAME)
 import allpages
+from allpages import app, jinjaEnv
 bozen.notifyFlaskForAutopages(allpages.app, allpages.jinjaEnv)
 
-from permission import currentUserName
+import userdb
+from permission import currentUserName, needUser
 import mark
 
 #---------------------------------------------------------------------
@@ -293,6 +296,40 @@ def notifyTag(ts: str):
             lastUsed = now,
             timesUsed = 1)
     t.save()    
+
+#---------------------------------------------------------------------
+# Alerts
+
+ALERT_TYPES = [
+    ('star', "Message starred"), 
+    ('reply', "Message replied to"),    
+]    
+
+class Alert(MonDoc):
+    user_id = FK(userdb.User, desc="who this alert is for")
+    alertType = ChoiceField(choices=ALERT_TYPES,
+        desc="type of this alert",
+        allowNull=False,
+        readOnly=True)
+    message_id = FK(Message, desc="the message this alert relates to")
+    live = BoolField(default=False,
+        desc="an alert is live until the user clicks to view it")
+    created = DateTimeField(desc="when this alert was created",
+        readOnly=True)
+    doer_id = FK(userdb.User, desc="user who starred/replied")
+    reply_id = FK(Message, desc="the reply",
+         allowNull=True)         
+        
+
+
+@app.route('/numActiveAlerts')
+@needUser
+def numActiveAlerts() -> str:
+    #numAlerts = Alert.count(activeAlertQ())
+    numAlerts = 12
+    #dpr("numAlerts=%r", numAlerts)
+    return json.dumps([numAlerts])
+
 
 #---------------------------------------------------------------------
 

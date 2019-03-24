@@ -106,6 +106,17 @@ body, p {
   padding: 15px 10px;
 }
 
+.alert-badge {
+    padding: 2px 4px;
+    border-radius: 9px;
+    font-weight: bold;
+}
+
+.alerts {
+    background: #f90;
+}
+
+
 /*------------------------------------------------------------------*/
 /* left navbar */
 
