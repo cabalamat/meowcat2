@@ -151,6 +151,14 @@ def messRep(id=None):
                 dpr("tags=%r", tags)
                 u = "/mess/" + newM.id()
                 dpr("u=%r", u)
+                if isReply:
+                    al = models.Alert(
+                        user_id = m.author_id,
+                        alertType = 'reply',
+                        message_id = m._id,
+                        doer_id = newM.author_id,
+                        reply_id = newM._id)
+                    al.save()
                 return redirect(u, code=303)
         #//if valid 
     #//if POST   

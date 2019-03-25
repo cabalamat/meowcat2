@@ -312,7 +312,7 @@ class Alert(MonDoc):
         allowNull=False,
         readOnly=True)
     message_id = FK(Message, desc="the message this alert relates to")
-    live = BoolField(default=False,
+    live = BoolField(default=True,
         desc="an alert is live until the user clicks to view it")
     created = DateTimeField(desc="when this alert was created",
         readOnly=True)
@@ -322,9 +322,7 @@ class Alert(MonDoc):
  
     def preCreate(self):
         """ before saving, create the bioHtml """
-        self.created = bozen.getTimeNow()
-       
-
+        self.created = BzDateTime.now()
 
 @app.route('/x/numActiveAlerts')
 @needUser

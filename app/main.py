@@ -26,6 +26,7 @@ import mess
 import tag
 import account
 import star
+import alert
 
 # do this last:
 import adminsite
