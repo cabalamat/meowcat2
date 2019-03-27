@@ -1,5 +1,7 @@
 # alert.py = pages for alerts
 
+from typing import *
+
 from flask import request, redirect, Response
 
 from bozen.butil import pr, prn, dpr, form, htmlEsc
@@ -65,12 +67,65 @@ def getMessages(q: dict) -> str:
 def alerts_stars() -> str:
     """ alerts for stars to the current user's posts """
     cun = permission.currentUserName()
+    q = {'user_id': cun, 
+         'alertType': 'star', 
+         'live': True}
+    numStars = models.Alert.count(q)
 
     tem = jinjaEnv.get_template("alerts_stars.html")
     h = tem.render(
         tabLine = alertTabLine("stars"),
+        numStars = numStars,
+        messages = getStarredMessages(q),
     )
     return h
+
+def getStarredMessages(q: dict) -> str:
+    """ get starred messages corresponsing to query (q).
+    Include who starred each message
+    """
+    h = ""
+    als = models.Alert.find(q, 
+        sort=[('message_id', -1), ('created',-1)])
+    starrersByMessage = groupByMessage(als)
+    for mess, starrers in starrersByMessage:
+        dpr("starrers=%r", starrers)
+        starrersH = ", ".join(
+            form("<a href='/blog/{u}'>@{u}</a>", u=u)
+            for u in starrers)
+        dpr("starrersH=%r", starrersH)
+        h += form("<p><br>Starred by {starrers}:</p>\n{m}\n",
+            starrers = starrersH,
+            m = mess.viewH())
+        dpr("h=%r", h)
+    #//for al
+    return h
+
+def groupByMessage(als:Iterable[models.Alert]) \
+    -> Iterable[Tuple[models.Message,List[str]]]:
+    """ Group the alerts by message. For each group of alerts with
+    a messages, return that message and the userIds of the users who 
+    starred it.
+    """
+    mid:str = "" # message id
+    m = None # message of (mid)
+    users:List[str] = []
+    dpr("mid=%r users=%r", mid, users)
+    for al in als:
+        newMid = al.message_id
+        if newMid != mid:
+            dpr("mid=%r newMid=%r", mid, newMid)
+            if mid != "":
+                dpr("yielding (%r, %r)", mid, users)
+                yield (m,users)
+            mid = newMid
+            m = models.Message.getDoc(mid)
+        users += [al.doer_id]
+        dpr("mid=%r users=%r", mid, users)
+    #//for al
+    if mid != "":
+        dpr("yielding (%r, %r)", mid, users)
+        yield (m, users)
 
 #---------------------------------------------------------------------
 

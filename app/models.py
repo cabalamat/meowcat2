@@ -52,8 +52,7 @@ class Message(MonDoc):
         """ before saving, create the title """
         lines = self.source.split("\n")
         if len(lines)>=1:
-            line0 = lines[0].strip()
-            self.title = line0
+            self.title = maxChars(lines[0], 80, 90)
         else:
             self.title = ""
         
@@ -213,9 +212,24 @@ class Message(MonDoc):
         ms = Message.find({'replyTo_id': self._id}, sort='published')
         return ms
 
-#Message.autopages(
-#    showFields=['title', 'source', 'replyTo_id', 'author_id', 'published'], 
-#    sort='published')
+def maxChars(s: str, a: int, b: int) -> str:
+    """ return a string containing the beginning of (s) with a max
+    size of about (a) to (b), preferably ending on a space.
+    Used to create the ti
+    """
+    s2 = s.strip()
+    if len(s2)<=a: return s2
+    ix = a-1
+    while 1:
+        if ix >= len(s2):
+            return s2[:ix]
+        if s2[ix] == " ":
+            return s2[:ix].strip()
+        if ix >a and ix>b:
+            return s2[:ix].strip()
+        ix += 1
+    #//while    
+
 
 #---------------------------------------------------------------------
 """
