@@ -36,11 +36,26 @@ def alertTabLine(tab):
 def alerts_replies() -> str:
     """ alerts for replies to the current user's posts """
     cun = permission.currentUserName()
+    q = {'user_id': cun, 
+         'alertType': 'reply', 
+         'live': True}
+    count = models.Alert.count(q)
 
     tem = jinjaEnv.get_template("alerts_replies.html")
     h = tem.render(
         tabLine = alertTabLine("replies"),
+        count = count,
+        messages = getMessages(q)
     )
+    return h
+
+def getMessages(q: dict) -> str:
+    """ get messages corresponsing to query (q) """
+    h = ""
+    als = models.Alert.find(q, sort=('created',-1))
+    for al in als:
+        h += al.reply.viewH() + "<p></p>"
+    #//for al
     return h
 
 #---------------------------------------------------------------------
