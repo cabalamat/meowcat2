@@ -55,7 +55,7 @@ function getActiveAlerts(){
         console.log("*** getActiveAlerts retVal=" + toString(retVal));
         var numAlerts = retVal[0];
         var alertCssClass = numAlerts>0 ? "alerts" : "";
-        var h = `<a href='/alerts/active'>
+        var h = `<a href='/alerts/current'>
 <span class='alert-badge ${alertCssClass}'>
     ${numAlerts} <i class='fa fa-bell'></i>
 </span></a>`;

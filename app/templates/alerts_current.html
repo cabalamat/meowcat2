@@ -1,0 +1,20 @@
+{# alerts_current.html
+   ===================
+
+A user's current alerts
+#}
+{% extends "tab_alerts.html" %}
+
+{% block body %}
+<div class='right-pagination'>{{pag.links}}</div>
+<h2><i class='fa fa-bell'></i> Current Notifications ({{count}})</h2>
+<p>{{pag.info}}</p>
+
+<p>These are notifications of posts replied to or starred that 
+haven't yet been cleared.</p>
+
+{{table}}
+<div class='right-pagination'>{{pag.links}}</div>
+{% endblock body %}
+
+{# end #}

@@ -1,0 +1,20 @@
+{# alerts_historic.html
+   ===================
+
+A user's historic alerts
+#}
+{% extends "tab_alerts.html" %}
+
+{% block body %}
+<div class='right-pagination'>{{pag.links}}</div>
+<h2><i class='fa fa-bell'></i> Historic Notifications ({{count}})</h2>
+<p>{{pag.info}}</p>
+
+<p>These are notifications of posts replied to or starred that 
+have been cleared.</p>
+
+{{table}}
+<div class='right-pagination'>{{pag.links}}</div>
+{% endblock body %}
+
+{# end #}
