@@ -33,7 +33,7 @@ def alertTabLine(tab):
 
 #---------------------------------------------------------------------
 
-@app.route('/alerts/replies')
+@app.route('/alerts/replies', methods=['POST', 'GET'])
 @needUser
 def alerts_replies() -> str:
     """ alerts for replies to the current user's posts """
@@ -41,6 +41,10 @@ def alerts_replies() -> str:
     q = {'user_id': cun, 
          'alertType': 'reply', 
          'live': True}
+    if request.method=='POST':
+        models.Alert.col().update_many(q,
+            {'$set': {'live': False}})
+    #//for    
     count = models.Alert.count(q)
 
     tem = jinjaEnv.get_template("alerts_replies.html")

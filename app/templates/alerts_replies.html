@@ -8,6 +8,12 @@ Alerts: replies to user
 {% block body %}
 <h2><i class='fa fa-reply'></i> Replies to Your Posts ({{count}})</h2>
 
+<form method=POST>
+<p><button class='btn btn-primary'><i class='fa fa-bell-o'></i> 
+Clear Notifications
+</button></p>
+</form>
+
 {{messages}}
 
 {% endblock body %}
