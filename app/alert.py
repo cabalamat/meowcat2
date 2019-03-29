@@ -124,6 +124,7 @@ def groupByMessage(als:Iterable[models.Alert]) \
                 yield (m,users)
             mid = newMid
             m = models.Message.getDoc(mid)
+            users = []
         users += [al.doer_id]
         dpr("mid=%r users=%r", mid, users)
     #//for al

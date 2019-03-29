@@ -82,7 +82,6 @@ def x_star(id):
     if not m: return
     if cun not in m.starredBy_ids:
         m.starredBy_ids += [cun]
-        m.numStars = len(m.starredBy_ids)
         m.save()
         al = models.Alert(
             user_id = m.author_id,

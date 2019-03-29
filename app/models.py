@@ -55,6 +55,7 @@ class Message(MonDoc):
             self.title = maxChars(lines[0], 80, 90)
         else:
             self.title = ""
+        self.numStars = len(self.starredBy_ids)
         
     def url(self):
         u = "/mess/" + self.id()
