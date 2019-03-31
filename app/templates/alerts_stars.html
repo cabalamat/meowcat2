@@ -8,6 +8,12 @@ Alerts: stars of user's posts
 {% block body %}
 <h2><i class='fa fa-star'></i> Stars of Your Posts ({{numStars}})</h2>
 
+<form method=POST>
+<p><button class='btn btn-primary'><i class='fa fa-bell-o'></i> 
+Clear Notifications of Stars
+</button></p>
+</form>
+
 {{messages}}
 
 {% endblock body %}

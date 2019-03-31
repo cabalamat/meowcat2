@@ -66,7 +66,7 @@ def getMessages(q: dict) -> str:
 
 #---------------------------------------------------------------------
 
-@app.route('/alerts/stars')
+@app.route('/alerts/stars', methods=['POST', 'GET'])
 @needUser
 def alerts_stars() -> str:
     """ alerts for stars to the current user's posts """
@@ -74,6 +74,10 @@ def alerts_stars() -> str:
     q = {'user_id': cun, 
          'alertType': 'star', 
          'live': True}
+    if request.method=='POST':
+        models.Alert.col().update_many(q,
+            {'$set': {'live': False}})
+    #//for
     numStars = models.Alert.count(q)
 
     tem = jinjaEnv.get_template("alerts_stars.html")
