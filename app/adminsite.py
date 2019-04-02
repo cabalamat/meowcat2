@@ -13,7 +13,7 @@ def createAdminSite():
     import userdb
     import models
     
-    adminSite = bozen.AdminSite()
+    adminSite = bozen.AdminSite(stub=config.ADMIN_SITE_PREFIX)
     adminSite.showFields(userdb.User, ['userName'])
     adminSite.sortFields(userdb.User, 'userName')
     adminSite.showFields(models.Message, ['title','source','published'])

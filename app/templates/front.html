@@ -26,9 +26,11 @@ Front page
 log in</a>.</p>
 {% endif %}
 
+{% if adminSiteExists %}
 <p>In development: you can visit the 
-<a href='/admin'><i class='fa fa-cog'></i>
+<a href='/{{adminSitePrefix}}'><i class='fa fa-cog'></i>
 Admin Site</a>.</p>
+{% endif %}
 
 {% endblock body %}
 

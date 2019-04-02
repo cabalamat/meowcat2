@@ -20,6 +20,7 @@ DB_NAME = "meowcat"
 
 # Bozen admin site (scaffolding)
 CREATE_ADMIN_SITE = True
+ADMIN_SITE_PREFIX="db"
 
 #---------------------------------------------------------------------
 # about this MeowCat instance
