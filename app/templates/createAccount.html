@@ -1,0 +1,31 @@
+{# createAccount.html
+   ==================
+
+allow the user toi create a new account
+#}
+{% extends "main.html" %}
+
+{% block body %}
+<h1><i class='fa fa-user-plus'></i> Create New Account</h1>
+
+<p>Use this page to create a new account.</p>
+
+<p>(If instead you want to sign in using an existing account, use
+the
+<a class='btn btn-default' href="/login"><i class='fa fa-sign-in'></i>
+Log In</a> page.)</p>
+
+<form method="POST">
+{{caf.buildForm()}}
+{{msg}}
+
+<p><br>
+<button class='btn btn-success'>
+<i class='fa fa-user-plus'></i> Create Account</button></p>
+</form>
+
+
+{% endblock body %}
+
+
+{# end #}

@@ -22,8 +22,14 @@ Front page
 {% if currentUserName() %}
 <p>Welcome, {{currentUserName()}}.</p>
 {% else %}
-<p>Hello visitor, you can <a href="/login"><i class='fa fa-sign-in'></i>
-log in</a>.</p>
+<p>Hello visitor. If you have an account already, you can 
+<a class='btn btn-default' href="/login"><i class='fa fa-sign-in'></i>
+Log In</a>.</p>
+
+<p>If not, you can 
+<a class='btn btn-default' href="/createAccount">
+<i class='fa fa-user-plus'></i>
+Create New Account</a>.</p>
 {% endif %}
 
 {% if adminSiteExists %}

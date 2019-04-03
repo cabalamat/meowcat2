@@ -36,15 +36,10 @@ import userdb
 
 
 #---------------------------------------------------------------------
-# Front page (/)
-
-# page to go to, on login, if the user is an engineer
-ENG_ON_LOGIN_PAGE = "/startday"
 
 class LoginForm(FormDoc):
     userName = StrField()
     password = PasswordField()
-
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -80,14 +75,44 @@ def login():
     )
     return h
 
-
-
 #---------------------------------------------------------------------
 
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect("/")
+
+#---------------------------------------------------------------------
+
+LETTERS = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+          +"abcdefghijklmnopqrstuvwxyz") 
+DIGITS = "0123456789"
+USER_ID_CHARS = LETTERS + DIGITS + "_"
+
+class CreateAccountForm(FormDoc):
+    userName = StrField(required=True, 
+        minLength=4, maxLength=30,
+        allowedChars=USER_ID_CHARS)
+    password = PasswordField(required=True, 
+        minLength=4, maxLength=30,
+        allowedChars=USER_ID_CHARS)
+    emailAddress = StrField(required=True)
+
+@app.route('/createAccount', methods=['POST', 'GET'])
+def createAccount():
+    tem = jinjaEnv.get_template("createAccount.html")
+    caf = CreateAccountForm()
+    msg = ""
+
+    if request.method=='POST':
+        pass
+    #//if    
+
+    h = tem.render(
+        caf = caf,
+    )
+    return h
+
 
 #---------------------------------------------------------------------
 
