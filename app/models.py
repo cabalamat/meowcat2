@@ -258,6 +258,10 @@ class AccountInfo(MonDoc):
         """ The URL for an acocunt is that accounts blog page """
         return "/blog/" + self._id
     
+    @classmethod    
+    def classLogo(self):
+        return "<i class='fa fa-user-o'></i> " 
+    
     def preCreate(self):
         self.title = form("{id}'s blog", 
             self.asReadableH('_id'))
@@ -333,7 +337,17 @@ class Alert(MonDoc):
         readOnly=True)
     doer_id = FK(userdb.User, desc="user who starred/replied")
     reply_id = FK(Message, desc="the reply",
-         allowNull=True)         
+         allowNull=True)  
+    
+    def logo(self):
+        if self.live:
+            return "<i class='fa fa-bell'></i> "
+        else:   
+            return "<i class='fa fa-bell-o'></i> " 
+        
+    @classmethod    
+    def classLogo(self):
+        return "<i class='fa fa-bell-o'></i> " 
  
     def preCreate(self):
         """ before saving, create the bioHtml """
