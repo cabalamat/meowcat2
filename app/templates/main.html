@@ -91,14 +91,7 @@ Uses SB-Admin
 
 {% block leftbar %}
 <div class="collapse navbar-collapse navbar-ex1-collapse">
-  <ul class="nav navbar-nav side-nav">
-    {% if currentUserName() %}
-    {% endif %} 
-    
-      <li{{hpex('users','user')}}><a href="/users">
-        <i class="fa fa-user"></i>
-        Users</a></li>
-        
+  <ul class="nav navbar-nav side-nav">      
       <li{{hpic('userList')}}><a href="/userList">
         <i class="fa fa-user"></i>
         List Users</a></li>
@@ -114,6 +107,9 @@ Uses SB-Admin
       <li{{hpex('mostStarred')}}><a href="/mostStarred">
         <i class="fa fa-star"></i>
         Most-Starred</a></li>
+        
+    {% if currentUserName() %}
+    {% endif %} 
         
   </ul>
 </div>
