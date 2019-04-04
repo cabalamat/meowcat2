@@ -8,16 +8,23 @@ allow the user toi create a new account
 {% block body %}
 <h1><i class='fa fa-user-plus'></i> Create New Account</h1>
 
-<p>Use this page to create a new account.</p>
-
-<p>(If instead you want to sign in using an existing account, use
+<p>Use this page to create a new account.
+(If instead you want to sign in using an existing account, use
 the
 <a class='btn btn-default' href="/login"><i class='fa fa-sign-in'></i>
 Log In</a> page.)</p>
 
+<p>Choose a username and password for your new account.
+Valid characters for usernames and passwords are letters, digits and 
+underline ("_").</p>
+
+<p>Usernames and passwords must be between 4 and 30 characters long.</p>
+
 <form method="POST">
 {{caf.buildForm()}}
-{{msg}}
+{{caf.formWideErrorMessageH()}}
+{{goodMsg}}
+{{badMsg}}
 
 <p><br>
 <button class='btn btn-success'>

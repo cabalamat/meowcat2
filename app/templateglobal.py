@@ -121,6 +121,19 @@ def highlightPageExact(testUrl, *moreUrls):
     return ""
 jinjaEnv.globals['hpex'] = highlightPageExact
 
+def highlightPageFull(testUrl, *moreUrls):
+    """ If the full path on this site is (testUrl), return
+    " class='active'".
+    """
+    urls = [testUrl] + list(moreUrls)
+    p = request.path.lstrip("/")
+    for url in urls:
+        if p==url:
+            return " class='active'"
+    return ""
+jinjaEnv.globals['hpf'] = highlightPageFull
+    
+
 def completeH(b, yesText="complete", noText="not complete"):
     """ return a string saying whether something is complete
     @param b::bool

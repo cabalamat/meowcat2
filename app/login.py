@@ -90,22 +90,43 @@ DIGITS = "0123456789"
 USER_ID_CHARS = LETTERS + DIGITS + "_"
 
 class CreateAccountForm(FormDoc):
-    userName = StrField(required=True, 
+    userName = StrField(title="Enter New Username",
+        required=True, 
+        autocomplete=False,
         minLength=4, maxLength=30,
-        allowedChars=USER_ID_CHARS)
-    password = PasswordField(required=True, 
+        charsAllowed=USER_ID_CHARS)
+    password = PasswordField(title="Enter New Password",
+        required=True, 
+        autocomplete=False,
         minLength=4, maxLength=30,
-        allowedChars=USER_ID_CHARS)
-    emailAddress = StrField(required=True)
+        charsAllowed=USER_ID_CHARS)
+    confirmPassword = PasswordField(title="Confirm Password",
+        required=True,
+        autocomplete=False, 
+        minLength=4, maxLength=30,
+        charsAllowed=USER_ID_CHARS)
+    
+    def formWideErrorMessage(self) -> str:
+        if self.password != self.confirmPassword:
+            return ("The New Password and Confirm Password fields "
+                "must be the same.")
+        
+        return ""
+    
 
 @app.route('/createAccount', methods=['POST', 'GET'])
 def createAccount():
     tem = jinjaEnv.get_template("createAccount.html")
     caf = CreateAccountForm()
-    msg = ""
+    goodMsg = ""
+    badMsg = ""
 
     if request.method=='POST':
-        pass
+        caf = caf.populateFromRequest(request)
+        if caf.isValid():
+            goodMsg = "Can create account"
+        else:
+            badMsg = "Cannot create account"
     #//if    
 
     h = tem.render(

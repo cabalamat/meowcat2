@@ -109,6 +109,15 @@ Uses SB-Admin
         Most-Starred</a></li>
         
     {% if currentUserName() %}
+      <li{{hpf('followingMess/'+currentUserName())}}><a
+        href="/followingMess/{{currentUserName()}}">
+        <i class="fa fa-eye"></i>
+        My Newsfeed</a></li>
+        
+      <li{{hpf('blog/'+currentUserName())}}><a 
+        href="/blog/{{currentUserName()}}">
+        <i class="fa fa-list-ul"></i>
+        My Blog</a></li>
     {% endif %} 
         
   </ul>

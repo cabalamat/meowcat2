@@ -173,16 +173,28 @@ class FieldInfo:
         else:
             return self.formField_rw(v, **kwargs)
 
+    def autocompleteAttr(self) -> str:
+        """ html to be generated as an attribute in the field for 
+        autocomplete. if autocomplete==False, this is:
+            autocomplete='off'
+        otherwise, an empty string.
+        """
+        if self.autocomplete:
+            return ""
+        else:
+            return "autocomplete='off'"
+        
 
     def formField_rw(self, v, **kwargs)->str:
         vStr = self.convertToScreen(v)
         h = form("""<input{cc} id="id_{fn}"
             name="{fn}"
-            type="text" value="{v}" size={fieldLen}>""",
+            type="text" value="{v}" size={fieldLen} {ac}>""",
             cc = cssClasses("bz-input", self.monospaced and "monospace"),
             fn = self.fieldName,
             v = attrEsc(vStr),
-            fieldLen = self.fieldLen)
+            fieldLen = self.fieldLen,
+            ac = self.autocompleteAttr())
         return h
 
     def formField_ro(self, v, **kwargs)->str:
@@ -234,6 +246,7 @@ class FieldInfo:
         self.fieldLen = kwargs.get("fieldLen", 20)
         self.formatStr = kwargs.get("formatStr", "{}")
         self.readOnly = kwargs.get('readOnly', False)
+        self.autocomplete = kwargs.get('autocomplete', True)
         self.monospaced = kwargs.get('monospaced', False)
         self.minValue = kwargs.get('minValue', None)
         self.maxValue = kwargs.get('maxValue', None)
@@ -433,11 +446,12 @@ class PasswordField(StrField):
     def formField_rw(self, v: str, **kwargs) -> str:
         """ return  html for a form field for this fieldInfo """
         h = form('''<input{cc} id="id_{fieldName}" name="{fieldName}"
-            type="password" value={v} size={fieldLen}>''',
+            type="password" value="{v}" size={fieldLen} {ac}>''',
             cc = cssClasses("bz-input"),
             fieldName = self.fieldName,
             v = attrEsc(self.formatStr.format(v)),
             fieldLen = self.fieldLen,
+            ac = self.autocompleteAttr()
         )
         return h
 
