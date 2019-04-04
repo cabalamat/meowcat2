@@ -124,13 +124,21 @@ def createAccount():
     if request.method=='POST':
         caf = caf.populateFromRequest(request)
         if caf.isValid():
-            goodMsg = "Can create account"
+            u = userdb.User(
+                userName = caf.userName,
+                password = caf.password)
+            u.save()
+            goodMsg = ("Have created account @%s, now you need to "
+                "<a href='/login'>log in</a>." 
+                % (u.userName,))
         else:
             badMsg = "Cannot create account"
     #//if    
 
     h = tem.render(
         caf = caf,
+        goodMsg = ht.goodMessageBox(goodMsg, escapeForHtml=False),
+        badMsg = ht.errorBox(badMsg),
     )
     return h
 
