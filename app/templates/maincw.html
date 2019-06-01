@@ -1,0 +1,85 @@
+{# maincw.html
+   ===========
+
+main from catwiki
+#}<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}CatWiki{% endblock %}</title>
+
+<link href="/static/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" 
+    href="/static/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/static/jquery-ui-1.11.4/jquery-ui.css">
+<link rel="stylesheet" href="/static/jquery-ui-1.11.4/jquery-ui.structure.css">
+<link rel="stylesheet" href="/static/jquery-ui-1.11.4/jquery-ui.theme.css">
+<link rel="stylesheet" href="/static/jquery-ui-timepicker-addon.css">
+<link rel="stylesheet" href="/static/bozen.css">
+<link rel="stylesheet" href="/static/app.css">
+<link rel="stylesheet" href="/static/message.css">
+<link rel="stylesheet" href="/static/pygments.css">
+<link rel="stylesheet" href="/static/tango.css">
+
+    <link rel="shortcut icon" type="image/x-icon" href="/static/catwiki.ico" />
+    {% block extrahead %}{% endblock extrahead %}
+</head>
+
+<body>
+{%block body_start %}
+
+      <!-- Sidebar -->
+      <div class="navbar navbar-default navbar-top">
+        {%block topbar %}
+      <div class="container-liquid">
+        <div class="navbar-header">
+          <a href="/" class="navbar-brand"><!--i class='icon-icon_e600'></i-->
+          <i class='icon-icon_e600'></i> <b>CatWiki</b></a>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+          <ul class="nav navbar-nav">
+
+            <li>
+              <a href="/catwiki/w/home"><i class='fa fa-info-circle'></i> About</a>
+            </li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right" style="padding-right:20px;">
+            <li class="dropdown alerts-dropdown help-popup">
+              <a href="/catwiki/w/help">
+                <i class="fa fa-question-circle" id="myelement"></i> Help
+              </a>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+        {%endblock topbar %}
+{% endblock body_start %}
+
+
+{% block contents %}
+<div class="container-liquid" style="padding:0 20px">
+      {% block page_wrapper %}
+
+        <div class="row">
+          <div class="col-lg-12">{% block body %}
+          <p>This is the body of the page.</p>
+          {% endblock body %}</div>
+        </div><!-- row -->
+      {% endblock page_wrapper %}
+</div>
+{% endblock contents %}
+
+<script src="/static/jquery-3.1.1.min.js"></script>
+<script src="/static/jquery.selection.js"></script>
+<script src="/static/jsfunctions.js"></script>
+<script src="/static/app.js"></script>
+
+{%block atend%}
+<!-- just before /body tag -->
+{%endblock atend%}
+</body></html>
+{# end #}
