@@ -78,20 +78,44 @@ main from catwiki
         </div>
       </div>
     </div>
-{%endblock topbar %}
+{% endblock topbar %}
 {% endblock body_start %}
-
 
 {% block contents %}
 <div class="container-liquid" style="padding:0 20px">
-      {% block page_wrapper %}
+  {% block page_wrapper %}
 
-        <div class="row">
-          <div class="col-lg-12">{% block body %}
-          <p>This is the body of the page.</p>
-          {% endblock body %}</div>
-        </div><!-- row -->
-      {% endblock page_wrapper %}
+  <div class="row">
+    <div class="col-lg-12">
+      {% block topnav %}   
+      <p style="margin-top:6px;">
+        {% if currentUserName() %}
+        <a class='btn btn-default' href="/followingMess/{{currentUserName()}}">
+          <i class="fa fa-eye"></i>
+          My Newsfeed</a> &nbsp;
+        <a class='btn btn-default' href="/blog/{{currentUserName()}}">
+          <i class="fa fa-list-ul"></i>
+        My Blog</a> &nbsp;
+        {% endif %} 
+        <a class='btn btn-default' href="/messList">
+          <i class="fa fa-list-ul"></i>
+          Recent Messages</a> &nbsp;
+        <a class='btn btn-default' href="/popularTags">
+          <i class="fa fa-hashtag"></i>
+          Popular Tags</a> &nbsp;
+        <a class='btn btn-default' href="/userList">
+          <i class="fa fa-user"></i>
+          List Users</a> &nbsp;
+        <a class='btn btn-default' href="/mostStarred">
+          <i class="fa fa-star"></i>
+          Most-Starred</a> &nbsp;
+      </p>
+      {% endblock topnav %}   
+      {% block body %}
+      <p>This is the body of the page.</p>
+      {% endblock body %}</div>
+    </div><!-- row -->
+  {% endblock page_wrapper %}
 </div>
 {% endblock contents %}
 
