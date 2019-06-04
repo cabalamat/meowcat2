@@ -7,7 +7,7 @@ main from catwiki
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>{% block title %}CatWiki{% endblock %}</title>
+    <title>{% block title %}{{APP_TITLE}}{% endblock %}</title>
 
 <link href="/static/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" 
@@ -22,7 +22,8 @@ main from catwiki
 <link rel="stylesheet" href="/static/pygments.css">
 <link rel="stylesheet" href="/static/tango.css">
 
-    <link rel="shortcut icon" type="image/x-icon" href="/static/catwiki.ico" />
+<link rel="shortcut icon" type="image/png" 
+      href="/static/cat_icon_32x32.png">
     {% block extrahead %}{% endblock extrahead %}
 </head>
 
@@ -56,7 +57,7 @@ main from catwiki
         </div>
       </div>
     </div>
-        {%endblock topbar %}
+{%endblock topbar %}
 {% endblock body_start %}
 
 
@@ -73,8 +74,13 @@ main from catwiki
 </div>
 {% endblock contents %}
 
-<script src="/static/jquery-3.1.1.min.js"></script>
-<script src="/static/jquery.selection.js"></script>
+<script src="/static/sb-admin/js/jquery-1.10.2.js"></script>
+<script src="/static/sb-admin/js/bootstrap.js"></script>
+<script src="/static/bootbox.min.js"></script>
+<script src="/static/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+<script src="/static/jquery-ui-timepicker-addon.js"></script>
+<script src="/static/js.cookie.js"></script>
+<script src="/static/bozen.js"></script>
 <script src="/static/jsfunctions.js"></script>
 <script src="/static/app.js"></script>
 
