@@ -40,13 +40,34 @@ main from catwiki
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav">
-
             <li>
-              <a href="/catwiki/w/home"><i class='fa fa-info-circle'></i> About</a>
+              <a href="/catwiki/w/home"><i class='fa fa-info-circle'></i>
+              About</a>
             </li>
           </ul>
-
           <ul class="nav navbar-nav navbar-right" style="padding-right:20px;">
+          
+            {% if currentUserName() %}
+            <li class="dropdown user-dropdown" id="dyn_active_alerts">
+            </li>
+            <li class="dropdown user-dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-user" id="myelement"></i>
+                  {{currentUserName()}}
+                <ul class="dropdown-menu">
+                  <li><a href="/logout"><i class="fa fa-power-off"></i>
+                    Log Out</a></li>
+                </ul>
+              </a>
+            </li>
+            {% else %}
+            <li class="dropdown alerts-dropdown">
+              <a href="/login">
+                <i class="fa fa-sign-in"></i> Log in
+              </a>
+            </li>
+            {% endif %}
+            
             <li class="dropdown alerts-dropdown help-popup">
               <a href="/catwiki/w/help">
                 <i class="fa fa-question-circle" id="myelement"></i> Help
