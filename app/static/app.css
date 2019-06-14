@@ -294,18 +294,27 @@ ul.dropdown-menu a:hover {
   padding-left: 4px !important;
 }
 
-/* pagination */
+/*---------- pagination */
 
 .right-pagination {
   float: right;
 }
 .right-pagination .pagination {
   margin: 4px 0px !important;
+  font-size: 16px !important;
 }
 
 .pagination li a, .pagination li.disabled a {
-  border-color: #666;
+  border-color: #666 !important;
 }
+
+.pagination li.active a, .pagination li.disabled a {
+  color: #000;
+  background: #fff;
+  font-weight: bold;
+}  
+
+  
 
 /*-------------------- buttons */
 .btn {
