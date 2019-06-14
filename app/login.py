@@ -5,8 +5,6 @@ Contains pages:
 
   / = for logging in
   /logout = log out the current user
-  /users = show all users
-  /user = show a user's data
 
 See also <userdb.py> which contains the database model for users.
 
