@@ -1,7 +1,8 @@
 # wiki.py = pages for wikis
 
-from flask import request, redirect, Response
+from typing import List, Tuple
 
+from flask import request, redirect, Response
 
 from bozen.butil import pr, prn, dpr, form, htmlEsc
 from bozen import FormDoc, MonDoc, BzDate, BzDateTime
@@ -35,6 +36,18 @@ def decomposePathName(pathName: str) -> Tuple[str,str]:
         "foo/bar/" -> ("foo/bar", "")
         "foo/bar/baz" -> ("foo/bar", "baz")
     """
+    parts = pathName.split("/")   
+    #dpr("parts=%r", parts)
+    
+    if len(parts)==1:
+        return parts[0], ""
+    
+    folderA = parts[:-1]
+    #dpr("folderA=%r", folderA)
+    filename = parts[-1]
+    folder = "/".join(folderA)
+    return folder, filename
+        
     
 #---------------------------------------------------------------------
 
