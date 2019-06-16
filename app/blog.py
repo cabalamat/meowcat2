@@ -30,7 +30,7 @@ class BlogFormatter(messlist.ListFormatter):
     def includeAuthorOneLine(self) -> bool:
         """ Should we include the author when printing a one-line
         summary of a message? This is true except for a blog (because
-        then all the messages are from trhe same author).
+        then all the messages are from the same author).
         """
         return False
     

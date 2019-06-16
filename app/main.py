@@ -28,6 +28,10 @@ import account
 import star
 import alert
 
+# wikis
+import wikidb
+import wiki
+
 # do this last:
 import adminsite
 
