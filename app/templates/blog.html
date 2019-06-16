@@ -46,7 +46,15 @@ Blog for a user
 </table>
 
 <p><a href="/mostStarred/{{id}}" class='btn btn-default'>
-<i class='fa fa-star'></i> Most-Starred messages</a></p>
+<i class='fa fa-star'></i> Most-Starred messages</a>
+&nbsp;
+<a href="/wiki/{{id}}/" class='btn btn-default'>
+    <i class='fa fa-file-text-o'></i> Wiki</a>
+<a href="/wiki/{{id}}/home" class='btn btn-default'>
+    <i class='fa fa-home'></i> Wiki Home Page</a>
+
+
+</p>
 
 {% if currentUserName()==id %}
 <p><a class='btn btn-primary' href="/messRep">

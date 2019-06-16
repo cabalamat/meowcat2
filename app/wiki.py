@@ -16,7 +16,26 @@ import wikidb
 
 #---------------------------------------------------------------------
 
-
+@app.route('/wiki/<u>')
+@app.route('/wiki/<u>/')
+def wiki_u(u):
+    return wikiDir(u, "")
+    
+@app.route('/wiki/<u>/<path:pathName>')
+def wiki_page(u, pathName):
+    folder, filename = decomposePathName(pathName)
+    if filename=="":
+        return wikiDir(u, folder)
+    else:    
+        return wikiPage(u, folder, filename)
+    
+def decomposePathName(pathName: str) -> Tuple[str,str]:
+    """ decompose a pathname into a folder and a filename, e.g.
+        "foo/bar" -> ("foo", "bar")
+        "foo/bar/" -> ("foo/bar", "")
+        "foo/bar/baz" -> ("foo/bar", "baz")
+    """
+    
 #---------------------------------------------------------------------
 
 #end
