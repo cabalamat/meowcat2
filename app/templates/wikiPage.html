@@ -1,0 +1,25 @@
+{# wikiPage.html
+   =============
+
+A page in a wiki
+#}
+{% extends "maincw.html" %}
+
+
+{% block body %}
+<h1><i class='fa fa-file-text-o'></i> {{filename}}</h1>
+
+{% if exists %}
+    {{wp.html}}
+{% elif canAlter %}
+    <p><i>This wiki page doesn't exist yet. You can create it.</i></p>
+    <p><a href="" class="btn btn-primary">
+        <i class='fa fa-file-text-o'></i> Create Page "{{filename}}"</a></p>
+{% else %}     
+    <p><i>This wiki page doesn't exist.</i></p>
+{% endif %}
+
+
+{% endblock body %}
+
+{# end #}

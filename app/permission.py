@@ -31,7 +31,10 @@ def needUser(fn):
 # global functions (for all templates)
 
 jinjaEnv.globals['currentUser'] = current_user
-def currentUserName():
+def currentUserName() -> str:
+    """ return the name ofd the current user, or "" if there isn't
+    one.
+    """
     #pr("current_user=%r::%s", current_user, type(current_user))
     if ((not current_user)
         or current_user.is_anonymous):

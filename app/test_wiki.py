@@ -13,6 +13,7 @@ class T_paths(lintest.TestCase):
     def testDecompose(self, pn, fo, fi):
         """ test decomposePathName """
         folder, filename = wiki.decomposePathName(pn)
+        dpr("decomposePathName(%r) => (%r,%r)", pn, folder, filename)
         self.assertSame(folder, fo, 
             "testing %r, folder should be %r" % (pn, fo))
         self.assertSame(filename, fi, 
@@ -20,6 +21,9 @@ class T_paths(lintest.TestCase):
     
     
     def test_decomposePathName(self):
+        self.testDecompose("", "", "")
+        self.testDecompose("foo", "", "foo")
+        self.testDecompose("foo/", "foo", "")
         self.testDecompose("foo/bar", "foo", "bar")
         self.testDecompose("foo/bar/", "foo/bar", "")
         self.testDecompose("foo/bar/baz", "foo/bar", "baz")

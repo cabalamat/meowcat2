@@ -36,6 +36,36 @@ class WikiPage(MonDoc):
     
     def preCreate(self):
         self.published = BzDateTime.now()
+        
+    def canAlter(self, userName: str) -> bool:
+        """ Can a user alter this wiki page? 
+        At the moment only the owner of a apge can alter it.
+        Later we will enable collaborative wikis.
+        """
+        return canAlter(userName, self.owner_id, self.folder, self.filename)
+
+def getWikiPage(u: str, folder: str, filename: str) -> Optional[WikiPage]:
+    """ return a wiki page. If it doesn't exist, return None.
+    @param u = user name
+    @param folder = the path to the page (not inculding filename)
+    @param filename = the filename
+    """
+    wantedId = (u + "/"
+        + folder
+        + ("/" if folder else "")
+        + filename)
+    wp = WikiPage.getDoc(wantedId)
+    return wp
+
+def canAlter(u2: str, u: str, folder: str, filename: str) -> bool:
+    """ Can a user alter this wiki page? 
+    @param u2 = user who we are asking if they can alter it
+    (u, folder, filename) = address of page
+      
+    At the moment only the owner of a page can alter it.
+    Later we will enable collaborative wikis.
+    """
+    return u2 == u
 
 #---------------------------------------------------------------------
 
