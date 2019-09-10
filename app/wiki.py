@@ -46,6 +46,15 @@ def decomposePathName(pathName: str) -> Tuple[str,str]:
     filename = parts[-1]
     folder = "/".join(folderA)
     return folder, filename
+
+def wikiNavigation(u: str, folder: str, filename: str) -> str:
+    """ HTML for navigation: contains user name, folder path
+    and filename.
+    @param u = user name
+    @param folder = the path to the page (not inculding filename)
+    @param filename = the filename
+    """
+    h = ""
            
 #---------------------------------------------------------------------
        
@@ -59,6 +68,7 @@ def wikiPage(u: str, folder: str, filename: str):
     tem = jinjaEnv.get_template("wikiPage.html")
     canAlter = wikidb.canAlter(currentUserName(), u, folder, filename)
     h = tem.render(
+        nav = wikiNavigation(u, folder, filename),
         userName = u,
         folder = folder,
         filename = filename,
