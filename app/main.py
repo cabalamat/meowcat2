@@ -35,6 +35,9 @@ import wiki
 # do this last:
 import adminsite
 
+# RSS input 
+import rssin
+
 #---------------------------------------------------------------------
 
 #@app.route("/")
