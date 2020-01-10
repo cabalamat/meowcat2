@@ -178,6 +178,14 @@ def messRep(id=None):
     return h
  
 #---------------------------------------------------------------------
+ 
+@app.route('/editMess/<id>')
+@needUser
+def editMess(id):
+    """ Edit an existing message """
+ 
+ 
+#---------------------------------------------------------------------
   
 @app.route('/context/<id>')
 def context(id):

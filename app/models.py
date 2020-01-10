@@ -79,6 +79,7 @@ class Message(MonDoc):
     - <a href='/thread/{id}'>thread</a>
     - <a href='/messSource/{id}'>source</a>
     {reply}
+    {edit}
     - {star}
     </p>
 </div>""",
@@ -90,6 +91,7 @@ class Message(MonDoc):
             body = self.html,
             context = self.contextA(),
             reply = self.replyA(),
+            edit = self.editA(),
             star = self.starH(),
         )
         return h
@@ -135,6 +137,18 @@ class Message(MonDoc):
         cun = currentUserName()
         if not cun: return ""
         h = form("- <a href='/messRep/{id}'>reply</a> ",
+            id = self.id())
+        return h
+    
+    def editA(self) -> str:
+        """ html containing the link to edit this message.
+        This is empty unless the logged-in user is the author of 
+        the message.
+        """
+        cun = currentUserName()
+        dpr("cun=%r self.author_id=%r", cun, self.author_id)
+        if (not cun) or self.author_id != cun: return ""
+        h = form("- <a href='/editMess/{id}'>edit</a> ",
             id = self.id())
         return h
     
