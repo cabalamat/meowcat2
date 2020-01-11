@@ -38,6 +38,8 @@ class Message(MonDoc):
     tags = ObjectField()
     published = DateTimeField(readOnly=True,
         dateTimeFormat=MESS_TIME_DISPLAY_FORMAT)
+    editedAt = DateTimeField(readOnly=True,
+        dateTimeFormat=MESS_TIME_DISPLAY_FORMAT)
     starredBy_ids = FKeys('User')
     numStars = IntField(desc='number of stars on this message')
      
@@ -71,7 +73,7 @@ class Message(MonDoc):
         h = form("""
 <div class='mess'>            
     <div class='mess-header'>
-        {messLink}/{userLink} at {published}{replyToText}
+        {messLink}/{userLink} at {published}{editedAt}{replyToText}
     </div>
     {body}
     <p class='mess-footer'>
@@ -87,6 +89,7 @@ class Message(MonDoc):
             messLink = self.linkA(),
             userLink = self.author.blogLink(),
             replyToText = self.replyToText(),
+            editedAt = self.editedAtStr(),
             published = self.asReadableH('published'),
             body = self.html,
             context = self.contextA(),
@@ -163,6 +166,16 @@ class Message(MonDoc):
             userLink = parent.author.blogLink()
         )
         return h
+    
+    def editedAtStr(self) -> str:
+        """ If the message has been edited, return an appropriate 
+        editedAt: string. 
+        If not, return ""
+        """
+        if self.editedAt:
+            return " edited-at " + self.asReadableH('editedAt')
+        else:
+            return ""
                  
     def contextA(self) -> str:
         """ if post is a reply, return html for link to context of post """

@@ -179,10 +179,32 @@ def messRep(id=None):
  
 #---------------------------------------------------------------------
  
-@app.route('/editMess/<id>')
+@app.route('/editMess/<id>', methods=['POST', 'GET'])
 @needUser
 def editMess(id):
     """ Edit an existing message """
+    m = models.Message.getDoc(id)
+    
+    mf = MessageForm(message=m.source)
+    if request.method=='POST':
+        mf = mf.populateFromRequest(request)
+        previewH, tags = mark.render(mf.message)
+        
+        m.source = mf.message
+        m.html = previewH
+        m.tags = tags
+        m.editedAt = BzDateTime.now()
+        m.save()
+    #//if    
+        
+    tem = jinjaEnv.get_template("editMess.html")
+    h = tem.render(
+        m = m,
+        id = id,
+        ms = m.viewH(),
+        mf = mf,
+    )
+    return h
  
  
 #---------------------------------------------------------------------
