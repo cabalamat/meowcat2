@@ -1,0 +1,27 @@
+{# editMess.html
+   =============
+
+Edit an existing message
+#}
+{% extends "maincw.html" %}
+
+{% block body %}
+
+<h1><i class='fa fa-pencil-square'></i> Edit Message: {{m.id()}}</h1>
+
+{{ms}}
+
+<form method=POST>
+<br>
+{{mf.buildForm()}}
+
+<p><br>
+<button class="btn btn-success">
+<i class='fa fa-paper-plane'></i> 
+Update Message</button>
+</p>
+</form>
+
+{% endblock body %}
+
+{# end #}

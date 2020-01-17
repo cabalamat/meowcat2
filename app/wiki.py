@@ -22,39 +22,21 @@ import wikidb
 def wiki_u(u):
     return wikiDir(u, "")
     
-@app.route('/wiki/<u>/<path:pathName>')
-def wiki_page(u, pathName):
-    dpr("pathName=%r", pathName)
-    folder, filename = decomposePathName(pathName)
-    dpr("folder=%r filename=%r", folder, filename)
-    if filename=="":
-        return wikiDir(u, folder)
-    else:    
-        return wikiPage(u, folder, filename)
+@app.route('/wiki/<u>/<pn>')
+def wiki_page(u, pn):
+    wp = wikidb.getWikiPage(u, pn)
     
-def decomposePathName(pathName: str) -> Tuple[str,str]:
-    """ decompose a pathname into a folder and a filename, e.g.
-        "foo/bar" -> ("foo", "bar")
-        "foo/bar/" -> ("foo/bar", "")
-        "foo/bar/baz" -> ("foo/bar", "baz")
-    """
-    parts = pathName.split("/")
-    if len(parts)==1:
-        return "", parts[0]
+    tem = jinjaEnv.get_template("wikiPage.html")
+    h = tem.render(
+        userName = u,
+        pn = pn,
+        wp = wp,
+        exists = bool(wp),
+        canAlter = True,
+    )
+    return h    
     
-    folderA = parts[:-1]
-    filename = parts[-1]
-    folder = "/".join(folderA)
-    return folder, filename
 
-def wikiNavigation(u: str, folder: str, filename: str) -> str:
-    """ HTML for navigation: contains user name, folder path
-    and filename.
-    @param u = user name
-    @param folder = the path to the page (not inculding filename)
-    @param filename = the filename
-    """
-    h = ""
            
 #---------------------------------------------------------------------
        
