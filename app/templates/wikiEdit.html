@@ -1,0 +1,30 @@
+{# wikiEdit.html
+   =============
+
+Edit a page in a wiki
+#}
+{% extends "maincw.html" %}
+
+{% block body %}
+<div class="navigation">
+{{nav}}
+</div>
+
+<h1><i class='fa fa-pencil-square'></i> {{pn}}</h1>
+
+{{wp.html}}
+
+<form method=POST>
+<br>
+{{wf.buildForm()}}
+
+<p><br>
+<button class="btn btn-success">
+<i class='fa fa-file-text-o'></i> 
+Update Wiki Page</button>
+</p>
+</form>
+
+{% endblock body %}
+
+{# end #}

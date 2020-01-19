@@ -46,17 +46,29 @@ class WikiPage(MonDoc):
     
     def preCreate(self):
         self.published = BzDateTime.now()
+        
+    def preSave(self):
+        """ before saving, render the source into html """
+        self.html, _ = mark.render(self.source)
       
 
-def getWikiPage(u: str, pn: str) -> Optional[WikiPage]:
+def getWikiPage(u: str, pn: str, create:bool=True) -> Optional[WikiPage]:
     """ return a wiki page. If it doesn't exist, return None.
     @param u = user name
     @param pn = the page name
+    @param create = if True, and the page doesn't exit, create it
     """
     wp = WikiPage.find_one({
         'owner_id': u,
         'pageName': pn},
         sort='version')
+    
+    if create and not wp:
+        wp = WikiPage(
+            owner_id=u, 
+            pageName=pn, 
+            source=form("# %s\n\n", pn))
+        wp.save()
     return wp
 
 

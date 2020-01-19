@@ -8,17 +8,19 @@ A page in a wiki
 
 {% block body %}
 <div class="navigation">
-...navigation goes here...
+{{nav}}
 </div>
 
-<h1><i class='fa fa-file-text-o'></i> {{filename}}</h1>
+<h1><i class='fa fa-file-text-o'></i> {{pn}}</h1>
 
 {% if exists %}
     {{wp.html}}
+    <p><a href="/wikiEdit/{{userName}}/{{pn}}" class="btn btn-success">
+        <i class='fa fa-pencil-square'></i> Edit Page: {{pn}}</a></p>
 {% elif canAlter %}
     <p><i>This wiki page doesn't exist yet. You can create it.</i></p>
-    <p><a href="" class="btn btn-primary">
-        <i class='fa fa-file-text-o'></i> Create Page "{{filename}}"</a></p>
+    <p><a href="/wikiEdit/{{userName}}/{{pn}}" class="btn btn-primary">
+        <i class='fa fa-file-text-o'></i> Create Page: {{pn}}</a></p>
 {% else %}     
     <p><i>This wiki page doesn't exist.</i></p>
 {% endif %}
