@@ -444,6 +444,31 @@ a.navbar-brand {
     color: #026;
 }   
 
+/*------------------------------------------------------------------*/
+/* editing and toolbar */
+
+#edit_toolbar {
+    font-size: 18px;
+    //color: #060;
+    //background: #efe;
+    margin: 9px 0px 3px 20px;
+}
+
+#edit_toolbar .fa {
+    cursor: pointer;
+    padding: 3px 4px;
+}
+
+#edit_toolbar span :hover {
+    color: #faf;
+    background: #606;
+}
+
+tt.mono_tool {
+    font-size: 115%;
+    padding: 2px 2px 0px;
+}
+
 
 
 /*------------------------------------------------------------------*/

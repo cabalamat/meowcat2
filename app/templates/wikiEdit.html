@@ -6,25 +6,62 @@ Edit a page in a wiki
 {% extends "maincw.html" %}
 
 {% block body %}
+<form method=POST>
+{{rowcol("md-8")}}
 <div class="navigation">
 {{nav}}
 </div>
 
-<h1><i class='fa fa-pencil-square'></i> {{pn}}</h1>
+<h1><i class='fa fa-pencil-square'></i> Editing page: {{pn}}</h1>
 
-{{wp.html}}
+<div id='edit_toolbar'>
+  <span onclick='addAround("**", "**")'>
+    <i class='fa fa-bold'></i></span>
+  <span onclick='addAround("*", "*")'>
+    <i class='fa fa-italic'></i></span>
+  <span onclick='addAround("<s>", "</s>")'>
+    <i class='fa fa-strikethrough'></i></span>
+  <span onclick='addAround("<sup>", "</sup>")'>
+    <i class='fa fa-superscript'></i></span>
+  <span onclick='addAround("<sub>", "</sub>")'>
+    <i class='fa fa-subscript'></i></span>
+  <span onclick='addAround("[", "]()")'>
+    <i class='fa fa-link'></i></span>
+  <span onclick='addAround("![", "](img)")'>
+    <i class='fa fa-image'></i></span>
+  <span onclick='addTable()'>
+    <i class='fa fa-table'></i></span>
+  <span onclick='blockquote()'>
+    <i class='fa fa-quote-left'></i></span>
+  <span onclick='bulletList()'>
+    <i class='fa fa-list-ul'></i></span>
+  <span onclick='numberedList()'>
+    <i class='fa fa-list-ol'></i></span>
+  <span onclick='monospace()'>
+    <tt class='mono_tool'>mono</tt></span>
+</div>
+{{wf.formField('source')}}
 
-<form method=POST>
-<br>
-{{wf.buildForm()}}
+{{col("md-4")}}
+<h2>Editing Commands</h2>
 
-<p><br>
-<button class="btn btn-success">
-<i class='fa fa-file-text-o'></i> 
-Update Wiki Page</button>
-</p>
+<p><button class='btn btn-success' onclick="submit()">
+<i class='fa fa-save'></i> Save changes</button></p>
+
+<p><a class='btn btn-default' href="">
+<i class='fa fa-undo'></i>
+Cancel changes</a></p>
+
+<p><a class='btn btn-primary'>
+<i class='fa fa-files-o'></i>
+Rename article</a></p>
+
+<hr>
+<p><a class='btn btn-danger' onclick="deleteArticle()">
+<i class='fa fa-times'></i> Delete article</a></p>
+
+{{endrow()}}
 </form>
-
 {% endblock body %}
 
 {# end #}

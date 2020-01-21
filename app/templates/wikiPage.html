@@ -5,18 +5,16 @@ A page in a wiki
 #}
 {% extends "maincw.html" %}
 
-
 {% block body %}
+{{rowcol("md-8")}}
 <div class="navigation">
 {{nav}}
 </div>
 
-<h1><i class='fa fa-file-text-o'></i> {{pn}}</h1>
-
 {% if exists %}
+    <hr>
     {{wp.html}}
-    <p><a href="/wikiEdit/{{userName}}/{{pn}}" class="btn btn-success">
-        <i class='fa fa-pencil-square'></i> Edit Page: {{pn}}</a></p>
+    <hr>
 {% elif canAlter %}
     <p><i>This wiki page doesn't exist yet. You can create it.</i></p>
     <p><a href="/wikiEdit/{{userName}}/{{pn}}" class="btn btn-primary">
@@ -25,7 +23,23 @@ A page in a wiki
     <p><i>This wiki page doesn't exist.</i></p>
 {% endif %}
 
+{{col("md-4")}}
+<h2>@{{userName}}'s Wiki</h2>
 
+<p><a href="/blog/{{userName}}" class="btn btn-default">
+    <i class='fa fa-list-ul'></i> @{{userName}}'s blog</a></p>
+
+<hr>    
+<p><a href="/wikiEdit/{{userName}}/{{pn}}" class="btn btn-default">
+    <i class='fa fa-file-text-o'></i> View Source</a>
+<a href="/wikiEdit/{{userName}}/{{pn}}" class="btn btn-default">
+    <i class='fa fa-history'></i> History</a>   
+</p>
+    
+<p><a href="/wikiEdit/{{userName}}/{{pn}}" class="btn btn-success">
+    <i class='fa fa-pencil-square'></i> Edit Page</a></p>
+
+{{endrow()}}
 {% endblock body %}
 
 {# end #}

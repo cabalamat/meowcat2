@@ -43,7 +43,7 @@ def wiki_page(u, pn):
 
 class WikiForm(FormDoc):
     source = TextAreaField(title="Wiki Page",
-        rows=8, cols=60,
+        rows=20, cols=70,
         required=True,
         monospaced=True)
 
