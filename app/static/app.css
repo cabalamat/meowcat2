@@ -445,7 +445,7 @@ a.navbar-brand {
 }   
 
 /*------------------------------------------------------------------*/
-/* editing and toolbar */
+/* editing and editor toolbar */
 
 #edit_toolbar {
     font-size: 18px;
@@ -469,6 +469,9 @@ tt.mono_tool {
     padding: 2px 2px 0px;
 }
 
+textarea#id_source {
+    width: 99%;   
+}    
 
 
 /*------------------------------------------------------------------*/

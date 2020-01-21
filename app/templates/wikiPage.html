@@ -13,7 +13,9 @@ A page in a wiki
 
 {% if exists %}
     <hr>
-    {{wp.html}}
+    <div class='mess'>
+        {{wp.html}}
+    </div>    
     <hr>
 {% elif canAlter %}
     <p><i>This wiki page doesn't exist yet. You can create it.</i></p>

@@ -27,7 +27,7 @@ def wiki_u(u):
     return wikiDir(u, "")
     
 @app.route('/wiki/<u>/<pn>')
-def wiki_page(u, pn):
+def wiki(u, pn):
     wp = wikidb.getWikiPage(u, pn)
     
     tem = jinjaEnv.get_template("wikiPage.html")
@@ -56,6 +56,7 @@ def wikiEdit(u, pn):
         wf = wf.populateFromRequest(request) 
         wp.source = wf.source
         wp.save()
+        return redirect(form("/wiki/{u}/{pn}", u=u, pn=pn))
     #//if    
     
     tem = jinjaEnv.get_template("wikiEdit.html")
