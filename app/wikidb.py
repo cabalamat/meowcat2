@@ -44,6 +44,20 @@ class WikiPage(MonDoc):
     def classLogo(cls) -> str:
         return "<i class='fa fa-file-text-o'></i> "
     
+    def logo(self) -> str:
+        return ("<i class='fa fa-home'></i> " 
+                if self.pageName=="home" 
+                else "<i class='fa fa-file-text-o'></i> ")
+    
+    def url(self) -> str:
+        theUrl = form("/wiki/{u}/{pn}",
+            u = self.owner_id,
+            pn = self.pageName)
+        return theUrl
+    
+    def getName(self) -> str:
+        return self.pageName
+    
     def preCreate(self):
         self.published = BzDateTime.now()
         
@@ -71,6 +85,15 @@ def getWikiPage(u: str, pn: str, create:bool=True) -> Optional[WikiPage]:
         wp.save()
     return wp
 
+def getWikiPages(u: str) -> Iterable[WikiPage]:
+    """ return all the wiki pages for a user 
+    @param u = user name
+    """
+    wps = WikiPage.find({'owner_id': u}, sort='pageName')
+    return wps
+                         
+    
+    
 
 #---------------------------------------------------------------------
 

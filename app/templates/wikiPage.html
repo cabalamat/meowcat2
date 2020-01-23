@@ -12,11 +12,9 @@ A page in a wiki
 </div>
 
 {% if exists %}
-    <hr>
-    <div class='mess'>
+    <div class='page-box mess'>
         {{wp.html}}
-    </div>    
-    <hr>
+    </div>
 {% elif canAlter %}
     <p><i>This wiki page doesn't exist yet. You can create it.</i></p>
     <p><a href="/wikiEdit/{{userName}}/{{pn}}" class="btn btn-primary">
@@ -31,10 +29,13 @@ A page in a wiki
 <p><a href="/blog/{{userName}}" class="btn btn-default">
     <i class='fa fa-list-ul'></i> @{{userName}}'s blog</a></p>
 
+<p><a href="/wikiIndex/{{userName}}" class="btn btn-default">
+    <i class='fa fa-database'></i> Wiki index</a></p>
+
 <hr>    
-<p><a href="/wikiEdit/{{userName}}/{{pn}}" class="btn btn-default">
+<p><a href="" class="btn btn-default">
     <i class='fa fa-file-text-o'></i> View Source</a>
-<a href="/wikiEdit/{{userName}}/{{pn}}" class="btn btn-default">
+<a href="" class="btn btn-default">
     <i class='fa fa-history'></i> History</a>   
 </p>
     

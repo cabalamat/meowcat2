@@ -1,0 +1,23 @@
+{# wikiIndex.html
+   ==============
+
+An index of a wiki
+#}
+{% extends "maincw.html" %}
+
+{% block body %}
+<div class="navigation">
+{{nav}}
+</div>
+<br>
+
+<h1><i class='fa fa-database'></i> Index of @{{userName}}'s wiki</h1>
+
+<div class="wiki-index">
+  {{wikiIndexH}}
+</div>
+
+
+{% endblock body %}
+
+{# end #}

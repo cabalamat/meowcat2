@@ -1,7 +1,7 @@
 /* message.css
    ===========
 
-Style sheet for messages
+Style sheet for messages and wiki pages
 */
 
 /*------------------------------------------------------------------*/
@@ -14,18 +14,32 @@ blockquote.thread {
 }    
 
 /*------------------------------------------------------------------*/
+/* 
+A message has a DIV.mess-box being the box surrounding the message,
+and within that a DIV.mess for the layout for the message itself 
+*/
 
-.mess {
-    color: #000;
-    background: #fff;
-    
-    max-width: 800px;
+
+.mess-box {
     padding: 2px 7px;
     border: 2px solid #56a;
     border-radius: 10px;
     margin: 2px 4px;
-    
-    //box-shadow: 5px 5px 8px #888;
+    max-width: 800px;
+} 
+
+/* a box around a wiki page; like a mess box but for wikis */
+.page-box {
+    padding: 2px 7px;
+    border-top: 2px solid #640;
+    border-bottom: 2px solid #640;
+    //border-radius: 10px;
+    margin: 10px 4px;
+} 
+
+.mess {
+    color: #000;
+    background: #fff; 
     line-height: 20px;
 }    
 
@@ -123,7 +137,6 @@ div.toc > ul > li > ul {
     border: 2px solid #ccc;
     white-space: pre-wrap;
     word-break: keep-all;
-    background: #fff;
     color: #000;
 }  
 .message_source {  
@@ -134,7 +147,7 @@ div.toc > ul > li > ul {
     margin-left: 15px;
     border: 2px solid #ccc;
     border-radius: 0;
-    background: #f4f4f4;
+    background: #f7f7f7;
 }    
 
 code {

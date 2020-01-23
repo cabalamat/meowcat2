@@ -71,7 +71,7 @@ class Message(MonDoc):
     def viewH(self) -> str:
         """ return HTML displaying this message """
         h = form("""
-<div class='mess'>            
+<div class='mess-box mess'>            
     <div class='mess-header'>
         {messLink}/{userLink} at {published}{editedAt}{replyToText}
     </div>

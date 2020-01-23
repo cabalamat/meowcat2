@@ -70,11 +70,45 @@ def wikiEdit(u, pn):
         nav = wikiPageNav(u, pn),
     )
     return h    
-    
+            
+#---------------------------------------------------------------------
+     
 
-           
+@app.route('/wikiIndex/<u>')
+def wikiIndex(u):
+    """ display a list of all the pages in a wiki """
+    wps = wikidb.getWikiPages(u)
+    wikiIndexH = ""
+    for wp in wps:
+        wikiIndexH += form("<br>{a}\n",
+            a = wp.a())
+    #//for    
+    
+    tem = jinjaEnv.get_template("wikiIndex.html")
+    h = tem.render(
+        userName = htmlEsc(u),
+        nav = wikiNav(u),
+        wikiIndexH = wikiIndexH,
+    )
+    return h    
+                   
 #---------------------------------------------------------------------
    
+def wikiNav(u: str) -> str:
+    """ Return html for navigation for a wiki """
+    h = form("""<span class='nav-instance'>
+        <i class='fa fa-bank'></i> {siteLocation}</span>
+        <span class='nav-user'>
+        <i class='fa fa-user'></i> {u}</span>
+        </span>
+        <span class='nav-wiki'>
+        <i class='fa fa-database'></i> 
+        </span>      
+        """,
+        siteLocation = config.SITE_LOCATION,
+        u = htmlEsc(u))
+    return h  
+
 def wikiPageNav(u: str, pn: str) -> str:
     """ Return html for navigation for a wiki page """
     pageIconFa = "fa-home" if pn=="home" else "fa-file-text-o"
