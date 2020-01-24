@@ -63,7 +63,7 @@ class WikiPage(MonDoc):
         
     def preSave(self):
         """ before saving, render the source into html """
-        self.html, _ = mark.render(self.source)
+        self.html, _ = mark.render(self.source, wikiExt=True)
       
 
 def getWikiPage(u: str, pn: str, create:bool=True) -> Optional[WikiPage]:

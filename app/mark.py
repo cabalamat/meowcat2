@@ -7,6 +7,7 @@ from typing import List, Tuple
 import markdown
 from markdown.extensions import extra, sane_lists, codehilite, toc
 from markdown.extensions.toc import TocExtension
+from markdown.extensions.wikilinks import WikiLinkExtension
 
 from bozen.butil import dpr
 
@@ -17,27 +18,30 @@ markdownProcessor = markdown.Markdown(extensions=[
     'toc', 
     'sane_lists',
     'codehilite',
-    ])
+])
 
-def xxxrender(s: str) -> Tuple[str, List[str]]:
-    """ Render markup into HTML also return tags
-    (this version doesn't process tags)
-    @return (h,tags) where:
-       h:str = rendered html
-       tags:List[str] = canonicalised hashtags
-    """
-    markdownProcessor.reset()
-    h = markdownProcessor.convert(s)
-    return (h, [])
+markdownWikiProcessor = markdown.Markdown(extensions=[
+    'extra',
+    'toc', 
+    'sane_lists',
+    'codehilite',
+    WikiLinkExtension(base_url="", end_url=""),
+])
 
-def renderWithTags(s: str) -> Tuple[str, List[str]]:
+def renderWithTags(s: str, wikiExt:bool=False) -> Tuple[str, List[str]]:
     """ Render markup into HTML als o return tags
+    @param wiki = True if it should be rendered with the WikiLinkExtension
     @return (h,tags) where:
        h:str = rendered html
        tags:List[str] = canonicalised hashtags
     """
-    markdownProcessor.reset()
-    h = markdownProcessor.convert(encloseHashtagAtStart(s))
+    s2 = encloseHashtagAtStart(s)
+    if wikiExt:
+        markdownWikiProcessor.reset()
+        h = markdownWikiProcessor.convert(s2)
+    else:
+        markdownProcessor.reset()
+        h = markdownProcessor.convert(s2)
     newHtml, tags = GetHashtags(h).calc()
     return (newHtml, tags)
 render = renderWithTags
