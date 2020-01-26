@@ -74,16 +74,30 @@ and within that a DIV.mess for the layout for the message itself
     font-family: 'RobotoSlab', serif;
     color: #248; 
 }    
-.mess h1 {font-size: 28px; font-weight: bold;}
-.mess h2 {font-size: 22px; font-weight: bold;}
+.mess h1 {
+    font-size: 28px; 
+    font-weight: bold;
+    border-bottom: 2px solid;
+}
+.mess h2 {
+    font-size: 22px; 
+    font-weight: bold;
+    border-bottom: 1px dotted;
+}
 .mess h3 {font-size: 20px; font-weight: bold;}
 
 
 .mess {counter-reset: h2}
 .mess h2:before {
   counter-increment: h2;
-  content: counter(h2, upper-roman) ". "
+  content: counter(h2) ". "
 }
+.mess h2 {counter-reset: h3}
+.mess h3:before {
+  counter-increment: h3;
+  content: counter(h2) "." counter(h3) ". ";
+}
+
 
 
 /*------------------------------------------------------------------*/
