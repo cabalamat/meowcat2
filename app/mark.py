@@ -28,24 +28,24 @@ markdownWikiProcessor = markdown.Markdown(extensions=[
     WikiLinkExtension(base_url="", end_url=""),
 ])
 
-def renderWithTags(s: str, wikiExt:bool=False) -> Tuple[str, List[str]]:
-    """ Render markup into HTML als o return tags
+def render(s: str, wikiExt:bool=False) -> Tuple[str, List[str]]:
+    """ Render markup into HTML, also return tags
     @param wiki = True if it should be rendered with the WikiLinkExtension
     @return (h,tags) where:
        h:str = rendered html
        tags:List[str] = canonicalised hashtags
     """
     s2 = encloseHashtagAtStart(s)
+    s3, tags = GetHashtags(s2).calc()
+    dpr("s3=%s", s3)
     if wikiExt:
         markdownWikiProcessor.reset()
-        h = markdownWikiProcessor.convert(s2)
+        h = markdownWikiProcessor.convert(s3)
     else:
         markdownProcessor.reset()
-        h = markdownProcessor.convert(s2)
-    newHtml, tags = GetHashtags(h).calc()
-    return (newHtml, tags)
-render = renderWithTags
-
+        h = markdownProcessor.convert(s3)
+    dpr("h=%s", h)
+    return (h, tags)
 
 hashtagAtStartRe = re.compile(r"^#([A-Za-z0-9_-]+)", re.MULTILINE)
 

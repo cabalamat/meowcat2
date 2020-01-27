@@ -32,15 +32,17 @@ A page in a wiki
 <p><a href="/wikiIndex/{{userName}}" class="btn btn-default">
     <i class='fa fa-database'></i> Wiki index</a></p>
 
-<hr>    
+<hr>
+
+<p><a href="/wikiEdit/{{userName}}/{{pn}}" class="btn btn-success">
+    <i class='fa fa-pencil-square'></i> Edit Page</a></p>   
+    
 <p><a href="" class="btn btn-default">
     <i class='fa fa-file-text-o'></i> View Source</a>
 <a href="" class="btn btn-default">
     <i class='fa fa-history'></i> History</a>   
 </p>
-    
-<p><a href="/wikiEdit/{{userName}}/{{pn}}" class="btn btn-success">
-    <i class='fa fa-pencil-square'></i> Edit Page</a></p>
+   
 
 {{endrow()}}
 {% endblock body %}

@@ -77,11 +77,16 @@ and within that a DIV.mess for the layout for the message itself
 .mess h1 {
     font-size: 28px; 
     font-weight: bold;
+}       
+.page-box .mess h1 {  
     border-bottom: 2px solid;
 }
+
 .mess h2 {
     font-size: 22px; 
-    font-weight: bold;
+    font-weight: bold; 
+}
+.page-box .mess h2 {    
     border-bottom: 1px dotted;
 }
 .mess h3 {font-size: 20px; font-weight: bold;}
