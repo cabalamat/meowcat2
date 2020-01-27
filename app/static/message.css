@@ -78,7 +78,7 @@ and within that a DIV.mess for the layout for the message itself
     font-size: 28px; 
     font-weight: bold;
 }       
-.page-box .mess h1 {  
+.page-box h1 {  
     border-bottom: 2px solid;
 }
 
@@ -86,7 +86,7 @@ and within that a DIV.mess for the layout for the message itself
     font-size: 22px; 
     font-weight: bold; 
 }
-.page-box .mess h2 {    
+.page-box h2 {    
     border-bottom: 1px dotted;
 }
 .mess h3 {font-size: 20px; font-weight: bold;}
