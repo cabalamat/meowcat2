@@ -108,10 +108,27 @@ class GetHashtags:
 #---------------------------------------------------------------------
 
 def normaliseTagWan(s: str) -> str:
-    """ Normalis a tag oe wiki article name 
+    """ Normalise a tag or wiki article name 
     @param s = an unnormalised tag/wan
     """
+    s2 = unidecode(s) # ascii-ize
+    s3 = s2.lower() # lower case
     
+    s4 = ""
+    lastCh = ""
+    for ch in s3:
+        if ch in "abcdefghijklmnopqrstuvwxyz0123456789":
+            useCh = ch
+        else:
+            useCh = "_"
+      
+        if not (lastCh=="_" and useCh=="_"):
+            s4 += useCh
+        lastCh = useCh    
+    #//for        
+    
+    s5 = s4.strip("_")
+    return s5
 
 
 #---------------------------------------------------------------------

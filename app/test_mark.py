@@ -94,6 +94,8 @@ class T_normaliseTagWan(lintest.TestCase):
     def ntw(self, s: str, sb: str, comment=""):
         """ Chack that normaliseTagWan(s) == sb """
         r = mark.normaliseTagWan(s)
+        if not comment:
+            comment = form("norm(%r)==%r ?", s, sb)
         self.assertSame(r, sb, comment)
     
     def test_capitalisation(self):
@@ -101,6 +103,19 @@ class T_normaliseTagWan(lintest.TestCase):
         self.ntw("Putin", "putin")
         self.ntw("PUTIN", "putin")
         self.ntw("pUtIn", "putin")
+        
+    def test_cyrillic(self):
+        self.ntw("Путин", "putin")
+        
+    def test_spaces(self):
+        self.ntw("Vladimir Putin", "vladimir_putin")
+        self.ntw(" Vladimir Putin ", "vladimir_putin")
+        self.ntw(" Vladimir   Putin ", "vladimir_putin")
+        self.ntw(" Vladimir _  Putin ", "vladimir_putin")
+        
+    def test_dots(self):
+        self.ntw("Python 3.5", "python_3_5")
+        self.ntw("** Python 3.5 **", "python_3_5")
        
 #---------------------------------------------------------------------
     
