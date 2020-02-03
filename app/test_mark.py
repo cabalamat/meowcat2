@@ -39,7 +39,7 @@ class T_mark(lintest.TestCase):
     
     def test_normal(self):
         s = "some text here"
-        h, ts = mark.renderWithTags(s)
+        h, ts = mark.render(s)
         dpr("----- h: -----\n%s\n-----end", h)
         self.assertTrue("some text here" in h)
         self.checkTags(h, ts, [])
@@ -52,7 +52,7 @@ class T_mark(lintest.TestCase):
 
 ### and h3
 """
-        h, ts = mark.renderWithTags(s)
+        h, ts = mark.render(s)
         dpr("----- h: -----\n%s\n-----end", h)
         self.checkTags(h, ts, [])
         self.checkHeading(h, "should be h1 heading", "h1")
@@ -61,7 +61,7 @@ class T_mark(lintest.TestCase):
         
     def test_tags(self):
         s = "some text #with #tags and #more #tags"
-        h, ts = mark.renderWithTags(s)
+        h, ts = mark.render(s)
         dpr("----- h: -----\n%s\n-----end", h)
         self.checkTags(h, ts, ["more", "tags", "with"])
         
@@ -70,7 +70,7 @@ class T_mark(lintest.TestCase):
         with a heading 
         """
         s = "#monster #cat"
-        h, ts = mark.renderWithTags(s)
+        h, ts = mark.render(s)
         dpr("----- h: -----\n%s\n-----end", h)
         self.checkTags(h, ts, ["cat", "monster"])
         self.assertFalse("[" in h, "html doesn't contain '['")
@@ -83,16 +83,32 @@ class T_mark(lintest.TestCase):
 #a_nother
 #xxx-yyy
 """
-        h, ts = mark.renderWithTags(s)
+        h, ts = mark.render(s)
         dpr("----- h: -----\n%s\n-----end", h)
         self.checkTags(h, ts, ["a_monster", "a_nother", "xxx_yyy"])
         
-    
 #---------------------------------------------------------------------
+    
+class T_normaliseTagWan(lintest.TestCase):  
+    
+    def ntw(self, s: str, sb: str, comment=""):
+        """ Chack that normaliseTagWan(s) == sb """
+        r = mark.normaliseTagWan(s)
+        self.assertSame(r, sb, comment)
+    
+    def test_capitalisation(self):
+        self.ntw("putin", "putin")
+        self.ntw("Putin", "putin")
+        self.ntw("PUTIN", "putin")
+        self.ntw("pUtIn", "putin")
+       
+#---------------------------------------------------------------------
+    
 
 
 group = lintest.TestGroup()
-group.add(T_mark)
+#group.add(T_mark)
+group.add(T_normaliseTagWan)
 
 if __name__=='__main__': group.run()
 

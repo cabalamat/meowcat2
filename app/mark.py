@@ -9,6 +9,8 @@ from markdown.extensions import extra, sane_lists, codehilite, toc
 from markdown.extensions.toc import TocExtension
 from markdown.extensions.wikilinks import WikiLinkExtension
 
+from unidecode import unidecode
+
 from bozen.butil import dpr
 
 #---------------------------------------------------------------------
@@ -60,7 +62,10 @@ def encloseHashtagAtStart(s: str) -> str:
 #---------------------------------------------------------------------
 
 #hashtagRe = re.compile(r"#[A-Za-z0-9_-]+")
-hashtagRe = re.compile(r"\[#[ A-Za-z0-9_-]+\]|#[A-Za-z0-9_-]+")
+#hashtagRe = re.compile(r"\[#[ A-Za-z0-9_-]+\]|#[A-Za-z0-9_-]+")
+
+# For Unicode words:
+hashtagRe = re.compile(r"\[#[ \w-]+\]|#[\w-]+")
 
 class GetHashtags:
 
@@ -99,6 +104,15 @@ class GetHashtags:
         result = "<a class='tag' href='/tag/%s'>#%s</a>" % (canonicalTag,
             hashtag)
         return result
+
+#---------------------------------------------------------------------
+
+def normaliseTagWan(s: str) -> str:
+    """ Normalis a tag oe wiki article name 
+    @param s = an unnormalised tag/wan
+    """
+    
+
 
 #---------------------------------------------------------------------
 
