@@ -67,6 +67,68 @@ function getActiveAlerts(){
 
 getActiveAlerts();
 
+//--------------------------------------------------------------------
+/* editting on wikiEdit page */
+
+function addAround(b, a) {
+    /* add text before and after the selected text */
+    ($("#id_source")
+        .selection('insert', {text: b, mode: 'before'})
+        .selection('insert', {text: a, mode: 'after'}));
+}
+
+function addTable() {
+    var t = ("\nHead 1 | Head 2 | Head 3\n"
+        +      "------ | ------ | ------\n"
+        +      "cell 1 | cell 2 | cell 3\n"
+        +      "cell 4 | cell 5 | cell 6\n");
+    addAround(t, "");
+}
+
+function blockquote() {
+    var sel = $('#id_source').selection(); // selected text
+    var lines = sel.split("\n");
+    //console.log("lines=" + toString(lines));
+    var bqLines = lines.map(line => {
+        return "> " + line;
+    });
+    //console.log("bqLines=" + toString(bqLines));
+    var bqSel = bqLines.join("\n");
+    $('#id_source').selection('replace', {text: bqSel});
+}
+
+function bulletList() {
+    var sel = $('#id_source').selection();
+    var lines = sel.split("\n");
+    var rLines = lines.map(line => {
+        return "* " + line;
+    });
+    var r = rLines.join("\n");
+    $('#id_source').selection('replace', {text: r});
+}
+
+function numberedList() {
+    var sel = $('#id_source').selection();
+    var lines = sel.split("\n");
+    var n = 1;
+    var rLines = lines.map(line => {
+        return (n++) + ". " + line;
+    });
+    var r = rLines.join("\n");
+    $('#id_source').selection('replace', {text: r});
+}
+
+function monospace() {
+    /* Make text monospace. If it is all on one line, suround with `...`,
+    else suround with ```...``` */
+    var sel = $('#id_source').selection();
+    var lines = sel.split("\n");
+    if (lines.length <= 1){
+        addAround("`", "`");
+    } else {
+        addAround("\n```\n", "\n```\n");
+    }
+}
 
 //--------------------------------------------------------------------
 

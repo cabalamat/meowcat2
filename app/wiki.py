@@ -130,7 +130,6 @@ def wikiPageNav(u: str, npn: str) -> str:
         <i class='fa fa-bank'></i> {siteLocation}</span>
         <span class='nav-user'>
         <i class='fa fa-user'></i> {u}</span>
-        </span>
         <span class='nav-wiki'>
         <i class='fa fa-database'></i> 
         {pageIcon} {pn}</span>      
