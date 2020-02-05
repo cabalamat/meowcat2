@@ -150,7 +150,7 @@ div.toc > ul > li > ul {
 }  
 
 .mess pre, .message_source {
-    line-height: 16px;
+    line-height: 18px;
     padding: 2px 6px 3px 5px;
     margin-right: 15px;
     border: 2px solid #ccc;

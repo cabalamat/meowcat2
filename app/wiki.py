@@ -13,6 +13,7 @@ from bozen import (StrField, ChoiceField, TextAreaField,
 
 import config
 from allpages import app, jinjaEnv
+import mark
 import ht
 import userdb
 import models
@@ -32,8 +33,8 @@ def wiki(u: str, pn: str):
     @param u = user id
     @param pn = page name
     """
-    npn
-    wp = wikidb.getWikiPage(u, pn)
+    npn = mark.normaliseTagWpn(pn) # normalised page name
+    wp = wikidb.getWikiPage(u, npn)
     
     tem = jinjaEnv.get_template("wikiPage.html")
     h = tem.render(
@@ -42,7 +43,7 @@ def wiki(u: str, pn: str):
         wp = wp,
         exists = bool(wp),
         canAlter = True,
-        nav = wikiPageNav(u, pn),
+        nav = wikiPageNav(u, npn),
     )
     return h  
 
@@ -59,7 +60,8 @@ def wikiEdit(u: str, pn: str):
     @param u = user id
     @param pn = page name
     """
-    wp = wikidb.getWikiPage(u, pn, create=True)
+    npn = mark.normaliseTagWpn(pn) # normalised page name
+    wp = wikidb.getWikiPage(u, npn, create=True)
     wf = WikiForm(source=wp.source)
     if request.method=='POST':
         wf = wf.populateFromRequest(request) 
@@ -76,7 +78,7 @@ def wikiEdit(u: str, pn: str):
         wf = wf,
         exists = bool(wp),
         canAlter = True,
-        nav = wikiPageNav(u, pn),
+        nav = wikiPageNav(u, npn),
     )
     return h    
             
@@ -120,9 +122,9 @@ def wikiNav(u: str) -> str:
         u = htmlEsc(u))
     return h  
 
-def wikiPageNav(u: str, pn: str) -> str:
+def wikiPageNav(u: str, npn: str) -> str:
     """ Return html for navigation for a wiki page """
-    pageIconFa = "fa-home" if pn=="home" else "fa-file-text-o"
+    pageIconFa = "fa-home" if npn=="home" else "fa-file-text-o"
     pageIcon = form("<i class='fa {fa}'></i>", fa=pageIconFa)
     h = form("""<span class='nav-instance'>
         <i class='fa fa-bank'></i> {siteLocation}</span>
@@ -136,7 +138,7 @@ def wikiPageNav(u: str, pn: str) -> str:
         siteLocation = config.SITE_LOCATION,
         u = htmlEsc(u),
         pageIcon = pageIcon,
-        pn = htmlEsc(pn))
+        pn = htmlEsc(npn))
     return h
  
  
