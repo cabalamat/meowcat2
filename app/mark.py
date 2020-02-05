@@ -107,8 +107,8 @@ class GetHashtags:
 
 #---------------------------------------------------------------------
 
-def normaliseTagWan(s: str) -> str:
-    """ Normalise a tag or wiki article name 
+def normaliseTagWpn(s: str) -> str:
+    """ Normalise a tag or wiki page name 
     @param s = an unnormalised tag/wan
     """
     s2 = unidecode(s) # ascii-ize

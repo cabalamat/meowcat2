@@ -89,11 +89,11 @@ class T_mark(lintest.TestCase):
         
 #---------------------------------------------------------------------
     
-class T_normaliseTagWan(lintest.TestCase):  
+class T_normaliseTagWpn(lintest.TestCase):  
     
     def ntw(self, s: str, sb: str, comment=""):
         """ Chack that normaliseTagWan(s) == sb """
-        r = mark.normaliseTagWan(s)
+        r = mark.normaliseTagWpn(s)
         if not comment:
             comment = form("norm(%r)==%r ?", s, sb)
         self.assertSame(r, sb, comment)
@@ -122,8 +122,8 @@ class T_normaliseTagWan(lintest.TestCase):
 
 
 group = lintest.TestGroup()
-#group.add(T_mark)
-group.add(T_normaliseTagWan)
+group.add(T_mark)
+group.add(T_normaliseTagWpn)
 
 if __name__=='__main__': group.run()
 

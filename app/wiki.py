@@ -27,7 +27,12 @@ def wiki_u(u):
     return wikiDir(u, "")
     
 @app.route('/wiki/<u>/<pn>')
-def wiki(u, pn):
+def wiki(u: str, pn: str):
+    """ Display a wiki page
+    @param u = user id
+    @param pn = page name
+    """
+    npn
     wp = wikidb.getWikiPage(u, pn)
     
     tem = jinjaEnv.get_template("wikiPage.html")
@@ -49,7 +54,11 @@ class WikiForm(FormDoc):
 
 
 @app.route('/wikiEdit/<u>/<pn>', methods=['POST', 'GET'])
-def wikiEdit(u, pn):
+def wikiEdit(u: str, pn: str):
+    """ Edit a wiki page
+    @param u = user id
+    @param pn = page name
+    """
     wp = wikidb.getWikiPage(u, pn, create=True)
     wf = WikiForm(source=wp.source)
     if request.method=='POST':
@@ -75,8 +84,10 @@ def wikiEdit(u, pn):
      
 
 @app.route('/wikiIndex/<u>')
-def wikiIndex(u):
-    """ display a list of all the pages in a wiki """
+def wikiIndex(u: str):
+    """ display a list of all the pages in a wiki 
+    @param u = user id
+    """
     wps = wikidb.getWikiPages(u)
     wikiIndexH = ""
     for wp in wps:
