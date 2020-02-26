@@ -174,6 +174,26 @@ code {
   background: #fff;
 }
 
+/*------------------------------------------------------------------*/
+/* tables in messages */
+
+.mess table {
+  border: 1px solid #aaa;
+  border-collapse: collapse;
+  margin: 9px 0 9px 0;
+  background: #fff;
+}
+.mess th {
+  border: 1px solid #aaa;
+  padding: 3px 6px 3px 6px;
+  background: #d8e8ff;
+}
+.mess td {
+  border: 1px solid #aaa;
+  padding: 2px 6px 2px 6px;
+  vertical-align: top;
+}
+
 
 /*------------------------------------------------------------------*/
 /* quotes in messages */
