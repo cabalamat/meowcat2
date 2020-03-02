@@ -13,6 +13,43 @@ from unidecode import unidecode
 
 from bozen.butil import dpr
 
+
+#---------------------------------------------------------------------
+
+import bleach
+
+allowedTags = """\
+a
+abbr
+acronym
+blockquote
+code pre
+p div span
+li ol ul
+strong b i em
+s sup sub
+table tr th td thead tbody 
+h1 h2 h3 h4 h5 h6
+""".split()
+
+allowedAttributes =  {
+    '*': ['class', 'id'],
+    'a': ['href', 'title'],
+    'abbr': ['title'],
+    'acronym': ['title'],
+    'span': ['style'],
+}
+
+allowedStyles = ['color', 'background-color']
+
+def sanitize(s: str) -> str:
+    """ sanitize html by remove all tags except the few we allow """
+    s2 = bleach.clean(s,
+        tags=allowedTags,
+        attributes=allowedAttributes,
+        styles=allowedStyles)
+    return s2
+
 #---------------------------------------------------------------------
 
 markdownProcessor = markdown.Markdown(extensions=[
@@ -47,7 +84,9 @@ def render(s: str, wikiExt:bool=False) -> Tuple[str, List[str]]:
         markdownProcessor.reset()
         h = markdownProcessor.convert(s3)
     dpr("h=%s", h)
-    return (h, tags)
+    h2 = sanitize(h)
+    dpr("h2=%s", h2)
+    return (h2, tags)
 
 hashtagAtStartRe = re.compile(r"^#([A-Za-z0-9_-]+)", re.MULTILINE)
 
