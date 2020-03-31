@@ -43,7 +43,7 @@ allowedAttributes =  {
 allowedStyles = ['color', 'background-color']
 
 def sanitize(s: str) -> str:
-    """ sanitize html by remove all tags except the few we allow """
+    """ sanitize html by removing all tags except the few we allow """
     s2 = bleach.clean(s,
         tags=allowedTags,
         attributes=allowedAttributes,
