@@ -109,6 +109,11 @@ main from catwiki
         <a class='btn btn-default' href="/mostStarred">
           <i class="fa fa-star"></i>
           Most-Starred</a> &nbsp;
+        {% if currentUserName() %}
+        <a class='btn btn-primary' href="/messRep">
+          <i class="fa fa-comment-o"></i>
+          New Message</a> &nbsp;
+        {% endif %} 
       </p>
       {% endblock topnav %}   
       {% block bodytop %}  
