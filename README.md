@@ -6,7 +6,49 @@ ActivityPub protocol.
 
 ## MeowCat's goals
 
-* a blogging and microblogging platform (similar to Wordpress or Twitter)
+To be a **blogging** and **microblogging** platform (similar to Wordpress or 
+Twitter).
+
+The ability to Meowcat to post long posts makes it most useful for more thoughtful
+intellectual people -- the opposite of Twitter, Instagram in a way. This is good 
+because I'm aiming at a new (and therefore under-served) audience. The Fediverse 
+already has microblogging software (Mastodon), so MeowCat will carve out a new 
+ecological niche. 
+
+MeowCat uses a varient of **Markdown** markup. Code highlighting is enabled, 
+making it attractive to programmers (another under-served niche).
+
+Each user will have their own **wiki**, their own personal web space in which 
+they can create pages on whatever they want (similar to Geocities).
+
+MeowCat will allow polls on posts so userrs can get feedback. The user can select,
+for each poll questions, to allow multiple answers or only one. 
+can be both selct-one-option and select many options.
+
+Each user will be able to **upload images** which they can embed in their 
+posts, replies, and wiki pages. They will also be able to embed images from 
+PixelFed and videos from PeerTube. Legacy non-federated platfroms such as YouTube 
+will also be supported.
+
+MeowCat will be part of the **Fediverse** with Meowcat instances talking to each other 
+and other Fediverse services using **ActivityPub**.
+
+MeowCat will allow people to group posts based on **topics** (similar to Reddit's
+subreddits). Each topic will have its own **topic-based wiki**, where users can
+collaboratively create content.
+
+MeowCat will allow users to send **private posts** to other users (similar to email).
+When private posts travel over the intrernet they will be encrypted.
+
+
+## Where MeowCat is now
+
+The current implementation is written in Python, with some client-side JavaScript.
+
+It does blogging and wikis. You can't upload images yet. 
+
+Connection to the Fediverse is not yet implemented.
+
 
 
 
