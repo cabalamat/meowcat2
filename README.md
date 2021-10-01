@@ -39,20 +39,18 @@ collaboratively create content.
 
 Wikis can optionally be linked together on multiple instances so that any change
 to the wiki on one instance is automatically copied (perhaps using a flood-fill 
-algorithm) to other other instances. This would then be a distributed wiki
+algorithm) to other instances. This would then be a distributed wiki
 which would be resilient so that if one instance went down, the wiki would 
 still be there.
 
 MeowCat will allow users to send **private posts** to other users (similar to email).
 When private posts travel over the internet they will be encrypted.
 
-A long term goal of MeowCat is to allow users to get a Raspberry Pi, download 
+A long term goal of MeowCat is to allow users to get a **Raspberry Pi**, download 
 the MeowCat software onto the Pi, spend 10 minutes configuring it though a web
-interface, and then attaching the Pi to their home oureter to act as their
-own social media server that thery and their friends can use, connected to
+interface, and then attaching the Pi to their home router to act as their
+own social media server that they and their friends can use, connected to
 all other federated servers using ActivityPub.
-
-
 
 ## Where MeowCat is now
 
